@@ -1,0 +1,55 @@
+---
+name: vibe-plan
+description: Use when the user starts a new feature, new module, or any task with non-trivial scope. Before writing any code, produce a structured technical design for alignment. Do not skip this for tasks that seem simple but have unclear boundaries.
+---
+
+## 这个 skill 做什么
+
+在开始写代码之前，先像 senior architect 一样输出一份技术设计文档。
+目的是：对齐目标、暴露假设、发现边界问题——在写代码之前，不是写了之后。
+
+## 触发判断
+
+以下情况主动触发：
+- 用户说"我要做一个新功能"、"加一个模块"、"重构这块"
+- 任务涉及新的目录或文件结构
+- 任务边界不清楚，或者涉及多个模块的联动
+
+## 输出结构
+```
+## Vibe Plan · [功能名称]
+
+### 目标
+一句话说清楚：做完之后什么变了，用户/系统能做什么之前不能做的事。
+
+### 不覆盖
+这个任务明确不处理什么，防止范围蔓延。
+
+### 边界与模块
+涉及哪些模块，各自的职责是什么，边界在哪里。
+用目录或文件名说明，不只是文字描述。
+
+### 关键设计决策
+需要做的 2-3 个核心决策，每个说明选项和权衡。
+不确定的用 [OPEN QUESTION] 标注。
+
+### 假设
+[ASSUMPTION] 列出所有推断，需要用户确认。
+
+### 实现顺序
+分步骤，每步是一个可独立验证的交付单元。
+不是任务清单，是"做完这步之后可以验证什么"。
+```
+
+## 生成后必须做的事
+
+输出 Vibe Plan 之后，停下来等用户确认：
+> "以上是我的理解，有没有偏差？确认后开始第一步。"
+
+用户确认之前不写任何代码。
+
+## 注意
+
+- Vibe Plan 不是完美的设计文档，是对齐用的
+- 宁可写得粗，也不要跳过
+- 发现边界不清楚，就在 [OPEN QUESTION] 里问，不要假装清楚
