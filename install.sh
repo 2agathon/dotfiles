@@ -15,18 +15,25 @@ link_skills() {
 
 # Claude Code
 link_skills ~/.claude
+ln -sf "$DOTFILES/AGENTS.md" ~/.claude/CLAUDE.md
+log "linked: ~/.claude/CLAUDE.md → AGENTS.md"
 
 # Codex CLI
 link_skills ~/.codex
+ln -sf "$DOTFILES/AGENTS.md" ~/.codex/AGENTS.md
+log "linked: ~/.codex/AGENTS.md → AGENTS.md"
 
 # Gemini CLI
 link_skills ~/.gemini
+ln -sf "$DOTFILES/AGENTS.md" ~/.gemini/AGENTS.md
+log "linked: ~/.gemini/AGENTS.md → AGENTS.md"
 
-# OpenCode（路径不同，且是 skill 单数）
+# OpenCode（skill 单数，路径不同）
 mkdir -p ~/.config/opencode
 ln -sf "$SKILLS" ~/.config/opencode/skill
-log "linked: ~/.config/opencode/skill → $SKILLS"
+ln -sf "$DOTFILES/AGENTS.md" ~/.config/opencode/AGENTS.md
+log "linked: ~/.config/opencode → AGENTS.md + skills"
 
-# GLM [OPEN QUESTION: 确认 GLM 的全局 skills 路径]
+# GLM [OPEN QUESTION: 确认 GLM 的全局配置路径后补充]
 
 log "Done."
