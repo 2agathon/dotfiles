@@ -13,6 +13,7 @@
 | `skills/project-structure` | 目录和文件结构约定               |
 | `skills/gen-agents`        | 生成项目 AGENTS.md               |
 | `skills/vibe-plan`         | 新功能开始前的技术对齐           |
+| `skills/docs`              | 写文档、决策记录                 |
 | `skills/_template`         | 新 skill 的模板                  |
 
 ## 安装
