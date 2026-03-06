@@ -16,7 +16,7 @@ function Link-Agents {
     $target = "$dst\$name"
     New-Item -ItemType Directory -Force -Path $dst | Out-Null
     if (Test-Path $target) { Remove-Item $target -Force }
-    New-Item -ItemType HardLink -Path $target -Target $AGENTS | Out-Null
+    New-Item -ItemType SymbolicLink -Path $target -Target $AGENTS | Out-Null
     Write-Host "[dotfiles] linked: $target -> AGENTS.md"
 }
 
