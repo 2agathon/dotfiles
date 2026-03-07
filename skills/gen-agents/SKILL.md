@@ -1,76 +1,58 @@
 ---
 name: gen-agents
-description: Use when starting a new project, when no AGENTS.md exists in the project root, or when the user asks to generate project-level rules. Guides the generation of a project-specific AGENTS.md based on project context.
+description: Use when starting work on any project, when no AGENTS.md exists, when the user needs to set up project-level AI context, or when joining a project with existing rules. Guides identification of where Layer 0 default behavior needs adjustment for this project, and where that adjustment should live based on ownership.
 ---
 
 ## 这个 skill 做什么
 
-根据项目特性生成 AGENTS.md 的项目层内容（Layer 2）。
-只写这个项目独有的上下文和约定，不重复全局规范（identity + principles）。
+找出 Layer 0 在这个项目里哪里不够用，把缺口表达成行为指令。
 
-## 触发判断
+判断标准：AGENTS.md 里每一句话，都应该能回答——
+**在什么情况下，AI 应该做什么不同于 Layer 0 默认行为的事？**
 
-以下情况主动提示用户是否需要生成：
-- 项目根目录没有 AGENTS.md
-- 用户说"新项目"、"从零开始"、"刚克隆"
+回答不了这个问题的，不属于这里。
 
-## 信息收集
+---
 
-**我需要什么信息**
-项目阶段、业务域、技术栈、我的角色、语言约定、特殊约束。
+## 第一个问题，也是唯一的分叉点
 
-**信息从哪里来**
-- 你提供 → 你了解项目，直接描述
-- 读文件 → 提供 pom.xml / package.json / README / tree 输出，从文件推断，推断内容用 `[INFERRED]` 标注
-- 从对话提取 → 你描述了项目背景，直接从描述里提取，不重复问
+**你在这个项目里有没有所有权？**
 
-**信息缺口怎么处理**
+有 → Layer 2，进仓库
+没有 → Layer 3，不进仓库
 
-信息缺口分两类，处理方式不同：
+所有权判断标准：你能不能决定这个项目的工程规范，并且让其他人遵守。
 
-| 缺口类型       | 处理方式                                           |
-| -------------- | -------------------------------------------------- |
-| 项目阶段不明确 | 必须问——这个影响生成意图声明还是现状描述，方向不同 |
-| 其余字段缺失   | 用 `[OPEN QUESTION]` 占位，生成骨架，边做边补      |
-| 完全不了解项目 | 直接进模式 B，只问项目阶段，其余全部占位           |
+---
 
-**只问一个问题**：信息不足时，只问最影响方向的那一个。通常是项目阶段。其余用 `[ASSUMPTION]` 或 `[OPEN QUESTION]` 标注，不列问题清单让用户逐一回答。
+## Layer 2 路径：有所有权
 
-## 三种模式
+**引导识别缺口，不是收集项目信息**
 
-**模式 A：我了解项目**
-从对话或你的描述里提取所有可用信息，缺口用标注占位，直接生成。不需要走确认流程。
+按顺序问这四个问题，从对话或文件里能提取的直接提取，不重复问：
 
-**模式 B：我不了解项目 / 没时间描述**
-只需知道项目阶段。其余全部用 `[OPEN QUESTION]` 占位，生成可用骨架，边做项目边填。
+**1. 语言约定是什么？**
+Layer 0 没有语言约定，这是必须在项目层定义的变量。
+注释、日志、commit message 用什么语言，必须明确。
 
-**模式 C：有文件让我读**
-提供 pom.xml / package.json / README / tree 输出，从文件推断技术栈、业务域、目录结构。推断内容用 `[INFERRED]` 标注，无法确定的用 `[OPEN QUESTION]` 标注。
+**2. Layer 0 的哪些规则在这个项目里不成立？**
+比如：原型阶段允许返回 dict，进迭代前用 DEVIATION 标注替代立刻处理。
+没有例外就不写。
 
-## 生成规则
+**3. 这个项目有什么 Layer 0 没覆盖的硬约束？**
+外部合规要求、接口安全边界、领域特有规则——不是项目描述，是行为约束。
+比如："任何 SQL 在执行前必须通过 AST 级 guardrail 检查"，不是"这个项目用了 DuckDB"。
 
-**这套规则在保护什么**
-保护 Layer 2 的纯粹性。项目 AGENTS.md 只有写项目独有的内容才有价值——重复全局规范只是噪音，会稀释真正需要关注的项目特有约定。
+**4. 技术栈是什么？**
+不是元数据，是 principles 的翻译参数。
+"不用 Map 作为返回类型"在 Python 里是"不用 dict"，在 Java 里是"不用 HashMap"。
+技术栈决定 principles 如何落地，不需要写进 AGENTS.md，但生成时用来校准措辞。
 
-1. 只写项目独有的上下文和约定，不重复全局规范
-2. 每个约定说明 why，不只是 what
-3. 无法确定的内容用 `[OPEN QUESTION: 具体问题]` 标注
-4. 推断的内容用 `[INFERRED: 推断内容]` 或 `[ASSUMPTION: 推断内容]` 标注
-5. 输出纯 Markdown，直接可用
+**输出结构**
 
-**自检**
-- [ ] 生成的内容里有没有和 identity / principles 重复的规则？
-- [ ] 每条约定是否说明了 why，而不只是 what？
-
-## 输出结构
+只有内容才有节，没有内容不生成空节。
 ```
 # AGENTS.md · [项目名]
-
-## 项目上下文
-项目阶段：
-业务域：
-技术栈：
-我的角色：
 
 ## 语言约定
 代码注释：
@@ -79,19 +61,62 @@ description: Use when starting a new project, when no AGENTS.md exists in the pr
 错误码描述：
 Git commit message：
 
-## 项目特有约定
-[只写这个项目独有的规则，每条说明 why]
+## Layer 0 在这里的例外
+[每条说明原因]
+[DEVIATION: 原因]
 
-## 已知约束
-[特殊限制、外部依赖、合规要求]
-
-## 待确认
-[OPEN QUESTION] ...
-[ASSUMPTION] ...
+## 这个项目独有的行为约束
+[每条是行为指令，说明在什么情况下做什么，说明 why]
 ```
+
+**自检**
+- [ ] 每一条能否回答"在什么情况下，AI 做什么不同于 Layer 0 的事"？
+- [ ] 有没有把项目描述（技术栈、架构、端口）写进来？
+
+---
+
+## Layer 3 路径：没有所有权
+
+**情况 A：有团队规范，打补丁**
+```
+# AGENTS.local.md · [项目名] · 个人补丁
+
+## 我覆盖了团队规范的哪些地方
+[每条说明原因]
+// DEVIATION: 原因
+
+## 团队规范没说但我需要的行为约束
+[每条是行为指令，说明 why]
+```
+
+**情况 B：没有规范，也没权建**
+```
+# AGENTS.local.md · [项目名] · 个人工作层
+
+[临时文件，等正式规范建立后迁移废弃]
+
+## 我在这个项目里的工作方式
+[不是项目规范，是 Layer 0 在这个项目里的个人具体化]
+```
+
+**两种情况都适用**
+临时妥协表不在初始生成物里。项目进行中遇到"违反 principles 但改不动"时，手动追加：
+```
+## 临时妥协表
+| 位置 | 违反了什么 | 原因 | 计划 |
+|------|-----------|------|------|
+```
+
+**Layer 3 的硬约束**
+不进仓库。进了仓库就变成 Layer 2，性质完全不同。
+
+---
 
 ## 生成完成后
 
-提示用户：
-> 复制到项目根目录的 AGENTS.md。
-> `[OPEN QUESTION]` 和 `[INFERRED]` 是待确认项，边做项目边填。
+**Layer 2：**
+> 复制到项目根目录 `AGENTS.md` 并提交。
+> `[OPEN QUESTION]` 和 `[ASSUMPTION]` 就近挂在对应条目下，解决了就地删。
+
+**Layer 3：**
+> 放项目根目录，文件名 `AGENTS.local.md`，确认已加进 `.gitignore`。
