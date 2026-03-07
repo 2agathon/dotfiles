@@ -1,6 +1,6 @@
 ---
 name: vibe-plan
-description: Use when the user starts a new feature, new module, or any task with non-trivial scope. Before writing any code, produce a structured technical design for alignment. Do not skip this for tasks that seem simple but have unclear boundaries.
+description: Use when the user starts a new feature, new module, or any task with non-trivial scope. Before writing any code, produce a structured technical design for alignment. Do not skip for tasks that seem simple but have unclear boundaries.
 ---
 
 ## 这个 skill 做什么
@@ -10,32 +10,42 @@ description: Use when the user starts a new feature, new module, or any task wit
 
 ## 触发判断
 
-以下情况主动触发：
+以下情况主动触发，不等用户要求：
+
+**明确需要触发：**
 - 用户说"我要做一个新功能"、"加一个模块"、"重构这块"
 - 任务涉及新的目录或文件结构
-- 任务边界不清楚，或者涉及多个模块的联动
+- 任务涉及多个模块的联动
+
+**看起来简单但必须触发：**
+- 用户描述了目标，但没有说边界——"做完之后不处理什么"不清楚
+- 涉及外部依赖或接口变更，影响范围不确定
+- 用户说"就改一下"但改动会触碰多个模块
+
+**判断规则：** 宁可多触发一次被用户说不需要，也不要跳过导致方向跑偏。跳过的代价是事后重构，触发的代价是多花五分钟对齐。
 
 ## 信息收集
 
 **我需要什么信息**
-- 功能目标、涉及的模块、技术约束、当前代码结构
+功能目标、涉及的模块、技术约束、当前代码结构、不覆盖什么。
 
 **信息从哪里来**
 - 你提供 → 你描述要做什么，直接从描述里提取
 - 读代码 → 提供相关文件或目录结构，推断涉及的模块和边界
-- 从对话提取 → 你们已经讨论过这个功能，从对话里提取关键信息
+- 从对话提取 → 已经讨论过这个功能，从对话里提取关键信息，不重复问
 
 **信息缺口怎么处理**
 - 目标不清楚 → 必须问，目标不清楚写出来的 plan 没有意义
-- 涉及模块不确定 → 用 [ASSUMPTION] 标注，在 plan 里显式列出
-- 技术约束不知道 → 用 [OPEN QUESTION] 标注，提示用户确认后再细化
+- 涉及模块不确定 → 用 `[ASSUMPTION]` 标注，在 plan 里显式列出
+- 技术约束不知道 → 用 `[OPEN QUESTION]` 标注，提示用户确认后再细化
+- 其余缺口 → 只问最影响方向的一个问题，其余占位
 
 ## 输出结构
 ```
 ## Vibe Plan · [功能名称]
 
 ### 目标
-一句话说清楚：做完之后什么变了，用户/系统能做什么之前不能做的事。
+一句话说清楚：做完之后什么变了，用户 / 系统能做什么之前不能做的事。
 
 ### 不覆盖
 这个任务明确不处理什么，防止范围蔓延。
@@ -56,15 +66,20 @@ description: Use when the user starts a new feature, new module, or any task wit
 不是任务清单，是"做完这步之后可以验证什么"。
 ```
 
+## 这个结构在保护什么
+
+保护 Vibe Coding 的可控性。AI 生成速度快，方向一旦偏了修正成本极高。Vibe Plan 是在速度和可控性之间的强制减速点——不是为了完美设计，是为了在写代码之前暴露分歧。
+
+**不走 Vibe Plan 会发生什么**
+AI 从头做到尾交付一个大 PR，里面有五个需要讨论的设计决策但已经全部实现完了。用户发现方向不对，但推倒重来成本太高，只能将就用，技术债从第一天就开始积累。
+
 ## 生成后必须做的事
 
 输出 Vibe Plan 之后，停下来等用户确认：
 > "以上是我的理解，有没有偏差？确认后开始第一步。"
 
-用户确认之前不写任何代码。
+用户确认之前不写任何代码。这条没有例外。
 
-## 注意
-
-- Vibe Plan 不是完美的设计文档，是对齐用的
-- 宁可写得粗，也不要跳过
-- 发现边界不清楚，就在 [OPEN QUESTION] 里问，不要假装清楚
+**自检**
+- [ ] "不覆盖"这一节是否明确写了，还是空着？
+- [ ] 实现顺序里每一步是否可以独立验证，还是只有最后一步才能验证？
