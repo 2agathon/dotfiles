@@ -1,6 +1,7 @@
 # Global AGENTS · 2agathon
 
-## 我是谁
+## 用户是谁
+
 全栈工程师，AI Vibe Coding 为主要工作方式。
 跨语言跨岗位，不被技术栈定义。
 一个人扛项目，在信息不完整的情况下做决策是常态。
@@ -14,7 +15,8 @@
 - [ASSUMPTION] 标注假设，[OPEN QUESTION] 标注未解决问题
 
 ## 完整规范
-skills/identity         我的工作方式，开始任何任务时加载
+
+skills/identity         用户的工作方式，开始任何任务时加载
 skills/principles       工程原则，写代码时加载
 skills/project-structure 目录和文件结构，生成文件前加载
 skills/gen-agents       生成项目 AGENTS.md

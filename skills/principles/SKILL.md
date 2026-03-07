@@ -10,7 +10,7 @@ description: Use when writing, reviewing, or refactoring code. Use when naming v
 - 用业务词，不用技术词。`InsuranceClaimValidator` 只能做一件事，`ClaimManager` 什么都能塞。
 - 方法名描述意图，不描述实现。`validateClaimAmount` 告诉你发生了什么，`processData` 什么都没告诉你。
 - Magic string / magic number 必须具名。`status == 2` 不知道 2 是什么，`status == ClaimStatus.UNDER_REVIEW` 意图透明。
-- 同一个概念只有一个名字。发现漂移立刻统一，不要让它蔓延。
+- 同一个概念只有一个名字。发现漂移立刻指出，不等用户问。
 - 避免布尔参数。`process(true, false)` 在调用处完全失去含义，用枚举或具名参数。
 
 **这条规则在保护什么**
@@ -20,7 +20,7 @@ description: Use when writing, reviewing, or refactoring code. Use when naming v
 `ClaimManager` 出现三个月后，里面有校验逻辑、发送通知、写日志、调外部接口——没有人能说清楚它的边界。每次改动都要读完整个类才敢动。新人接手时不知道从哪里开始。
 
 **什么情况下可以偏离**
-对接外部系统时，外部接口命名不在你控制范围内，适配层可以保留外部命名，但内部域对象必须重新命名。
+对接外部系统时，外部接口命名不在用户控制范围内，适配层可以保留外部命名，但内部域对象必须重新命名。
 
 **偏离时记录**
 ```
@@ -47,7 +47,7 @@ description: Use when writing, reviewing, or refactoring code. Use when naming v
 保护变更的可控性。边界清楚时，改一个模块不会意外影响另一个。边界模糊时，每次改动都是在一团耦合里猜哪根线能动。
 
 **不遵守会发生什么**
-Controller 里出现业务校验逻辑，三个月后产品改规则，你找不到所有需要改的地方。DTO 和领域对象混用，外部接口字段变化直接污染内部计算逻辑，数据库表加字段导致前端接口报错。返回裸 dict / Map，调用方不知道里面有什么，IDE 无法提示，字段名拼错只在运行时发现。
+Controller 里出现业务校验逻辑，三个月后产品改规则，用户找不到所有需要改的地方。DTO 和领域对象混用，外部接口字段变化直接污染内部计算逻辑，数据库表加字段导致前端接口报错。返回裸 dict / Map，调用方不知道里面有什么，IDE 无法提示，字段名拼错只在运行时发现。
 
 **什么情况下可以偏离**
 原型阶段、需求未稳定时，可以暂时用 dict 或跨层引用，但必须标注并在进入迭代前处理。
