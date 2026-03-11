@@ -2,7 +2,7 @@
 """
 Notion Manager - Core Operations
 Commands: snapshot, snapshot-info, wordlist, resolve,
-          structure, read, search, classify,
+          structure, read, search,
           create, append, move
 """
 
@@ -259,7 +259,7 @@ def cmd_snapshot_info(snapshot_path=DEFAULT_SNAPSHOT_PATH):
     snap = load_snapshot(snapshot_path)
     if not snap:
         print(f"快照不存在：{snapshot_path}")
-        print("请先运行: notion_ops.py snapshot --token TOKEN")
+        print("请先运行: python notion_ops.py snapshot")
         return
     container_count = sum(1 for p in snap["pages"].values() if p.get("is_container"))
     print(f"快照状态")
@@ -701,6 +701,21 @@ def main():
     parser.add_argument("--indispensable", default="", help="📌 Callout：不可替代性")
     parser.add_argument("--boundary", default="", help="📌 Callout：边界")
     args = parser.parse_args()
+
+    # Token 优先级：--token > 环境变量 NOTION_TOKEN
+    if not args.token:
+        args.token = os.environ.get("NOTION_TOKEN")
+
+    # 需要网络的命令必须有 token
+    needs_token = {"snapshot", "structure", "read", "search", "create", "append", "move"}
+    if args.command in needs_token and not args.token:
+        print(
+            "Error: 需要 Notion token。\n"
+            "  方式一（推荐）：export NOTION_TOKEN=your_token_here\n"
+            "  方式二：python notion_ops.py <command> --token your_token_here",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     sp = args.snapshot_path
     content = load_content(args.content, args.content_file)

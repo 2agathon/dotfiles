@@ -32,8 +32,8 @@ Link-Agents "$env:USERPROFILE\.codex"
 Link-Skills "$env:USERPROFILE\.gemini"
 Link-Agents "$env:USERPROFILE\.gemini"
 
-# OpenCode（skill 单数）
-Link-Skills "$env:USERPROFILE\.config\opencode" -skillName "skill"
+# OpenCode（官方路径 ~/.config/opencode/skills，skill 目录名为复数）
+Link-Skills "$env:USERPROFILE\.config\opencode"
 Link-Agents "$env:USERPROFILE\.config\opencode"
 
 # GLM [OPEN QUESTION: 确认 GLM 的全局配置路径后补充]

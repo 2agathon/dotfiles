@@ -1,49 +1,172 @@
 ---
 name: notion-manager
 description: >
-  操作用户的 Notion 工作区：爬取并缓存工作区结构（快照）、提取容器页词表、
-  执行 AI 归类协议、搜索页面、读取页面结构与内容、创建页面（含容器页 📌 Callout）、
-  追加内容、移动页面。支持用页面标题代替 ID。当用户提到 Notion 页面的读取、搜索、
-  整理、归类、搬移、推送内容、查看结构等操作时，必须使用这个 skill。
+  查询 Notion 工作区结构、容器边界词表、追溯认识版本链、归类内容时使用。
+  用户说"看看我的工作区"、"这个放哪里"、"这条认识从哪来"、
+  "有哪些容器"、"帮我记一下"时触发。
 ---
 
-# Notion Manager Skill
+## 这个 skill 做什么
+
+理解用户的认识地图，帮用户在知识库里导航、归类、追溯。
+写入是偶发的辅助动作，查询和推理是主路径。
 
 ---
 
-## 层一：知识归类协议（无环境依赖）
+## Token 获取（必须在任何操作前完成）
 
-**这一层与执行环境无关。任何能理解文字的 AI 均可执行。**
+**执行任何操作前，先确认 token 可用。按以下顺序检查：**
 
-### 前提
+### 1. 环境变量（优先）
 
-用户需提供 Notion Integration Token，以及本次要归类的内容。
+```bash
+echo $NOTION_TOKEN        # Linux / macOS
+echo $env:NOTION_TOKEN    # Windows PowerShell
+```
 
-### Step 1：获取词表
+变量名：**`NOTION_TOKEN`**
 
-通过任意可用方式获取容器页词表（见层二）。词表包含每个容器页的**不可替代性**和**边界**。
+脚本自动读取：
+```bash
+python scripts/notion_ops.py snapshot  # 不需要 --token，自动从环境变量读
+```
 
-### Step 2：推理归属
+### 2. 对话中提供
 
-逐一对照词表，输出以下格式：
+用户在对话里直接提供 token，AI 在当次对话中使用，用完即走，不存储。
+
+### 3. 都没有时
+
+**停下来，不往下走。** 告知用户：
+
+> "需要 Notion Integration Token 才能继续。有两种方式提供：
+>
+> **方式一（推荐）：设置环境变量，避免每次提供**
+> ```bash
+> # Linux / macOS（加入 ~/.bashrc 或 ~/.zshrc 永久生效）
+> export NOTION_TOKEN=your_token_here
+>
+> # Windows PowerShell（加入 $PROFILE 永久生效）
+> $env:NOTION_TOKEN = 'your_token_here'
+> ```
+>
+> **方式二：直接在对话里提供**
+> 把 token 粘贴进来，我用完即走，不会存储。
+>
+> Token 在 Notion → Settings → Connections → Develop or manage integrations 里创建。
+> 创建后需要把目标页面共享给该 Integration（页面右上角 → Connect to → 选择你的 Integration）。"
+
+获取到 token 后再继续，不能假设 token 存在后静默失败。
+
+---
+
+## 意图澄清
+
+收到模糊请求时，先用一句话确认意图，不猜，不展开：
+
+> "你是想——
+> 1. 看工作区树结构
+> 2. 看容器边界词表
+> 3. 归类某个内容（判断放哪里、新建还是迭代）
+> 4. 追溯某条认识的版本链
+> 5. 写入（创建页面 / 追加内容 / 移动）
+> 选哪个？"
+
+用户选完立刻执行，不再确认。
+
+---
+
+## 功能表
+
+| 用户说的 | AI 执行的 |
+|----------|-----------|
+| 看结构 / 树 / 工作区 | 输出工作区树结构 |
+| 边界 / 词表 / 容器有哪些 | 输出所有容器页的不可替代性和边界 |
+| 这个放哪里 / 归类 | 对照词表推理归属，判断新建还是迭代 |
+| 这条认识从哪来 / 追溯 / 版本 | 沿前驱链往前遍历版本 |
+| 帮我记 / 新建 / 创建 / 追加 | 写入操作，执行前确认 |
+
+---
+
+## 主路径：查询与推理
+
+**不需要用户确认，直接执行。**
+
+### 工作区树结构
+
+输出所有页面的层级关系，容器页标注 📌，显示 depth。
+默认输出到 depth=3，更深层需用户明确要求。
+
+### 容器边界词表
+
+输出所有含 📌 Callout 的容器页：
+
+```
+## [容器名]
+不可替代性：[内容]
+边界：[内容]
+子容器：[如有]
+```
+
+### 归类推理
+
+对照词表逐一检查，输出：
 
 ```
 归属分析：
   ✓ 属于「XX」
-    理由：[内容对应该容器的不可替代性]
-    不违反边界：[说明不触碰 XX 的边界]
+    理由：[对应不可替代性]
+    不违反边界：[说明]
 
   ✗ 不属于「YY」
-    原因：[触碰了 YY 的边界，或不可替代性对不上]
+    原因：[触碰边界 / 不可替代性对不上]
+
+判断：[新建内容页 | 迭代已有认识（找到前驱：[页面名]）]
 ```
 
-### Step 3A：匹配现有容器
+**新建还是迭代的判断逻辑：**
+- 工作区里已有同一张力的认识 → 迭代，找到前驱页面，不新建
+- 没有 → 新建内容页
+- 现有容器装不下 → 提议新容器（见写入路径）
 
-确认归属，等用户同意后执行写入操作。
+### 版本链追溯
 
-### Step 3B：现有容器装不下 → 提议新容器
+给定主题或关键词，沿 Tension Manifest 的前驱字段往前遍历：
 
-说明现有词条为什么装不下，然后给出：
+```
+版本链：[主题]
+
+v3  [页面名]  [外化时间]
+    张力：[演化摘要里"现在看见的张力是___"]
+    触发：[触发字段]
+
+v2  [页面名]  [外化时间]
+    张力：[演化摘要里"现在看见的张力是___"]
+    触发：[触发字段]
+
+v1  [页面名]  [外化时间]
+    起点张力：[起点张力字段]
+```
+
+读不到 Tension Manifest 字段时，标注 `[无 Tension Manifest]`。
+
+---
+
+## 次路径：写入
+
+**执行前必须向用户确认：操作类型 + 目标页面 + 内容摘要。**
+
+### 创建内容页
+
+```bash
+python scripts/notion_ops.py create \
+  --parent-id "父页面" --title "标题" \
+  [--content "..." | --content-file path]
+```
+
+### 创建容器页
+
+现有容器装不下时，提议新容器：
 
 ```
 建议新建容器页：「[名称]」
@@ -52,149 +175,82 @@ description: >
   边界：[什么内容不该进来]
 ```
 
-等用户确认后执行创建。**容器页顶部必须放 📌 Callout，格式：**
-
-```
-📌
-不可替代性：[填写]
-边界：[填写]
-```
-
-📌 emoji 不可替换，否则脚本无法识别。
-
-### 迭代约定
-
-- 内容已有页面：不建新页，在原页追加，写元信息（什么触发了迭代、改变的是哪个前提）
-- 新内容：按归属创建内容页
-
----
-
-## 层二：Notion 操作（按环境选择执行方式）
-
-**以下三种方式等价，按当前环境选最顺手的一种。**
-
----
-
-### 方式 A：运行 Python 脚本（本地环境有 Python）
-
-所有操作通过 `scripts/notion_ops.py` 执行：
+确认后执行：
 
 ```bash
-# 快照
-python scripts/notion_ops.py snapshot --token TOKEN
-python scripts/notion_ops.py snapshot-info
-python scripts/notion_ops.py wordlist                        # 输出词表，供层一使用
-
-# 查询
-python scripts/notion_ops.py resolve --query "标题"
-python scripts/notion_ops.py search  --token TOKEN --query "关键词"
-python scripts/notion_ops.py structure --token TOKEN --page-id "标题或ID"
-python scripts/notion_ops.py read     --token TOKEN --page-id "标题或ID"
-
-# 写入（执行前需用户确认）
-python scripts/notion_ops.py create --token TOKEN \
-  --parent-id "父页面" --title "标题" [--content "..." | --content-file path]
-
-python scripts/notion_ops.py create --token TOKEN \
+python scripts/notion_ops.py create \
   --parent-id "父页面" --title "标题" \
-  --container --indispensable "..." --boundary "..."         # 容器页
+  --container \
+  --indispensable "..." \
+  --boundary "..."
+```
 
-python scripts/notion_ops.py append --token TOKEN \
+`--container` 自动在页面顶部插入标准 📌 Callout。
+
+### 追加 / 移动
+
+```bash
+python scripts/notion_ops.py append \
   --page-id "目标页面" [--content "..." | --content-file path]
 
-python scripts/notion_ops.py move --token TOKEN \
+python scripts/notion_ops.py move \
   --page-id "源页面" --target-parent-id "目标父页面"
 ```
 
-长内容（>200字）先写临时文件再用 `--content-file` 传入。
+长内容（>200字）先写临时文件：
+
+```bash
+cat > /tmp/notion_content.md << 'EOF'
+内容...
+EOF
+```
 
 ---
 
-### 方式 B：AI 直接调用 Notion API（有 HTTP 工具，无 Python）
+## 基础设施：执行方式
 
-AI 按以下接口规范直接发请求，逻辑与脚本完全一致。
+按环境自动降级，不需要用户选择：
 
-**通用请求头：**
-```
-Authorization: Bearer {token}
-Notion-Version: 2022-06-28
-Content-Type: application/json
-```
+**有 Python** → 脚本自动读取 `$NOTION_TOKEN`，无需每次传 `--token`
 
-**Page ID 格式：** 从 URL 中提取 32 位 hex，格式化为 `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+**有 HTTP 工具，无 Python** → 直调 Notion API
 
-#### 搜索页面
 ```
 POST https://api.notion.com/v1/search
-{"query": "关键词", "filter": {"value": "page", "property": "object"}, "page_size": 20}
-```
-
-#### 读取子块（分页）
-```
-GET https://api.notion.com/v1/blocks/{page_id}/children?page_size=100
-# has_more=true 时用 next_cursor 继续翻页，直到完整获取
-```
-
-#### 读取页面属性
-```
-GET https://api.notion.com/v1/pages/{page_id}
-```
-
-#### 创建页面
-```
+GET  https://api.notion.com/v1/blocks/{id}/children
+GET  https://api.notion.com/v1/pages/{id}
 POST https://api.notion.com/v1/pages
-{
-  "parent": {"page_id": "{parent_id}"},
-  "properties": {"title": {"title": [{"type": "text", "text": {"content": "标题"}}]}},
-  "children": [ ...blocks... ]   // 单次最多 100 块，超出分批 PATCH 追加
-}
+PATCH https://api.notion.com/v1/blocks/{id}/children
+
+Headers:
+  Authorization: Bearer {token}
+  Notion-Version: 2022-06-28
 ```
 
-#### 追加内容
-```
-PATCH https://api.notion.com/v1/blocks/{page_id}/children
-{"children": [ ...blocks... ]}   // 每批最多 100 块
-```
-
-#### 📌 Callout 块结构
-```json
-{
-  "object": "block",
-  "type": "callout",
-  "callout": {
-    "rich_text": [{"type": "text", "text": {"content": "不可替代性：...\n边界：..."}}],
-    "icon": {"type": "emoji", "emoji": "📌"},
-    "color": "gray_background"
-  }
-}
-```
-
-#### Markdown → Notion Blocks 对照
-| Markdown | Notion block type |
-|---|---|
-| `# ` | heading_1 |
-| `## ` | heading_2 |
-| `### ` | heading_3 |
-| `- ` | bulleted_list_item |
-| `1. ` | numbered_list_item |
-| `- [ ] ` / `- [x] ` | to_do |
-| `> ` | quote |
-| 普通行 | paragraph |
+**Claude.ai Web / 网络受限环境** → 只执行归类推理和版本追溯。
+用户提供快照 JSON 或页面内容，AI 在本地推理，不发网络请求。
+写入操作告知用户需要在本地环境执行。
 
 ---
 
-### 方式 C：仅理解协议，手动操作（无任何执行环境）
+## 快照
 
-AI 读懂层一的归类协议，给出归属判断和建议。
-用户自己去 Notion 界面完成实际操作。
-适用于 ChatGPT Web 等网络请求受限的环境。
+快照 = 工作区结构索引，含标题→ID 映射 + 容器页词表。
+
+```bash
+python scripts/notion_ops.py snapshot     # 全量爬取
+python scripts/notion_ops.py snapshot-info  # 查看状态
+python scripts/notion_ops.py wordlist     # 输出词表
+```
+
+`create` / `move` 完成后自动增量更新，无需重跑。
+用户说"结构变了"或"快照可能过期"时重跑 snapshot。
 
 ---
 
 ## 通用约定
 
-- **不支持删除**，引导用户去 Notion 界面操作
-- **不支持 Database 类型页面**
-- structure 默认 3 层深度
-- 写入操作（create / append / move）执行前必须向用户确认目标页面和内容摘要
-- 权限错误优先提示用户检查页面是否共享给 Integration
+- 不支持删除，引导用户去 Notion 界面操作
+- 不支持 Database 类型页面
+- 权限错误优先提示用户检查页面是否已共享给 Integration
+- Token 不在对话里明文保留，用完即走

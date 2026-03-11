@@ -28,9 +28,8 @@ link_skills ~/.gemini
 ln -sf "$DOTFILES/AGENTS.md" ~/.gemini/AGENTS.md
 log "linked: ~/.gemini/AGENTS.md → AGENTS.md"
 
-# OpenCode（skill 单数，路径不同）
-mkdir -p ~/.config/opencode
-ln -sf "$SKILLS" ~/.config/opencode/skill
+# OpenCode（路径 ~/.config/opencode/skills，复数）
+link_skills ~/.config/opencode
 ln -sf "$DOTFILES/AGENTS.md" ~/.config/opencode/AGENTS.md
 log "linked: ~/.config/opencode → AGENTS.md + skills"
 
