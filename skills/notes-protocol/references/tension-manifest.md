@@ -3,7 +3,7 @@
 每个文件头部嵌入以下 YAML 块。📌 emoji 硬编码，不可替换。
 
 ```yaml
-外化时间: YYYY-MM-DD HH:MM:SS
+外化时间: yyyy-MM-dd HH:mm:ss
 知识锚: kb-[base36编码]
 版本: [整数，从1开始]
 来源: [self | claude-sonnet-4-6 | gpt-4o | deepseek-r1 | ...]
@@ -27,7 +27,7 @@
 
 生成方式（任意 JS 环境）：
 ```javascript
-'kb-' + parseInt('YYYY-MM-DD HH:MM:SS'.replace(/\D/g, '')).toString(36)
+'kb-' + parseInt('yyyy-MM-dd HH:mm:ss'.replace(/\D/g, '')).toString(36)
 // 例：外化时间 2026-03-09 14:39:39 → kb-76jggyidf
 ```
 
