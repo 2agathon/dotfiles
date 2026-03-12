@@ -1,0 +1,87 @@
+{
+    "_meta": {
+      "_comment": "dotfiles 目标清单。所有以下划线开头的字段仅用于说明，不参与安装逻辑。",
+      "path_placeholder": "{HOME}",
+      "_path_placeholder_comment": "{HOME} 会在运行时被替换为当前用户主目录。不要直接写 ~，避免跨平台和字符串展开差异。",
+      "_maintenance_comment": "Windows PowerShell 与 Linux Bash 共用这一份配置。新增工具时，尽量只改这里，不改主脚本。"
+    },
+    "targets": [
+      {
+        "name": "Claude Code",
+        "_comment": "Claude 使用 ~/.claude 作为全局目录；agents 文件名使用 CLAUDE.md。",
+        "skills": [
+          {
+            "path": "{HOME}/.claude",
+            "name": "skills",
+            "_comment": "Claude 全局 skills 目录。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "{HOME}/.claude",
+            "name": "CLAUDE.md",
+            "_comment": "Claude 的全局 agents 入口文件名是 CLAUDE.md。"
+          }
+        ]
+      },
+      {
+        "name": "Codex CLI",
+        "_comment": "Codex / OpenAI 的 AGENTS 与 skills 是两套入口：AGENTS 走 ~/.codex，skills 同时投递到 ~/.codex 和 ~/.agents。",
+        "skills": [
+          {
+            "path": "{HOME}/.codex",
+            "name": "skills",
+            "_comment": "兼容投递，方便某些工具或个人习惯从 ~/.codex/skills 读取。"
+          },
+          {
+            "path": "{HOME}/.agents",
+            "name": "skills",
+            "_comment": "OpenAI / Codex 官方用户级 skills 目录。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "{HOME}/.codex",
+            "name": "AGENTS.md",
+            "_comment": "OpenAI / Codex 的全局 AGENTS 入口。"
+          }
+        ]
+      },
+      {
+        "name": "Gemini CLI",
+        "_comment": "Gemini 使用 ~/.gemini 作为全局目录。",
+        "skills": [
+          {
+            "path": "{HOME}/.gemini",
+            "name": "skills",
+            "_comment": "Gemini 全局 skills 目录。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "{HOME}/.gemini",
+            "name": "AGENTS.md",
+            "_comment": "Gemini 的全局 agents 入口文件。"
+          }
+        ]
+      },
+      {
+        "name": "OpenCode",
+        "_comment": "OpenCode 使用 ~/.config/opencode 作为配置目录，skills 目录名为复数 skills。",
+        "skills": [
+          {
+            "path": "{HOME}/.config/opencode",
+            "name": "skills",
+            "_comment": "OpenCode 的 skills 目录位于配置目录下。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "{HOME}/.config/opencode",
+            "name": "AGENTS.md",
+            "_comment": "OpenCode 的 agents 入口文件。"
+          }
+        ]
+      }
+    ]
+  }
