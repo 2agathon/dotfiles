@@ -83,6 +83,42 @@ expand_path_template() {
   printf '%s\n' "$p"
 }
 
+render_agents_content() {
+  python3 - <<'PY' "$AGENTS" "$DOTFILES"
+from pathlib import Path
+import sys
+
+agents_path = Path(sys.argv[1])
+dotfiles_path = str(Path(sys.argv[2]).resolve())
+text = agents_path.read_text(encoding="utf-8")
+text = text.replace("{{DOTFILES_ABS_PATH}}", dotfiles_path)
+sys.stdout.write(text)
+PY
+}
+
+is_rendered_agents_copy() {
+  local target_path="$1"
+
+  if [[ ! -f "$target_path" || ! -f "$AGENTS" ]]; then
+    return 1
+  fi
+
+  cmp -s "$target_path" <(render_agents_content)
+}
+
+write_rendered_agents_file() {
+  local target_path="$1"
+  local tmp_path="${target_path}.tmp.$$"
+
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    write_info "[预演] 将写入渲染后的 AGENTS：$target_path"
+    return
+  fi
+
+  render_agents_content > "$tmp_path"
+  mv "$tmp_path" "$target_path"
+}
+
 ensure_parent_dir() {
   local p="$1"
 
@@ -122,7 +158,7 @@ require_jq() {
 
 require_python3() {
   if ! command -v python3 >/dev/null 2>&1; then
-    write_err "[dotfiles] 未找到 python3。当前脚本用它做稳妥的路径归一化。"
+    write_err "[dotfiles] 未找到 python3。当前脚本用它做稳妥的路径归一化和 AGENTS 模板渲染。"
     exit 1
   fi
 }
@@ -227,11 +263,9 @@ get_agents_state() {
     fi
   fi
 
-  if [[ -f "$target_path" && -f "$AGENTS" ]]; then
-    if cmp -s "$target_path" "$AGENTS"; then
-      printf '%s\n' "Copied"
-      return
-    fi
+  if is_rendered_agents_copy "$target_path"; then
+    printf '%s\n' "Copied"
+    return
   fi
 
   printf '%s\n' "Other"
@@ -265,12 +299,12 @@ verify_agents_entry() {
   target_path="$dst_expanded/$file_name"
   agent_state="$(get_agents_state "$target_path")"
 
-  if [[ "$agent_state" == "Linked" || "$agent_state" == "Copied" ]]; then
+  if [[ "$agent_state" == "Copied" ]]; then
     write_ok "[校验通过] $target_name / agents：$target_path"
-    add_verify_result "$target_name" "agents" "$target_path" "成功" "是预期链接或正确副本"
+    add_verify_result "$target_name" "agents" "$target_path" "成功" "是当前环境下正确的渲染文件"
   else
     write_err "[校验失败] $target_name / agents：$target_path"
-    add_verify_result "$target_name" "agents" "$target_path" "失败" "不是预期链接或正确副本"
+    add_verify_result "$target_name" "agents" "$target_path" "失败" "不是当前环境下正确的渲染文件"
   fi
 }
 
@@ -329,21 +363,27 @@ install_agents_entry() {
   ensure_parent_dir "$dst_expanded"
 
   agent_state="$(get_agents_state "$target_path")"
-  if [[ "$agent_state" == "Linked" ]]; then
-    write_ok "[跳过] $target_name / agents 已正确存在：$target_path"
-    add_result "$target_name" "agents" "$target_path" "跳过" "已是正确符号链接"
+  if [[ "$agent_state" == "Copied" ]]; then
+    write_ok "[跳过] $target_name / agents 已存在受管渲染文件：$target_path"
+    add_result "$target_name" "agents" "$target_path" "跳过" "已是当前环境下正确的渲染文件"
     if [[ "$DRY_RUN" -ne 1 ]]; then
       verify_agents_entry "$target_name" "$dst" "$file_name"
     fi
     return
   fi
 
-  if [[ "$agent_state" == "Copied" ]]; then
-    write_ok "[跳过] $target_name / agents 已存在受管副本：$target_path"
-    add_result "$target_name" "agents" "$target_path" "跳过" "已是正确副本"
-    if [[ "$DRY_RUN" -ne 1 ]]; then
-      verify_agents_entry "$target_name" "$dst" "$file_name"
+  if [[ "$agent_state" == "Linked" ]]; then
+    if [[ "$DRY_RUN" -eq 1 ]]; then
+      write_info "[预演] 将把旧版 AGENTS 链接迁移为渲染后的本地文件：$target_path"
+      add_result "$target_name" "agents" "$target_path" "预演" "将把旧版链接替换为渲染后的本地文件"
+      return
     fi
+
+    remove_existing_path "$target_path"
+    write_rendered_agents_file "$target_path"
+    write_ok "[完成] $target_name / agents：$target_path"
+    add_result "$target_name" "agents" "$target_path" "成功" "已将旧版链接迁移为渲染后的本地文件"
+    verify_agents_entry "$target_name" "$dst" "$file_name"
     return
   fi
 
@@ -359,14 +399,14 @@ install_agents_entry() {
   fi
 
   if [[ "$DRY_RUN" -eq 1 ]]; then
-    write_info "[预演] 将创建 agents 链接：$target_path -> $AGENTS"
-    add_result "$target_name" "agents" "$target_path" "预演" "将创建符号链接"
+    write_info "[预演] 将写入渲染后的 AGENTS：$target_path"
+    add_result "$target_name" "agents" "$target_path" "预演" "将写入渲染后的本地文件"
     return
   fi
 
-  ln -s "$AGENTS" "$target_path"
-  write_ok "[完成] $target_name / agents：$target_path -> $AGENTS"
-  add_result "$target_name" "agents" "$target_path" "成功" "已创建符号链接"
+  write_rendered_agents_file "$target_path"
+  write_ok "[完成] $target_name / agents：$target_path"
+  add_result "$target_name" "agents" "$target_path" "成功" "已写入渲染后的本地文件"
   verify_agents_entry "$target_name" "$dst" "$file_name"
 }
 

@@ -24,7 +24,7 @@
 
 | 文件                     | 用途                                             |
 | ------------------------ | ------------------------------------------------ |
-| `skills/gen-agents`      | 生成项目 AGENTS.md                               |
+| `skills/gen-agents`      | 生成项目 AGENTS.md，并将所选 skill 带入项目      |
 | `skills/docs`            | 说明性文档：README、接口文档、技术文档、维护文档 |
 | `skills/decision-record` | 记录决策分叉：为什么选了这个而不是别的           |
 
@@ -55,27 +55,34 @@
 
 **Linux / macOS**
 ```bash
-git clone https://github.com/2agathon/dotfiles.git ~/dotfiles
+git clone <your-private-dotfiles-repo> ~/dotfiles
 bash ~/dotfiles/install.sh
 ```
 
 **Windows**
-```powershell
-git clone https://github.com/2agathon/dotfiles.git $env:USERPROFILE\dotfiles
+
+```
+git clone <your-private-dotfiles-repo> $env:USERPROFILE\dotfiles
 . $env:USERPROFILE\dotfiles\install.ps1
 ```
+
+安装脚本会安装或更新全局 `AGENTS.md`，并将其中引用的全局 skill 路径写成当前环境中的本地绝对路径，不再依赖远程 raw URL。
 
 ## 更新
 
 **Linux / macOS**
-```bash
+
+```
 cd ~/dotfiles && git pull && bash install.sh
 ```
 
 **Windows**
-```powershell
+
+```
 cd $env:USERPROFILE\dotfiles; git pull; . .\install.ps1
 ```
+
+更新后会重新安装全局 `AGENTS.md`，并刷新其中写入的本地 skill 路径。
 
 ## 演进
 

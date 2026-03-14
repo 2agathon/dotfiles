@@ -26,21 +26,22 @@
 
 ## 更新哪个文件
 
-| 你发现的问题                       | 更新哪里                                 |
-| ---------------------------------- | ---------------------------------------- |
-| 我的工作习惯变了                   | `skills/identity/SKILL.md`               |
-| 某条工程原则我真的在用，但没写进去 | `skills/principles/SKILL.md`             |
-| 某条工程原则我写了但实际上没在用   | `skills/principles/SKILL.md`，删掉或降权 |
-| 生成的 AGENTS.md 总是缺某类内容    | `skills/gen-agents/SKILL.md`             |
-| 目录结构生成总是不对               | `skills/project-structure/SKILL.md`      |
-| 文档生成没有针对性                 | `skills/docs/SKILL.md`                   |
-| 决策记录生成总是跑偏               | `skills/decision-record/SKILL.md`        |
-| 前提审计识别不准或过于泛滥         | `skills/assumption-audit/SKILL.md`       |
-| 对话收敛时机判断不准               | `skills/conversation-to-spec/SKILL.md`   |
-| 笔记捕捉不到认识变化               | `skills/notes-protocol/SKILL.md`         |
-| Notion 操作出错或归类不准          | `skills/notion-manager/SKILL.md`         |
-| 新 skill 模板不够用                | `skills/_template/SKILL.md`              |
-| 全局入口需要调整                   | `AGENTS.md`                              |
+| 你发现的问题                                            | 更新哪里                                 |
+| ------------------------------------------------------- | ---------------------------------------- |
+| 我的工作习惯变了                                        | `skills/identity/SKILL.md`               |
+| 某条工程原则我真的在用，但没写进去                      | `skills/principles/SKILL.md`             |
+| 某条工程原则我写了但实际上没在用                        | `skills/principles/SKILL.md`，删掉或降权 |
+| 生成的 AGENTS.md 总是缺某类内容                         | `skills/gen-agents/SKILL.md`             |
+| 目录结构生成总是不对                                    | `skills/project-structure/SKILL.md`      |
+| 文档生成没有针对性                                      | `skills/docs/SKILL.md`                   |
+| 决策记录生成总是跑偏                                    | `skills/decision-record/SKILL.md`        |
+| 前提审计识别不准或过于泛滥                              | `skills/assumption-audit/SKILL.md`       |
+| 对话收敛时机判断不准                                    | `skills/conversation-to-spec/SKILL.md`   |
+| 笔记捕捉不到认识变化                                    | `skills/notes-protocol/SKILL.md`         |
+| Notion 操作出错或归类不准                               | `skills/notion-manager/SKILL.md`         |
+| 新 skill 模板不够用                                     | `skills/_template/SKILL.md`              |
+| 全局入口需要调整                                        | `AGENTS.md`                              |
+| 安装方式、本地路径写入方式或全局 skill 安装方式需要调整 | `install.sh` / `install.ps1`             |
 
 ---
 
@@ -55,6 +56,7 @@
 - 说明 why，不只改 what
 - 删除和新增同等重要——腐化的规范比没有规范更危险
 - 一次只改一件事，不要攒着一起改
+- 如果改动影响 skill 加载机制、路径机制或项目自包含方式，必须同时检查 `AGENTS.md`、`skills/gen-agents/SKILL.md`、`install.sh`、`install.ps1`、`README.md` 是否仍然一致
 
 **改完之后：**
 - 检查是否需要同步更新其他 skill
@@ -82,4 +84,5 @@
 | ------- | ------------------------------------------------------------ |
 | 2026-03 | 初始版本，基于与 Claude 的对话建立                           |
 | 2026-03 | 新增 assumption-audit、conversation-to-spec、decision-record；skill 体系按层分组；docs 与 decision-record 边界重新划定 |
+| 2026-03 | 为适配仓库私有化，skill 加载从远程 raw URL 迁移为本地优先：全局 AGENTS 改为本地路径引用，项目级 AGENTS 改为复制 skill 到项目内并使用相对路径 |
 | [日期]  | [一句话]                                                     |
