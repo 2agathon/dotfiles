@@ -34,6 +34,11 @@
 | 生成的 AGENTS.md 总是缺某类内容    | `skills/gen-agents/SKILL.md`             |
 | 目录结构生成总是不对               | `skills/project-structure/SKILL.md`      |
 | 文档生成没有针对性                 | `skills/docs/SKILL.md`                   |
+| 决策记录生成总是跑偏               | `skills/decision-record/SKILL.md`        |
+| 前提审计识别不准或过于泛滥         | `skills/assumption-audit/SKILL.md`       |
+| 对话收敛时机判断不准               | `skills/conversation-to-spec/SKILL.md`   |
+| 笔记捕捉不到认识变化               | `skills/notes-protocol/SKILL.md`         |
+| Notion 操作出错或归类不准          | `skills/notion-manager/SKILL.md`         |
 | 新 skill 模板不够用                | `skills/_template/SKILL.md`              |
 | 全局入口需要调整                   | `AGENTS.md`                              |
 
@@ -73,7 +78,8 @@
 
 > 每次重大更新在这里留一行记录，不需要写详细，一句话说清楚改了什么。
 
-| 日期    | 改了什么                           |
-| ------- | ---------------------------------- |
-| 2026-03 | 初始版本，基于与 Claude 的对话建立 |
-| [日期]  | [一句话]                           |
+| 日期    | 改了什么                                                     |
+| ------- | ------------------------------------------------------------ |
+| 2026-03 | 初始版本，基于与 Claude 的对话建立                           |
+| 2026-03 | 新增 assumption-audit、conversation-to-spec、decision-record；skill 体系按层分组；docs 与 decision-record 边界重新划定 |
+| [日期]  | [一句话]                                                     |

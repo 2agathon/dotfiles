@@ -5,21 +5,51 @@
 
 ## 包含什么
 
-| 文件                       | 用途                             |
-| -------------------------- | -------------------------------- |
-| `AGENTS.md`                | 全局规范入口，所有工具启动时读取 |
-| `skills/identity`          | 我的工作方式                     |
-| `skills/principles`        | 跨语言工程原则                   |
-| `skills/project-structure` | 目录和文件结构约定               |
-| `skills/gen-agents`        | 生成项目 AGENTS.md               |
-| `skills/vibe-plan`         | 新功能开始前的技术对齐           |
-| `skills/docs`              | 写文档、决策记录                 |
-| `skills/notes-protocol`    | 记笔记、整理认识                 |
-| `skills/notion-manager`    | 管理 Notion 工作区               |
-| `skills/_template`         | 新 skill 的模板                  |
-| `install.sh`               | Linux / macOS 安装脚本           |
-| `install.ps1`              | Windows 安装脚本                 |
-| `install.cmd`              | Windows 兼容启动脚本             |
+### 全局基准
+
+| 文件              | 用途                             |
+| ----------------- | -------------------------------- |
+| `AGENTS.md`       | 全局规范入口，所有工具启动时读取 |
+| `skills/identity` | 协作约定、标注体系、全局行为基准 |
+
+### 工程执行
+
+| 文件                       | 用途                   |
+| -------------------------- | ---------------------- |
+| `skills/principles`        | 跨语言工程原则         |
+| `skills/project-structure` | 目录和文件结构约定     |
+| `skills/vibe-plan`         | 新功能开始前的技术对齐 |
+
+### 工程协作
+
+| 文件                     | 用途                                             |
+| ------------------------ | ------------------------------------------------ |
+| `skills/gen-agents`      | 生成项目 AGENTS.md                               |
+| `skills/docs`            | 说明性文档：README、接口文档、技术文档、维护文档 |
+| `skills/decision-record` | 记录决策分叉：为什么选了这个而不是别的           |
+
+### 认识捕捉
+
+| 文件                    | 用途                                   |
+| ----------------------- | -------------------------------------- |
+| `skills/notes-protocol` | 记笔记、整理认识、捕捉对话中的理解变化 |
+| `skills/notion-manager` | 管理 Notion 工作区                     |
+
+### 认识校准
+
+| 文件                          | 用途                           |
+| ----------------------------- | ------------------------------ |
+| `skills/assumption-audit`     | 审计隐含前提、识别前提污染     |
+| `skills/conversation-to-spec` | 把对话中的共识构造成可执行规格 |
+
+### 基础设施
+
+| 文件               | 用途                   |
+| ------------------ | ---------------------- |
+| `skills/_template` | 新 skill 的起点模板    |
+| `install.sh`       | Linux / macOS 安装脚本 |
+| `install.ps1`      | Windows 安装脚本       |
+| `install.cmd`      | Windows 兼容启动脚本   |
 
 ## 安装
 
