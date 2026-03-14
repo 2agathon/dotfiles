@@ -1,6 +1,13 @@
 ---
 name: conversation-to-spec
-description: 在对话接近承诺时刻时，将可漂移的局部共识构造成一个带有效条件、失效条件与责任边界的临时规格对象；用于把“感觉差不多了”的讨论，转化为可执行、可验证、可追责的下一步。
+layer: 认识校准
+description: >
+  在对话接近承诺时刻时，将可漂移的局部共识构造成一个带有效条件、失效条件与责任边界的临时规格对象。
+  用于把"感觉差不多了"的讨论，转化为可执行、可验证、可追责的下一步。
+  可由 AI 主动识别承诺窗口信号后提议，不需要等用户召唤。
+interfaces:
+  upstream: [identity, notes-protocol, assumption-audit]
+  downstream: [vibe-plan, docs, decision-record]
 ---
 
 # Conversation to Spec

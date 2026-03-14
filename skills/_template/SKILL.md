@@ -1,9 +1,30 @@
 ---
-name: _template
+name: skill-template
+layer: 全局基准 / 工程执行 / 工程协作 / 认识捕捉 / 认识校准
 description: >
   新建 skill 时使用。复制到新 skill 目录，填写各字段。
+  约束执行型 skill 直接复制正文结构；
+  协议交互型 skill 只复制 frontmatter，正文自定义。
   不作为独立 skill 加载，仅作为新 skill 的起点。
+interfaces:
+  upstream: []
+  downstream: []
 ---
+
+## 使用前判断 skill 类型
+
+**约束执行型**：这个 skill 约束 AI 在完成某类任务时的行为。
+适用模板的完整结构：强制停止点 / 信息收集 / 自检清单。
+例：principles、vibe-plan、docs、project-structure
+
+**协议交互型**：这个 skill 定义一种认识或交互过程。
+使用模板的元数据字段（layer、interfaces、description），正文结构自定义。
+例：conversation-to-spec、assumption-audit、notes-protocol、decision-record
+
+两种类型都必须填写：layer、interfaces、description。
+其余结构按类型选择，不强制统一。
+
+
 
 ## 这个 skill 做什么
 
@@ -115,6 +136,12 @@ description: >
 ---
 
 ## 新建 skill 的检查清单
+
+**元数据：**
+- [ ] `layer` 字段已填写，选择：全局基准 / 工程执行 / 工程协作 / 认识捕捉 / 认识校准
+- [ ] `interfaces.upstream` 已填写，没有上游则填 `[]`
+- [ ] `interfaces.downstream` 已填写，没有下游则填 `[]`
+- [ ] AGENTS.md 的对应分组已添加触发条件
 
 **触发和边界：**
 - [ ] description 只写触发条件，不混入行为指令

@@ -10,16 +10,48 @@
 
 以下 skill 按触发条件加载。fetch 失败时告知用户，不能静默降级。
 
+### 全局基准
+
+| 触发条件                   | Skill                                                        |
+| -------------------------- | ------------------------------------------------------------ |
+| 任何任务开始前（全局常驻） | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/identity/SKILL.md |
+
+### 工程执行
+
+| 触发条件                   | Skill                                                        |
+| -------------------------- | ------------------------------------------------------------ |
+| 写代码 / 命名 / 设计接口时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/principles/SKILL.md |
+| 生成任何文件或目录之前     | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/project-structure/SKILL.md |
+| 开始新功能或新模块之前     | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/vibe-plan/SKILL.md |
+
+### 工程协作
+
 | 触发条件                           | Skill                                                        |
 | ---------------------------------- | ------------------------------------------------------------ |
-| 任何任务开始前（全局常驻）         | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/identity/SKILL.md |
-| 写代码 / 命名 / 设计接口时         | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/principles/SKILL.md |
-| 生成任何文件或目录之前             | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/project-structure/SKILL.md |
-| 开始新功能或新模块之前             | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/vibe-plan/SKILL.md |
-| 写任何文档时                       | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/docs/SKILL.md |
 | 项目没有 AGENTS.md 时              | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/gen-agents/SKILL.md |
+| 写任何文档时                       | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/docs/SKILL.md |
+| 记录架构 / 流程 / 实现策略的选择时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/decision-record/SKILL.md |
+
+### 认识捕捉
+
+| 触发条件                           | Skill                                                        |
+| ---------------------------------- | ------------------------------------------------------------ |
 | 记笔记 / 整理认识 / 捕捉对话理解时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/notes-protocol/SKILL.md |
 | 操作 Notion 工作区时               | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/notion-manager/SKILL.md |
+
+### 认识校准
+
+| 触发条件                                         | Skill                                                        |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| 判断需要被审查 / 结论强于证据 / 词比定义跑得快时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/assumption-audit/SKILL.md |
+| 对话接近承诺时刻 / 感觉差不多了但还没落地时      | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/conversation-to-spec/SKILL.md |
+
+## 主动观察职责
+
+以下两种信号出现时，AI 应主动提议对应 skill，不等用户召唤：
+
+- **承诺窗口信号**：对话中出现收敛语（"所以我们接下来…"、"那先这样定…"）、某个词开始稳定承担解释负担但尚未定义、用户从"这意味着什么"转向"我们怎么做" → 提议 `conversation-to-spec`
+- **前提漂移信号**：结论强于证据、同一结论被反复使用但成立条件从未展开、对话从理解滑向行动且过渡过于顺滑 → 提议 `assumption-audit`
 
 ## 项目规范
 

@@ -1,10 +1,14 @@
 ---
 name: vibe-plan
+layer: 工程执行
 description: >
   开始新功能、新模块、或任何边界不清晰的任务之前加载。
   在写代码之前产出技术设计文档。
   用户说"我要做一个新功能"、"加一个模块"、"重构这块"时触发。
   用户说"就改一下"时默认触发——除非用户明确说不需要。
+interfaces:
+  upstream: [identity, principles]
+  downstream: [project-structure, docs, decision-record, assumption-audit]
 ---
 
 ## 这个 skill 做什么

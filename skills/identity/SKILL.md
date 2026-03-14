@@ -1,8 +1,13 @@
 ---
 name: identity
+layer: 全局基准
 description: >
-  全局基准 skill，不是触发型 skill。任何任务开始前常驻加载，不需要触发判断。
-  提供用户的工作方式和协作约定，作为所有其他 skill 的行为底层。
+  全局基准，任何任务开始前常驻加载。
+  提供协作约定、标注体系和强制停止规则，作为所有其他 skill 的行为底层。
+  不需要触发判断，始终在场。
+interfaces:
+  upstream: []
+  downstream: [principles, project-structure, vibe-plan, docs, gen-agents, notes-protocol, notion-manager, assumption-audit, conversation-to-spec, decision-record]
 ---
 
 ## 这个 skill 是什么

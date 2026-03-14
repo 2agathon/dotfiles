@@ -1,9 +1,13 @@
 ---
 name: gen-agents
+layer: 工程协作
 description: >
   开始在任何项目上工作时触发，当项目没有 AGENTS.md 时触发，
   当用户需要建立项目级 AI 协作基准时触发，当加入有现有规范的项目时触发。
   建立 AI 在这个项目里的行为基准。
+interfaces:
+  upstream: [identity, principles, project-structure]
+  downstream: []
 ---
 
 ## 这个 skill 做什么
@@ -159,7 +163,7 @@ fetch 成功后：
 - ✓ "任何 SQL 执行前必须通过 guardrail 检查"——行为约束，AI 不看代码不会知道
 - ✗ "这个项目用了 DuckDB"——AI 读 requirements.txt 就能知道，有代码库时写进来是噪音
 
----
+
 
 ## 输出结构
 
@@ -173,13 +177,39 @@ fetch 成功后：
 
 以下 skill 按触发条件加载，fetch 失败时告知用户：
 
+### 全局基准
+
 | 触发条件 | Skill |
 |----------|-------|
 | 开始任何任务时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/identity/SKILL.md |
+
+### 工程执行
+
+| 触发条件 | Skill |
+|----------|-------|
 | 写代码 / 命名 / 设计接口时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/principles/SKILL.md |
 | 生成任何文件或目录之前 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/project-structure/SKILL.md |
 | 开始新功能或新模块之前 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/vibe-plan/SKILL.md |
+
+### 工程协作
+
+| 触发条件 | Skill |
+|----------|-------|
 | 写任何文档时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/docs/SKILL.md |
+| 记录架构 / 流程 / 实现策略的选择时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/decision-record/SKILL.md |
+
+### 认识捕捉
+
+| 触发条件 | Skill |
+|----------|-------|
+| 记笔记 / 整理认识 / 捕捉对话理解时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/notes-protocol/SKILL.md |
+
+### 认识校准
+
+| 触发条件 | Skill |
+|----------|-------|
+| 判断需要被审查 / 结论强于证据时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/assumption-audit/SKILL.md |
+| 对话接近承诺时刻 / 感觉差不多了但还没落地时 | https://raw.githubusercontent.com/2agathon/dotfiles/refs/heads/main/skills/conversation-to-spec/SKILL.md |
 
 ## 项目参数
 [仅空项目 / Vibe Coding 起点生成]

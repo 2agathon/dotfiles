@@ -1,9 +1,13 @@
 ---
 name: notion-manager
+layer: 认识捕捉
 description: >
-  查询 Notion 工作区结构、容器边界词表、追溯认识版本链、归类内容时使用。
+  操作 Notion 工作区时使用：查询结构、归类内容、追溯认识版本链、写入页面。
   用户说"看看我的工作区"、"这个放哪里"、"这条认识从哪来"、
   "有哪些容器"、"帮我记一下"时触发。
+interfaces:
+  upstream: [identity, notes-protocol]
+  downstream: []
 ---
 
 ## 这个 skill 做什么

@@ -1,8 +1,12 @@
 ---
 name: principles
+layer: 工程执行
 description: >
   写代码、命名、设计接口、处理错误、写注释、写日志时加载。
   跨语言跨项目的工程原则。写代码时加载，不写代码时不需要加载。
+interfaces:
+  upstream: [identity]
+  downstream: [project-structure, vibe-plan]
 ---
 
 ## 这个 skill 的边界

@@ -1,9 +1,13 @@
 ---
 name: project-structure
+layer: 工程执行
 description: >
   生成任何新文件或目录之前加载。确保目录结构反映业务边界。
   用户说"新建模块"、"加服务"、"创建目录"时触发。
   发现文件疑似放错位置时触发——但判定放错必须等用户确认，不能自行判定。
+interfaces:
+  upstream: [identity, principles]
+  downstream: [docs, decision-record]
 ---
 
 ## 这个 skill 做什么
