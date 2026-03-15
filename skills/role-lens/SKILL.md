@@ -3,8 +3,9 @@ name: role-lens
 description: 识别当前对象被哪种默认透镜主导，并引入冲突性最大的挑战透镜，暴露原读取动作删掉了什么，判断当前结论应被重写、收缩还是仅补边界。
 layer: 认识校准
 interfaces:
-  upstream: [identity, assumption-audit]
+  upstream: [identity, assumption-audit, self-rewrite, knowledge-shaping]
   downstream: [conversation-to-spec, decision-record, self-rewrite]
+
 ---
 
 # Role Lens

@@ -30,30 +30,34 @@
 
 ### 认识捕捉
 
-| 文件                    | 用途                                   |
-| ----------------------- | -------------------------------------- |
-| `skills/notes-protocol` | 记笔记、整理认识、捕捉对话中的理解变化 |
-| `skills/notion-manager` | 管理 Notion 工作区                     |
+| 文件                       | 用途                                   |
+| -------------------------- | -------------------------------------- |
+| `skills/notes-protocol`    | 记笔记、整理认识、捕捉对话中的理解变化 |
+| `skills/notion-manager`    | 管理 Notion 工作区                     |
+| `skills/knowledge-shaping` | 把原始材料塑形为稳定的知识对象         |
 
 ### 认识校准
 
-| 文件                          | 用途                           |
-| ----------------------------- | ------------------------------ |
-| `skills/assumption-audit`     | 审计隐含前提、识别前提污染     |
-| `skills/conversation-to-spec` | 把对话中的共识构造成可执行规格 |
+| 文件                          | 用途                                 |
+| ----------------------------- | ------------------------------------ |
+| `skills/assumption-audit`     | 审计隐含前提、识别前提污染           |
+| `skills/conversation-to-spec` | 把对话中的共识构造成可执行规格       |
+| `skills/drift-detector`       | 检测系统演化中未被显式承认的边界变化 |
+| `skills/role-lens`            | 识别主导透镜，引入挑战透镜暴露盲点   |
+| `skills/self-rewrite`         | 旧自我叙述失效时生成可重入的改写记录 |
 
 ### 基础设施
 
-| 文件               | 用途                   |
-| ------------------ | ---------------------- |
-| `skills/_template` | 新 skill 的起点模板    |
-| `install.sh`       | Linux / macOS 安装脚本 |
-| `install.ps1`      | Windows 安装脚本       |
-| `install.cmd`      | Windows 兼容启动脚本   |
+| 文件          | 用途                   |
+| ------------- | ---------------------- |
+| `install.sh`  | Linux / macOS 安装脚本 |
+| `install.ps1` | Windows 安装脚本       |
+| `install.cmd` | Windows 兼容启动脚本   |
 
 ## 安装
 
 **Linux / macOS**
+
 ```bash
 git clone <your-private-dotfiles-repo> ~/dotfiles
 bash ~/dotfiles/install.sh

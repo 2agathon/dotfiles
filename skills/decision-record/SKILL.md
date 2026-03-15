@@ -7,8 +7,9 @@ description: >
   对话中出现明确备选项与取舍、某个临时方案开始固化为默认路径时触发。
 allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep
 interfaces:
-  upstream: [identity, vibe-plan, conversation-to-spec, notes-protocol, assumption-audit]
+  upstream: [identity, vibe-plan, conversation-to-spec, notes-protocol, assumption-audit, role-lens, project-structure, knowledge-shaping, docs]
   downstream: [docs]
+
 ---
 
 # Decision Record

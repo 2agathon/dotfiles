@@ -1,12 +1,15 @@
 ---
 name: self-rewrite
 layer: 认识校准
-purpose:
-  - 当旧自我叙述已不足以解释当前行为、判断或问题化方式时，生成一份带不稳定性声明的 rewrite record。
-  - 将改写结果保存为可重入、可降级、可撤回的历史对象，而不是把一次改写固化为稳定身份真值。
+description: >
+  当旧自我叙述已不足以解释当前行为、判断或问题化方式时触发。
+  生成一份带不稳定性声明的 rewrite record，
+  作为可重入、可降级、可撤回的历史对象，
+  而不是把一次改写固化为稳定身份真值。
 interfaces:
-  upstream: [identity, assumption-audit, notes-protocol]
+  upstream: [identity, assumption-audit, notes-protocol, role-lens]
   downstream: [notion-manager, role-lens]
+
 ---
 
 # Self-Rewrite
@@ -34,6 +37,8 @@ interfaces:
 - 不是“做了什么”变了，而是“把什么当作问题”的方式变了。
 - 某些旧标签需要降级、加注释或退出主叙述。
 - 用户提供上一份 rewrite record，并要求结合新材料重跑。
+
+## When Not to Use
 
 以下情况不触发：
 

@@ -39,7 +39,10 @@
 | 对话收敛时机判断不准                                    | `skills/conversation-to-spec/SKILL.md`   |
 | 笔记捕捉不到认识变化                                    | `skills/notes-protocol/SKILL.md`         |
 | Notion 操作出错或归类不准                               | `skills/notion-manager/SKILL.md`         |
-| 新 skill 模板不够用                                     | `skills/_template/SKILL.md`              |
+| 知识塑形输出质量不稳定                                  | `skills/knowledge-shaping/SKILL.md`      |
+| 漂移检测误报或漏报                                      | `skills/drift-detector/SKILL.md`         |
+| 透镜识别不准或挑战透镜冲突性不足                        | `skills/role-lens/SKILL.md`              |
+| 自我叙述改写过早固化或重入机制失效                      | `skills/self-rewrite/SKILL.md`           |
 | 全局入口需要调整                                        | `AGENTS.md`                              |
 | 安装方式、本地路径写入方式或全局 skill 安装方式需要调整 | `install.sh` / `install.ps1`             |
 
@@ -48,17 +51,20 @@
 ## 怎么更新
 
 **改之前先问自己：**
+
 - 这是我已经在做的，还是我觉得应该做的？
 - 这条在三个不同项目里都成立，还是只在某个项目里成立？
 - 如果只在某个项目里成立，它应该在那个项目的 `AGENTS.md` 里，不在这里
 
 **改的时候：**
+
 - 说明 why，不只改 what
 - 删除和新增同等重要——腐化的规范比没有规范更危险
 - 一次只改一件事，不要攒着一起改
 - 如果改动影响 skill 加载机制、路径机制或项目自包含方式，必须同时检查 `AGENTS.md`、`skills/gen-agents/SKILL.md`、`install.sh`、`install.ps1`、`README.md` 是否仍然一致
 
 **改完之后：**
+
 - 检查是否需要同步更新其他 skill
 - 检查现有项目的 Layer 3 是否需要对应调整
 
@@ -85,4 +91,4 @@
 | 2026-03 | 初始版本，基于与 Claude 的对话建立                           |
 | 2026-03 | 新增 assumption-audit、conversation-to-spec、decision-record；skill 体系按层分组；docs 与 decision-record 边界重新划定 |
 | 2026-03 | 为适配仓库私有化，skill 加载从远程 raw URL 迁移为本地优先：全局 AGENTS 改为本地路径引用，项目级 AGENTS 改为复制 skill 到项目内并使用相对路径 |
-| [日期]  | [一句话]                                                     |
+| 2026-03 | 新增 knowledge-shaping、drift-detector、role-lens、self-rewrite 四个认识校准 skill；修复 11 个 skill 的 upstream 字段；补全 notion-manager / notes-protocol / gen-agents / drift-detector 的保护节；修复 self-rewrite frontmatter 格式 |
