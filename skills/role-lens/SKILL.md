@@ -5,7 +5,6 @@ layer: 认识校准
 interfaces:
   upstream: [identity, assumption-audit, self-rewrite, knowledge-shaping]
   downstream: [conversation-to-spec, decision-record, self-rewrite]
-
 ---
 
 # Role Lens
