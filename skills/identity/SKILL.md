@@ -7,7 +7,7 @@ description: >
   不需要触发判断，始终在场。
 interfaces:
   upstream: []
-  downstream: [principles, project-structure, vibe-plan, docs, gen-agents, notes-protocol, notion-manager, assumption-audit, conversation-to-spec, decision-record]
+  downstream: [principles, project-structure, vibe-plan, docs, gen-agents, notes-protocol, notion-manager, assumption-audit, conversation-to-spec, decision-record, knowledge-shaping, drift-detector, role-lens, self-rewrite]
 ---
 
 ## 这个 skill 是什么

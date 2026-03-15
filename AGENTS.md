@@ -16,46 +16,52 @@
 
 ### 全局基准
 
-| 触发条件                   | Skill                                                   |
-| -------------------------- | ------------------------------------------------------- |
-| 任何任务开始前（全局常驻） | `{{DOTFILES_ABS_PATH}}/skills/identity/SKILL.md`        |
+| 触发条件                   | Skill                                            |
+| -------------------------- | ------------------------------------------------ |
+| 任何任务开始前（全局常驻） | `{{DOTFILES_ABS_PATH}}/skills/identity/SKILL.md` |
 
 ### 工程执行
 
-| 触发条件                   | Skill                                                              |
-| -------------------------- | ------------------------------------------------------------------ |
-| 写代码 / 命名 / 设计接口时 | `{{DOTFILES_ABS_PATH}}/skills/principles/SKILL.md`                 |
-| 生成任何文件或目录之前     | `{{DOTFILES_ABS_PATH}}/skills/project-structure/SKILL.md`          |
-| 开始新功能或新模块之前     | `{{DOTFILES_ABS_PATH}}/skills/vibe-plan/SKILL.md`                  |
+| 触发条件                   | Skill                                                     |
+| -------------------------- | --------------------------------------------------------- |
+| 写代码 / 命名 / 设计接口时 | `{{DOTFILES_ABS_PATH}}/skills/principles/SKILL.md`        |
+| 生成任何文件或目录之前     | `{{DOTFILES_ABS_PATH}}/skills/project-structure/SKILL.md` |
+| 开始新功能或新模块之前     | `{{DOTFILES_ABS_PATH}}/skills/vibe-plan/SKILL.md`         |
 
 ### 工程协作
 
-| 触发条件                           | Skill                                                              |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| 项目没有 AGENTS.md 时              | `{{DOTFILES_ABS_PATH}}/skills/gen-agents/SKILL.md`                 |
-| 写任何文档时                       | `{{DOTFILES_ABS_PATH}}/skills/docs/SKILL.md`                       |
-| 记录架构 / 流程 / 实现策略的选择时 | `{{DOTFILES_ABS_PATH}}/skills/decision-record/SKILL.md`            |
+| 触发条件                           | Skill                                                   |
+| ---------------------------------- | ------------------------------------------------------- |
+| 项目没有 AGENTS.md 时              | `{{DOTFILES_ABS_PATH}}/skills/gen-agents/SKILL.md`      |
+| 写任何文档时                       | `{{DOTFILES_ABS_PATH}}/skills/docs/SKILL.md`            |
+| 记录架构 / 流程 / 实现策略的选择时 | `{{DOTFILES_ABS_PATH}}/skills/decision-record/SKILL.md` |
 
 ### 认识捕捉
 
-| 触发条件                           | Skill                                                              |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| 记笔记 / 整理认识 / 捕捉对话理解时 | `{{DOTFILES_ABS_PATH}}/skills/notes-protocol/SKILL.md`             |
-| 操作 Notion 工作区时               | `{{DOTFILES_ABS_PATH}}/skills/notion-manager/SKILL.md`             |
+| 触发条件                                                  | Skill                                                     |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| 记笔记 / 整理认识 / 捕捉对话理解时                        | `{{DOTFILES_ABS_PATH}}/skills/notes-protocol/SKILL.md`    |
+| 操作 Notion 工作区时                                      | `{{DOTFILES_ABS_PATH}}/skills/notion-manager/SKILL.md`    |
+| 有知识增量但尚未形成认识断裂 / 想把材料塑形成可复用对象时 | `{{DOTFILES_ABS_PATH}}/skills/knowledge-shaping/SKILL.md` |
 
 ### 认识校准
 
-| 触发条件                                         | Skill                                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------ |
-| 判断需要被审查 / 结论强于证据 / 词比定义跑得快时 | `{{DOTFILES_ABS_PATH}}/skills/assumption-audit/SKILL.md`           |
-| 对话接近承诺时刻 / 感觉差不多了但还没落地时      | `{{DOTFILES_ABS_PATH}}/skills/conversation-to-spec/SKILL.md`       |
+| 触发条件                                                  | Skill                                                        |
+| --------------------------------------------------------- | ------------------------------------------------------------ |
+| 判断需要被审查 / 结论强于证据 / 词比定义跑得快时          | `{{DOTFILES_ABS_PATH}}/skills/assumption-audit/SKILL.md`     |
+| 对话接近承诺时刻 / 感觉差不多了但还没落地时               | `{{DOTFILES_ABS_PATH}}/skills/conversation-to-spec/SKILL.md` |
+| 某个结论显得过于自然顺滑 / 同一对象只按一种方式被解释时   | `{{DOTFILES_ABS_PATH}}/skills/role-lens/SKILL.md`            |
+| 系统文件发生较大改写 / 某种做法已成默认但对应记录仍缺席时 | `{{DOTFILES_ABS_PATH}}/skills/drift-detector/SKILL.md`       |
+| 旧自我叙述已不能解释当前行为或判断 / 需要重新理解自己时   | `{{DOTFILES_ABS_PATH}}/skills/self-rewrite/SKILL.md`         |
 
 ## 主动观察职责
 
-以下两种信号出现时，AI 应主动提议对应 skill，不等用户召唤：
+以下信号出现时，AI 应主动提议对应 skill，不等用户召唤：
 
 - **承诺窗口信号**：对话中出现收敛语（"所以我们接下来…"、"那先这样定…"）、某个词开始稳定承担解释负担但尚未定义、用户从"这意味着什么"转向"我们怎么做" → 提议 `conversation-to-spec`
 - **前提漂移信号**：结论强于证据、同一结论被反复使用但成立条件从未展开、对话从理解滑向行动且过渡过于顺滑 → 提议 `assumption-audit`
+- **无声变更信号**：某个术语在多处被使用但含义开始不稳定、某种选择已经在实践中反复被默认采用但未被记录、系统自我描述与当前实际做法味道已经不同 → 提议 `drift-detector`
+- **单一透镜信号**：某个方向的讨论或结论显得格外自然、没有任何张力、所有证据都在支持同一结论 → 提议 `role-lens`
 
 ## 项目规范
 
