@@ -1,0 +1,896 @@
+{
+  "meta": {
+    "name": "47265219889@chatroom",
+    "type": "group",
+    "platform": "wechat",
+    "timeRange": {
+      "declaredStart": "2026-03-18",
+      "declaredEnd": "2026-03-21",
+      "start": "2026-03-18T19:25:40+08:00",
+      "end": "2026-03-21T18:28:16+08:00",
+      "days": 4,
+      "actualDays": 4,
+      "silentDaysAtStart": 0,
+      "silentDaysAtEnd": 0
+    },
+    "totalMessages": 57,
+    "systemMessages": 1,
+    "activeMembers": 3
+  },
+  "members": [
+    {
+      "rank": 1,
+      "id": "wxid_8eestixbqdg622",
+      "name": "2agathon",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/UC8FpzT9Xib5pPUgyJjc4vCj8PkpniaIm8ZiaFSlT41SRPjySt9gddt6k76EUHeFs1dg32FcBYYjJGWAiaE4aXBOrhh6AoO0EnNRgGpDq7ibR28JnWRfc2qIa8VcXAhBicpFF0/0",
+      "messageCount": 27,
+      "percentage": 47.4
+    },
+    {
+      "rank": 2,
+      "id": "wxid_zyd3x8d48jon11",
+      "name": "展宣—魏",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/oa3lN51ynuxppNxRGgDwY6awUBkBJrqaW7W3Rj0g15vPTEKdc0fXwrMJY9HIuutSYaMy3RpEDZuoRhLiaLM0yDVicicWkjKO5cyhl5B5zJbByF1PeCR1IHDcSDTIZice9wT0/0",
+      "messageCount": 23,
+      "percentage": 40.4
+    },
+    {
+      "rank": 3,
+      "id": "wxid_m9ycefgul1d522",
+      "name": "旭辉—刘",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/3cmaRRm4QHibp0ib2iaqhBZqFHRBrMZic2aJIvgpicoTo7EyzTMYcGNyomtehq9PDAJR7AIfeicymv7qLE2ynuXyZ88Fdzu6MCQtKhbmHPcJe8fw6zn0KC3arGOUUrqrY6jElTQcQDoOU6wMicq3wdzgqyyAQ/0",
+      "messageCount": 7,
+      "percentage": 12.3
+    }
+  ],
+  "activity": {
+    "ranking": [
+      {
+        "rank": 1,
+        "id": "wxid_8eestixbqdg622",
+        "name": "2agathon",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/UC8FpzT9Xib5pPUgyJjc4vCj8PkpniaIm8ZiaFSlT41SRPjySt9gddt6k76EUHeFs1dg32FcBYYjJGWAiaE4aXBOrhh6AoO0EnNRgGpDq7ibR28JnWRfc2qIa8VcXAhBicpFF0/0",
+        "messageCount": 27,
+        "percentage": 47.4
+      },
+      {
+        "rank": 2,
+        "id": "wxid_zyd3x8d48jon11",
+        "name": "展宣—魏",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/oa3lN51ynuxppNxRGgDwY6awUBkBJrqaW7W3Rj0g15vPTEKdc0fXwrMJY9HIuutSYaMy3RpEDZuoRhLiaLM0yDVicicWkjKO5cyhl5B5zJbByF1PeCR1IHDcSDTIZice9wT0/0",
+        "messageCount": 23,
+        "percentage": 40.4
+      },
+      {
+        "rank": 3,
+        "id": "wxid_m9ycefgul1d522",
+        "name": "旭辉—刘",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/3cmaRRm4QHibp0ib2iaqhBZqFHRBrMZic2aJIvgpicoTo7EyzTMYcGNyomtehq9PDAJR7AIfeicymv7qLE2ynuXyZ88Fdzu6MCQtKhbmHPcJe8fw6zn0KC3arGOUUrqrY6jElTQcQDoOU6wMicq3wdzgqyyAQ/0",
+        "messageCount": 7,
+        "percentage": 12.3
+      }
+    ],
+    "hourlyDistribution": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      13,
+      0,
+      1,
+      2,
+      2,
+      1,
+      6,
+      0,
+      0,
+      0,
+      4,
+      8,
+      0,
+      18,
+      0,
+      0
+    ],
+    "dailyDistribution": {
+      "2026-03-18": 26,
+      "2026-03-20": 16,
+      "2026-03-21": 15
+    },
+    "peakHour": 21,
+    "peakHourLabel": "21:00-22:00",
+    "messageTypeRatio": {
+      "text": 0.895,
+      "unknown_4": 0.018,
+      "image_or_emoji": 0.07,
+      "video": 0.018
+    }
+  },
+  "interactions": {
+    "mentions": [
+      {
+        "sender": "展宣—魏",
+        "senderId": "wxid_zyd3x8d48jon11",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773833140,
+        "datetime": "2026-03-18T19:25:40+08:00"
+      },
+      {
+        "sender": "展宣—魏",
+        "senderId": "wxid_zyd3x8d48jon11",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773841957,
+        "datetime": "2026-03-18T21:52:37+08:00"
+      }
+    ]
+  },
+  "memberStats": {
+    "展宣—魏": {
+      "avgMsgLength": 10.2,
+      "maxMsgLength": 25,
+      "mediaRatio": 0.0,
+      "activeDays": [
+        "2026-03-18",
+        "2026-03-20",
+        "2026-03-21"
+      ],
+      "firstDatetime": "2026-03-18T19:25:40+08:00",
+      "lastDatetime": "2026-03-21T18:15:56+08:00"
+    },
+    "2agathon": {
+      "avgMsgLength": 37.1,
+      "maxMsgLength": 161,
+      "mediaRatio": 0.222,
+      "activeDays": [
+        "2026-03-18",
+        "2026-03-20",
+        "2026-03-21"
+      ],
+      "firstDatetime": "2026-03-18T19:36:28+08:00",
+      "lastDatetime": "2026-03-21T18:28:16+08:00"
+    },
+    "旭辉—刘": {
+      "avgMsgLength": 10.1,
+      "maxMsgLength": 21,
+      "mediaRatio": 0.0,
+      "activeDays": [
+        "2026-03-18"
+      ],
+      "firstDatetime": "2026-03-18T21:05:34+08:00",
+      "lastDatetime": "2026-03-18T21:21:39+08:00"
+    }
+  },
+  "conversationSessions": [
+    {
+      "index": 1,
+      "start": "2026-03-18T19:25:40+08:00",
+      "end": "2026-03-18T19:45:21+08:00",
+      "messageCount": 8,
+      "participants": [
+        "展宣—魏",
+        "2agathon"
+      ]
+    },
+    {
+      "index": 2,
+      "start": "2026-03-18T21:05:34+08:00",
+      "end": "2026-03-18T21:52:51+08:00",
+      "messageCount": 18,
+      "participants": [
+        "旭辉—刘",
+        "展宣—魏",
+        "2agathon"
+      ]
+    },
+    {
+      "index": 3,
+      "start": "2026-03-20T07:02:50+08:00",
+      "end": "2026-03-20T07:03:18+08:00",
+      "messageCount": 2,
+      "participants": [
+        "2agathon"
+      ]
+    },
+    {
+      "index": 4,
+      "start": "2026-03-20T08:33:25+08:00",
+      "end": "2026-03-20T08:45:13+08:00",
+      "messageCount": 13,
+      "participants": [
+        "展宣—魏",
+        "2agathon"
+      ]
+    },
+    {
+      "index": 5,
+      "start": "2026-03-20T10:06:04+08:00",
+      "end": "2026-03-20T10:06:04+08:00",
+      "messageCount": 1,
+      "participants": [
+        "2agathon"
+      ]
+    },
+    {
+      "index": 6,
+      "start": "2026-03-21T11:14:45+08:00",
+      "end": "2026-03-21T11:14:45+08:00",
+      "messageCount": 2,
+      "participants": [
+        "2agathon"
+      ]
+    },
+    {
+      "index": 7,
+      "start": "2026-03-21T12:24:01+08:00",
+      "end": "2026-03-21T12:24:01+08:00",
+      "messageCount": 2,
+      "participants": [
+        "2agathon"
+      ]
+    },
+    {
+      "index": 8,
+      "start": "2026-03-21T13:04:03+08:00",
+      "end": "2026-03-21T13:04:03+08:00",
+      "messageCount": 1,
+      "participants": [
+        "展宣—魏"
+      ]
+    },
+    {
+      "index": 9,
+      "start": "2026-03-21T14:03:28+08:00",
+      "end": "2026-03-21T14:10:19+08:00",
+      "messageCount": 6,
+      "participants": [
+        "2agathon"
+      ]
+    },
+    {
+      "index": 10,
+      "start": "2026-03-21T18:15:39+08:00",
+      "end": "2026-03-21T18:28:16+08:00",
+      "messageCount": 4,
+      "participants": [
+        "展宣—魏",
+        "2agathon"
+      ]
+    }
+  ],
+  "silenceGaps": [
+    {
+      "beforeDatetime": "2026-03-18T21:52:51+08:00",
+      "afterDatetime": "2026-03-20T07:02:50+08:00",
+      "minutes": 1990
+    },
+    {
+      "beforeDatetime": "2026-03-20T10:06:04+08:00",
+      "afterDatetime": "2026-03-21T11:14:45+08:00",
+      "minutes": 1509
+    },
+    {
+      "beforeDatetime": "2026-03-21T14:10:19+08:00",
+      "afterDatetime": "2026-03-21T18:15:39+08:00",
+      "minutes": 245
+    },
+    {
+      "beforeDatetime": "2026-03-20T07:03:18+08:00",
+      "afterDatetime": "2026-03-20T08:33:25+08:00",
+      "minutes": 90
+    },
+    {
+      "beforeDatetime": "2026-03-20T08:45:13+08:00",
+      "afterDatetime": "2026-03-20T10:06:04+08:00",
+      "minutes": 81
+    },
+    {
+      "beforeDatetime": "2026-03-18T19:45:21+08:00",
+      "afterDatetime": "2026-03-18T21:05:34+08:00",
+      "minutes": 80
+    },
+    {
+      "beforeDatetime": "2026-03-21T11:14:45+08:00",
+      "afterDatetime": "2026-03-21T12:24:01+08:00",
+      "minutes": 69
+    },
+    {
+      "beforeDatetime": "2026-03-21T13:04:03+08:00",
+      "afterDatetime": "2026-03-21T14:03:28+08:00",
+      "minutes": 59
+    },
+    {
+      "beforeDatetime": "2026-03-21T12:24:01+08:00",
+      "afterDatetime": "2026-03-21T13:04:03+08:00",
+      "minutes": 40
+    },
+    {
+      "beforeDatetime": "2026-03-18T21:22:38+08:00",
+      "afterDatetime": "2026-03-18T21:52:37+08:00",
+      "minutes": 30
+    }
+  ],
+  "insights": {
+    "ghostList": [],
+    "nightOwlRanking": [],
+    "monologueRanking": [
+      {
+        "name": "2agathon",
+        "monologueCount": 2,
+        "longestStreak": 6
+      },
+      {
+        "name": "展宣—魏",
+        "monologueCount": 2,
+        "longestStreak": 4
+      },
+      {
+        "name": "旭辉—刘",
+        "monologueCount": 1,
+        "longestStreak": 3
+      }
+    ],
+    "fastestReply": {
+      "replier": "展宣—魏",
+      "replyGapSeconds": 4,
+      "triggerSender": "2agathon",
+      "triggerContent": "不打了，轩哥刚下。",
+      "replyContent": "\n好",
+      "datetime": "2026-03-18T21:52:51+08:00"
+    },
+    "groupVelocity": {
+      "totalMessages": 57,
+      "activeHours": 10,
+      "avgPerActiveHour": 5.7,
+      "avgPerDay": 14.2,
+      "peakMinute": "2026-03-18 21:20",
+      "peakMinuteCount": 4
+    },
+    "iceBreakerRanking": [
+      {
+        "name": "2agathon",
+        "count": 5
+      },
+      {
+        "name": "展宣—魏",
+        "count": 4
+      },
+      {
+        "name": "旭辉—刘",
+        "count": 1
+      }
+    ],
+    "closerRanking": [
+      {
+        "name": "2agathon",
+        "count": 6
+      },
+      {
+        "name": "展宣—魏",
+        "count": 4
+      }
+    ]
+  },
+  "messages": [
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773833140,
+      "datetime": "2026-03-18T19:25:40+08:00",
+      "type": "text",
+      "content": "\n@2agathon ",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773833143,
+      "datetime": "2026-03-18T19:25:43+08:00",
+      "type": "text",
+      "content": "\n怎么那么早在打王者？",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773833788,
+      "datetime": "2026-03-18T19:36:28+08:00",
+      "type": "text",
+      "content": "我靠，轩哥，等一下，我没看到消息，我马上退出来。",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773834078,
+      "datetime": "2026-03-18T19:41:18+08:00",
+      "type": "text",
+      "content": "\n没事，我打一把要去弄了",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773834081,
+      "datetime": "2026-03-18T19:41:21+08:00",
+      "type": "text",
+      "content": "\n运动",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773834096,
+      "datetime": "2026-03-18T19:41:36+08:00",
+      "type": "text",
+      "content": "6，这么自律",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773834319,
+      "datetime": "2026-03-18T19:45:19+08:00",
+      "type": "text",
+      "content": "\n一周就一次，没办法变胖了。",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773834321,
+      "datetime": "2026-03-18T19:45:21+08:00",
+      "type": "text",
+      "content": "\n[Chuckle]",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773839134,
+      "datetime": "2026-03-18T21:05:34+08:00",
+      "type": "text",
+      "content": "\n有没有谷歌商店安装包",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773839196,
+      "datetime": "2026-03-18T21:06:36+08:00",
+      "type": "text",
+      "content": "\n添有[Chuckle]",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773839466,
+      "datetime": "2026-03-18T21:11:06+08:00",
+      "type": "text",
+      "content": "\n发我一份天",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773839489,
+      "datetime": "2026-03-18T21:11:29+08:00",
+      "type": "text",
+      "content": "\n你要干嘛用",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773839490,
+      "datetime": "2026-03-18T21:11:30+08:00",
+      "type": "text",
+      "content": "\n[Chuckle]",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773839538,
+      "datetime": "2026-03-18T21:12:18+08:00",
+      "type": "text",
+      "content": "\n我的谷歌下载不了了",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773839876,
+      "datetime": "2026-03-18T21:17:56+08:00",
+      "type": "text",
+      "content": "辉辉，我是在小米应用商店下载的，你商店没有嘛",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773839943,
+      "datetime": "2026-03-18T21:19:03+08:00",
+      "type": "unknown_4",
+      "content": "[文件] Google Play Store.apk.1",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773840004,
+      "datetime": "2026-03-18T21:20:04+08:00",
+      "type": "text",
+      "content": "\n有",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773840016,
+      "datetime": "2026-03-18T21:20:16+08:00",
+      "type": "text",
+      "content": "\n原来不是这个商店的问题",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773840028,
+      "datetime": "2026-03-18T21:20:28+08:00",
+      "type": "text",
+      "content": "\n是纸飞机不能下载",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773840038,
+      "datetime": "2026-03-18T21:20:38+08:00",
+      "type": "text",
+      "content": "啊，那为啥不在商店下载，我也是从商店直接下载的",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773840062,
+      "datetime": "2026-03-18T21:21:02+08:00",
+      "type": "text",
+      "content": "哦哦",
+      "replyToId": null
+    },
+    {
+      "sender": "旭辉—刘",
+      "senderId": "wxid_m9ycefgul1d522",
+      "timestamp": 1773840099,
+      "datetime": "2026-03-18T21:21:39+08:00",
+      "type": "text",
+      "content": "\n我谷歌商店下载其他软件可以，下载飞机不行",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773840158,
+      "datetime": "2026-03-18T21:22:38+08:00",
+      "type": "text",
+      "content": "啊，那这不太清楚了，手机也有clash的",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773841957,
+      "datetime": "2026-03-18T21:52:37+08:00",
+      "type": "text",
+      "content": "\n@2agathon 打两把？",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773841967,
+      "datetime": "2026-03-18T21:52:47+08:00",
+      "type": "text",
+      "content": "不打了，轩哥刚下。",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773841971,
+      "datetime": "2026-03-18T21:52:51+08:00",
+      "type": "text",
+      "content": "\n好",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773961370,
+      "datetime": "2026-03-20T07:02:50+08:00",
+      "type": "image_or_emoji",
+      "content": "../images/1319_f0bfccc2461055984bb3e43d7d7ae45b.jpg",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773961398,
+      "datetime": "2026-03-20T07:03:18+08:00",
+      "type": "text",
+      "content": "泪目兄弟们，报销chatgpt会员费了",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773966805,
+      "datetime": "2026-03-20T08:33:25+08:00",
+      "type": "text",
+      "content": "\n这么好呀",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773966825,
+      "datetime": "2026-03-20T08:33:45+08:00",
+      "type": "text",
+      "content": "\n添都打错了",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773966827,
+      "datetime": "2026-03-20T08:33:47+08:00",
+      "type": "text",
+      "content": "\n差评",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773966830,
+      "datetime": "2026-03-20T08:33:50+08:00",
+      "type": "text",
+      "content": "\n[Chuckle]",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773966859,
+      "datetime": "2026-03-20T08:34:19+08:00",
+      "type": "text",
+      "content": "哈哈哈",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773966862,
+      "datetime": "2026-03-20T08:34:22+08:00",
+      "type": "image_or_emoji",
+      "content": "../images/1326_b43213460e15022534fd956e5692b54d.jpg",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773966982,
+      "datetime": "2026-03-20T08:36:22+08:00",
+      "type": "text",
+      "content": "我现在另一个号还在给我领导用的，让他把那个号也开了，我每个月开发就完全够了。\n我打算拿空下的钱开claude，然后每个月看场音乐会或者歌舞剧",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773967095,
+      "datetime": "2026-03-20T08:38:15+08:00",
+      "type": "video",
+      "content": "[视频]",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773967362,
+      "datetime": "2026-03-20T08:42:42+08:00",
+      "type": "text",
+      "content": "\n[Lol][Lol]",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773967371,
+      "datetime": "2026-03-20T08:42:51+08:00",
+      "type": "text",
+      "content": "\n什么时候开始教我呀[Onlooker]",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773967434,
+      "datetime": "2026-03-20T08:43:54+08:00",
+      "type": "text",
+      "content": "宣哥，最近真忙，得45月份吧[Facepalm]\n昨天又是9点才走，9点多才回到宿舍",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773967505,
+      "datetime": "2026-03-20T08:45:05+08:00",
+      "type": "text",
+      "content": "\n哈哈哈  等你空下来",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1773967513,
+      "datetime": "2026-03-20T08:45:13+08:00",
+      "type": "text",
+      "content": "\n手把手教学[Shy]",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1773972364,
+      "datetime": "2026-03-20T10:06:04+08:00",
+      "type": "text",
+      "content": "哈哈哈，好",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774062885,
+      "datetime": "2026-03-21T11:14:45+08:00",
+      "type": "image_or_emoji",
+      "content": "../images/1335_b4d8eec698e12e284fc0d5ec472e3bb2.png",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774062885,
+      "datetime": "2026-03-21T11:14:45+08:00",
+      "type": "text",
+      "content": "笑死了兄弟们，真没招了",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774067041,
+      "datetime": "2026-03-21T12:24:01+08:00",
+      "type": "image_or_emoji",
+      "content": "../images/1337_68ef1b9f09d976cc4049ba9bfba79244.png",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774067041,
+      "datetime": "2026-03-21T12:24:01+08:00",
+      "type": "text",
+      "content": "xdm，白嫖代码到手！",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1774069443,
+      "datetime": "2026-03-21T13:04:03+08:00",
+      "type": "text",
+      "content": "\n这个是干嘛的",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073008,
+      "datetime": "2026-03-21T14:03:28+08:00",
+      "type": "text",
+      "content": "就是我另一个谷歌账号一直是给我的领导用的，然后现在他觉得免费的ChatGPT太垃圾了，然后他也要开一个会员，然后他就把我那个号的会员开了，但是chatgpt会员开了，不仅仅只是说使用不同的模型还可以用来呃代码编程，但他用不到代码编程，所以我会把他这个给用掉，所以我就不用再额外开一个更多的cursor去编代码了，省下一笔钱",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073069,
+      "datetime": "2026-03-21T14:04:29+08:00",
+      "type": "text",
+      "content": "我已经把省下来的钱开claude了，曾经沧海难为水，除却巫山不是云啊兄弟们。这个公司做的产品太恐怖了，太牛逼了，不仅仅模型上面超越了chat gpt，而且从产品的影响广度来看，设计的理念来看也远超车的gpt",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073128,
+      "datetime": "2026-03-21T14:05:28+08:00",
+      "type": "text",
+      "content": "我这周总昨天第1次试这个claude，他就试了一天，他就第1次站起身来说这个模型太牛逼了，在公司里面感叹[Facepalm]",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073139,
+      "datetime": "2026-03-21T14:05:39+08:00",
+      "type": "text",
+      "content": "思考能力远超其他模型",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073174,
+      "datetime": "2026-03-21T14:06:14+08:00",
+      "type": "text",
+      "content": "要不是我硬推他，他还在用那ChatGPT免费版的，所以没试他都不知道有多牛逼。",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774073419,
+      "datetime": "2026-03-21T14:10:19+08:00",
+      "type": "text",
+      "content": "兄弟过去一个chatgpt会员一个cursor会员，自己每月支出280。\n现在，一个claude会员，两个chatgpt会员，一个cursor会员。每个20刀，公司报销60刀，我付20刀，每月140。\n钱少了，模型更多了[Doge]",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1774088139,
+      "datetime": "2026-03-21T18:15:39+08:00",
+      "type": "text",
+      "content": "\n[Lol][Lol]",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1774088144,
+      "datetime": "2026-03-21T18:15:44+08:00",
+      "type": "text",
+      "content": "\n能报销很不错了",
+      "replyToId": null
+    },
+    {
+      "sender": "展宣—魏",
+      "senderId": "wxid_zyd3x8d48jon11",
+      "timestamp": 1774088156,
+      "datetime": "2026-03-21T18:15:56+08:00",
+      "type": "text",
+      "content": "\n挺好的，省出来的钱可以请我吃饭[Chuckle]",
+      "replyToId": null
+    },
+    {
+      "sender": "2agathon",
+      "senderId": "wxid_8eestixbqdg622",
+      "timestamp": 1774088896,
+      "datetime": "2026-03-21T18:28:16+08:00",
+      "type": "text",
+      "content": "哈哈哈，那必须的",
+      "replyToId": null
+    }
+  ]
+}

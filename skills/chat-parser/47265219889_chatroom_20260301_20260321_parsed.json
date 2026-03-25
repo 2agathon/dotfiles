@@ -1,0 +1,725 @@
+{
+  "meta": {
+    "name": "47265219889@chatroom",
+    "type": "group",
+    "platform": "wechat",
+    "timeRange": {
+      "start": "2026-03-01T19:03:03+08:00",
+      "end": "2026-03-21T18:28:16+08:00",
+      "days": 21
+    },
+    "totalMessages": 891,
+    "systemMessages": 19,
+    "activeMembers": 4
+  },
+  "members": [
+    {
+      "rank": 1,
+      "id": "wxid_zyd3x8d48jon11",
+      "name": "展宣—魏",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/oa3lN51ynuxppNxRGgDwY6awUBkBJrqaW7W3Rj0g15vPTEKdc0fXwrMJY9HIuutSYaMy3RpEDZuoRhLiaLM0yDVicicWkjKO5cyhl5B5zJbByF1PeCR1IHDcSDTIZice9wT0/0",
+      "messageCount": 464,
+      "percentage": 52.1
+    },
+    {
+      "rank": 2,
+      "id": "wxid_8eestixbqdg622",
+      "name": "2agathon",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/UC8FpzT9Xib5pPUgyJjc4vCj8PkpniaIm8ZiaFSlT41SRPjySt9gddt6k76EUHeFs1dg32FcBYYjJGWAiaE4aXBOrhh6AoO0EnNRgGpDq7ibR28JnWRfc2qIa8VcXAhBicpFF0/0",
+      "messageCount": 394,
+      "percentage": 44.2
+    },
+    {
+      "rank": 3,
+      "id": "wxid_m9ycefgul1d522",
+      "name": "旭辉—刘",
+      "avatar": "https://wx.qlogo.cn/mmhead/ver_1/3cmaRRm4QHibp0ib2iaqhBZqFHRBrMZic2aJIvgpicoTo7EyzTMYcGNyomtehq9PDAJR7AIfeicymv7qLE2ynuXyZ88Fdzu6MCQtKhbmHPcJe8fw6zn0KC3arGOUUrqrY6jElTQcQDoOU6wMicq3wdzgqyyAQ/0",
+      "messageCount": 29,
+      "percentage": 3.3
+    },
+    {
+      "rank": 4,
+      "id": "47265219889@chatroom",
+      "name": "47265219889@chatroom",
+      "avatar": "https://wx.qlogo.cn/mmcrhead/r5stgmmuA0Y6ZNPup7jxmpyZhHsz79BJPtPeGPRfOQwRMRXIedtJpfFnZXgzJkkxo4oO5J4Ykm8/0",
+      "messageCount": 4,
+      "percentage": 0.4
+    }
+  ],
+  "activity": {
+    "ranking": [
+      {
+        "rank": 1,
+        "id": "wxid_zyd3x8d48jon11",
+        "name": "展宣—魏",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/oa3lN51ynuxppNxRGgDwY6awUBkBJrqaW7W3Rj0g15vPTEKdc0fXwrMJY9HIuutSYaMy3RpEDZuoRhLiaLM0yDVicicWkjKO5cyhl5B5zJbByF1PeCR1IHDcSDTIZice9wT0/0",
+        "messageCount": 464,
+        "percentage": 52.1
+      },
+      {
+        "rank": 2,
+        "id": "wxid_8eestixbqdg622",
+        "name": "2agathon",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/UC8FpzT9Xib5pPUgyJjc4vCj8PkpniaIm8ZiaFSlT41SRPjySt9gddt6k76EUHeFs1dg32FcBYYjJGWAiaE4aXBOrhh6AoO0EnNRgGpDq7ibR28JnWRfc2qIa8VcXAhBicpFF0/0",
+        "messageCount": 394,
+        "percentage": 44.2
+      },
+      {
+        "rank": 3,
+        "id": "wxid_m9ycefgul1d522",
+        "name": "旭辉—刘",
+        "avatar": "https://wx.qlogo.cn/mmhead/ver_1/3cmaRRm4QHibp0ib2iaqhBZqFHRBrMZic2aJIvgpicoTo7EyzTMYcGNyomtehq9PDAJR7AIfeicymv7qLE2ynuXyZ88Fdzu6MCQtKhbmHPcJe8fw6zn0KC3arGOUUrqrY6jElTQcQDoOU6wMicq3wdzgqyyAQ/0",
+        "messageCount": 29,
+        "percentage": 3.3
+      },
+      {
+        "rank": 4,
+        "id": "47265219889@chatroom",
+        "name": "47265219889@chatroom",
+        "avatar": "https://wx.qlogo.cn/mmcrhead/r5stgmmuA0Y6ZNPup7jxmpyZhHsz79BJPtPeGPRfOQwRMRXIedtJpfFnZXgzJkkxo4oO5J4Ykm8/0",
+        "messageCount": 4,
+        "percentage": 0.4
+      }
+    ],
+    "hourlyDistribution": [
+      20,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      18,
+      42,
+      22,
+      69,
+      59,
+      20,
+      96,
+      48,
+      32,
+      43,
+      9,
+      43,
+      53,
+      176,
+      33,
+      106
+    ],
+    "peakHour": 21,
+    "peakHourLabel": "21:00-22:00",
+    "messageTypeRatio": {
+      "text": 0.779,
+      "image_or_emoji": 0.138,
+      "quote_reply": 0.068,
+      "unknown_4": 0.01,
+      "video": 0.004
+    }
+  },
+  "topics": {
+    "topWords": [
+      "现在",
+      "里面",
+      "应该",
+      "宣哥",
+      "可能",
+      "这种",
+      "我们",
+      "的话",
+      "但是",
+      "ai",
+      "怎么",
+      "浏览器",
+      "实现",
+      "点击",
+      "如果",
+      "这些",
+      "笔记",
+      "一些",
+      "兄弟",
+      "或者"
+    ],
+    "longMessages": [
+      {
+        "sender": "展宣—魏",
+        "content": "\n就是比如说我这个表格有6万条维修记录，然后\n\n1.根据每条记录的板卡型号输出对应的费用挂靠事业部\n2.如果事业部是TV事业部，还要根据客户去划分细分挂靠到tv事业部哪个部门\n3.每个板卡有它的唯一识别码，这个唯一识别码有对应的几位数字代表年月日。但是呢这些条码并不是所有都是格式统一的，就有些条码他可能是第一位到第6位代表年月日有些条码可能是第四位开始是代表年月日，那我要根据这些年月日去和我现在的时间做比对，看他这个板卡是否生产超过40个月，如果有的话那显示它为过保",
+        "timestamp": "2026-03-04T21:56:24+08:00"
+      },
+      {
+        "sender": "2agathon",
+        "content": "我又不是属于不太会整理笔记的那种人，然后整理笔就是很花时间，你要从一个学习过程里面去回忆你做过哪些事，然后哪些事值得被记录，然后怎么被记录。用什么结构去记录怎么好，其实我觉得对个人来说这时间耗费会有点大，所以我就想着就是大部分时候，我应该在ai的一个对话里面学习，然后学习完一个知识点或者说阶段我认为达到了之后，然后我再去让ai根据我这一个记忆编号，然后让他去提炼给我总结成一份笔记",
+        "timestamp": "2026-03-02T22:15:03+08:00"
+      },
+      {
+        "sender": "2agathon",
+        "content": "所以我这个叫做【笔记上下文卡片】，这个上下文有我完整的学习过程，我遇到的问题、产生的疑惑、容易误解的要点，即它拥有我学习结果的整个认识形成过程，从这里面快速提取出笔记而不用我个人整理就是我想要的。\n也就是触发【记录笔记】的时候应该大多数是在达成了一个学习阶段的时候触发，如何达成一个学习阶段就是看AI对学习结果的评价和测试。ChatGPT有Quizzes（测试）模式",
+        "timestamp": "2026-03-02T22:01:06+08:00"
+      },
+      {
+        "sender": "2agathon",
+        "content": "过去我在那些ai网页平台里面定义字的个人画像其实都是一种指令式的画像，就是告诉ai怎么去做。\n但这种方式出发点就错了，我们面对的问题场景实在太复杂了，我们的指令本身可能就是有有错误的，而且也不可能覆盖那么多不同的场景的。\n所以这个画就转向转变了一个出发点，从关系出发把它升格为一个可以和人平等对话的一个主格，所以我现在就是在强化ai和我之间的平等关系",
+        "timestamp": "2026-03-05T23:35:20+08:00"
+      },
+      {
+        "sender": "2agathon",
+        "content": "这个笔记不能直接进Notion，还得自己处理一下；比如将这里面的章节拆解成子页面，搭建跳转逻辑，相当于一个弱的思维网状图，里面记录每个变量对另一个变量的影响结果。\n这个次记笔记使用来测试效果的，如果一开始框框记笔记，那出发点就错了，实际我是准备现针对一个情绪和其反情绪拍图，直到效果基本满意了，然后再让AI从上下文中得出我的认识形成工程，再做笔记的",
+        "timestamp": "2026-03-02T21:56:03+08:00"
+      }
+    ]
+  },
+  "interactions": {
+    "mentions": [
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772362983
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "Spike"
+        ],
+        "timestamp": 1772365894
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "所有人"
+        ],
+        "timestamp": 1772533585
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772691486
+      },
+      {
+        "sender": "2agathon",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772691915
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "Spike",
+          "2agathon"
+        ],
+        "timestamp": 1772711655
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772712882
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772714977
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772769507
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772786960
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1772787677
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773140794
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773140984
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "Spike"
+        ],
+        "timestamp": 1773140993
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "Spike"
+        ],
+        "timestamp": 1773141064
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773201117
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773368747
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773369337
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773369849
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773373030
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773376368
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773383076
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773385671
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773392877
+      },
+      {
+        "sender": "2agathon",
+        "mentioned": [
+          "id"
+        ],
+        "timestamp": 1773392967
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773416442
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "Spike"
+        ],
+        "timestamp": 1773469686
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773833140
+      },
+      {
+        "sender": "展宣—魏",
+        "mentioned": [
+          "2agathon"
+        ],
+        "timestamp": 1773841957
+      }
+    ],
+    "replyPairs": [
+      {
+        "replier": "2agathon",
+        "reply_text": "哇去，大公司就是好，随地有人可以一起练习，这里孤苦伶仃[Facepalm]",
+        "quoted_sender": "wei",
+        "quoted_content": "我可是比之前跟你打稍微有进步",
+        "reply_to_id": "7862291599848067301",
+        "timestamp": 1772458678
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "起码得给我一个月熟悉回来才能勉强接一下了，我好像还从来没有赢过轩哥你，已经接受命运的实力安排了[CoolGuy]]",
+        "quoted_sender": "wei",
+        "quoted_content": "我怕我一拉球你就接不到了，到时就没有球搭子了[Sob",
+        "reply_to_id": "3538886336769066943",
+        "timestamp": 1772458728
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "我觉得还挺好的呀，宣哥你们的吃的免费的，然后又那么丰富，然后娱娱乐场所有那么多免费的",
+        "quoted_sender": "wei",
+        "quoted_content": "大毛线  牛马工厂",
+        "reply_to_id": "3913130830121570996",
+        "timestamp": 1772458756
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "已经在路上了]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[图片",
+        "reply_to_id": "6708777999015387694",
+        "timestamp": 1772584153
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "是的",
+        "quoted_sender": "2agathon",
+        "quoted_content": "如果宣哥你工作和文本、图片、视频打交道比较多的话，可以考虑怎么接入。但是后者比较贵，文本会便宜很多，另外就是要注意公司隐私保密问题",
+        "reply_to_id": "1573581944283818408",
+        "timestamp": 1772631115
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "他就是一个可视化的一个工作台工作台具体的里面一个能力就是让你去搭建一个拓扑图，也就是一个工作流的图有向无环图，然后每个节点做什么，然后下一个节点做什么，然后就连起来形成一个工作流",
+        "quoted_sender": "wei",
+        "quoted_content": "大概实现的原理是怎么样的呢",
+        "reply_to_id": "1344912191843155548",
+        "timestamp": 1772631829
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "这个token是什么用处  就我们平时用的都是免费的，为啥你这个要花钱呢",
+        "quoted_sender": "2agathon",
+        "quoted_content": "我上个月花了deepseek1亿多token也才花了28块",
+        "reply_to_id": "732606616569456525",
+        "timestamp": 1772632083
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "Api就是开发者调用，也就是我们开发这种应用软件，一般都是只能调用api的方式，而不是说直接去网页端那里问话",
+        "quoted_sender": "wei",
+        "quoted_content": "这个API访问是什么应用场景呢？跟我们这种普通用户有啥区别",
+        "reply_to_id": "1000659156632217925",
+        "timestamp": 1772632210
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "分析最好的话是有这些图表",
+        "quoted_sender": "2agathon",
+        "quoted_content": "分析需要形成什么图表之类的吗",
+        "reply_to_id": "8572890864640876292",
+        "timestamp": 1772632599
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "没有合并单元格",
+        "quoted_sender": "2agathon",
+        "quoted_content": "表格复杂吗，会有这种合并单元格啊，或者之类的出现吗",
+        "reply_to_id": "8327675846570797000",
+        "timestamp": 1772632608
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "可以尝试copilot和claude",
+        "quoted_sender": "wei",
+        "quoted_content": "而且也上传不了这么大的表格",
+        "reply_to_id": "5388259848100560546",
+        "timestamp": 1772632807
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "这个确实，那这就有一点点麻烦了]",
+        "quoted_sender": "wei",
+        "quoted_content": "那网页版的怎么搞又会涉及到数据泄露[Lol",
+        "reply_to_id": "6817666816536219031",
+        "timestamp": 1772632842
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "牛逼",
+        "quoted_sender": "2agathon",
+        "quoted_content": "宣哥，你的项目正在施工中",
+        "reply_to_id": "1869537030390995909",
+        "timestamp": 1772691421
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "是的[旺柴]]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[链接",
+        "reply_to_id": "7358691943084952324",
+        "timestamp": 1772694050
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "可以的]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[链接",
+        "reply_to_id": "140691426219571694",
+        "timestamp": 1772694086
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "欧克欧克，轩哥等周末兄弟统一去看一下]",
+        "quoted_sender": "wei",
+        "quoted_content": "[图片",
+        "reply_to_id": "1265345123267178914",
+        "timestamp": 1772715134
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "蛊真人里面是大爱仙尊，我这里是大爱轩哥",
+        "quoted_sender": "wei",
+        "quoted_content": "可惜被封号了，回不了他，要8号才解封",
+        "reply_to_id": "7315446723104511546",
+        "timestamp": 1772715157
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "包可以的，轩哥]",
+        "quoted_sender": "wei",
+        "quoted_content": "未来有没有机会让兄弟们这种没有编程能力的也能使用上AI去实现这种东西[Chuckle",
+        "reply_to_id": "5299898268733850331",
+        "timestamp": 1772724932
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "我也在长见识，兄弟们一起互相分享互相展示见识",
+        "quoted_sender": "wei",
+        "quoted_content": "多带带兄弟们，让兄弟们长长见识",
+        "reply_to_id": "5298349557827551931",
+        "timestamp": 1772724959
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "字节出了一个平台 扣子。用自然语言，一句话生成在线可用产品系统]",
+        "quoted_sender": "wei",
+        "quoted_content": "未来有没有机会让兄弟们这种没有编程能力的也能使用上AI去实现这种东西[Chuckle",
+        "reply_to_id": "5299898268733850331",
+        "timestamp": 1772725012
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "这个就是ai在我这个记笔记的原则记忆指导下生成的。我只要说一句记笔记，它就可以生成了。",
+        "quoted_sender": "wei",
+        "quoted_content": "这个是谁生成的文本呢？",
+        "reply_to_id": "5208435498798777001",
+        "timestamp": 1772725064
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "就是现在ChatGPT或者claude这种ai web平台，它都提供一个一种输入口来在里面输入文本定义你自己的个人偏好或者说特点（就类似微信或者说qq里面那种个人资料），然后ai就根据你这个特点去形成个性化回答。",
+        "quoted_sender": "wei",
+        "quoted_content": "还有个人画像是指的什么？",
+        "reply_to_id": "2458267187610417499",
+        "timestamp": 1772725134
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "哈哈哈哈，轩哥快睡吧，快睡吧。",
+        "quoted_sender": "wei",
+        "quoted_content": "我明天来仔细看看，有点困了，要先睡觉，明天再来交流",
+        "reply_to_id": "1238916855068169576",
+        "timestamp": 1772725143
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "明白]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[链接",
+        "reply_to_id": "1302374325456927183",
+        "timestamp": 1772725259
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "好的]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[链接",
+        "reply_to_id": "2621623196194465414",
+        "timestamp": 1772725264
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "这份提示词宣哥觉得怎么样]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[图片",
+        "reply_to_id": "2717585033738378266",
+        "timestamp": 1772772216
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "没有，我只是开玩笑[旺柴]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "有现成录音吗，我可以现在去试一下",
+        "reply_to_id": "6611575419056607895",
+        "timestamp": 1772772736
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "不是]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "这基本不可能吧，宣哥，你该不会用来定位圆姐的吧[捂脸",
+        "reply_to_id": "2104375691709271762",
+        "timestamp": 1772787086
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "我实现的原理是通过对方发过来的数据包里面的公网IP",
+        "quoted_sender": "2agathon",
+        "quoted_content": "现在获取这种隐私信息手机系统都会强制告知用户先吧",
+        "reply_to_id": "1323673765089189287",
+        "timestamp": 1772787125
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "对",
+        "quoted_sender": "2agathon",
+        "quoted_content": "嗯嗯，核心就是公网IP --分析-->位置，IP从抓包来，位置用网上工具分析；抓包可以在发生交互，比如聊天时抓；然后将IP喂给网上工具的API获取结果",
+        "reply_to_id": "1221413245718356290",
+        "timestamp": 1772787669
+      },
+      {
+        "replier": "旭辉—刘",
+        "reply_text": "他能干啥",
+        "quoted_sender": "Spike",
+        "quoted_content": "那个养龙虾吗",
+        "reply_to_id": "147695328053077413",
+        "timestamp": 1773028039
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "好有点忙。\n一是，我这个项目有点赶，虽然总是摸鱼，但是确实有点难度，得花些时间。\n二是，我的东西遇到瓶颈，不折腾出来这个，我其他学习即使出发了，后面也会失去一个很重的东西在里面]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "这个估计近期（这个月）可能做不到[捂脸",
+        "reply_to_id": "366308567981149766",
+        "timestamp": 1773031058
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "这个我今天早上在推特刷到的，说是汇聚了目前见过最好的龙虾使用建议",
+        "quoted_sender": "2agathon",
+        "quoted_content": "https://x.com/HoodyLiu/status/2030800942497685663",
+        "reply_to_id": "6091902955899838811",
+        "timestamp": 1773146840
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "是的",
+        "quoted_sender": "2agathon",
+        "quoted_content": "至于他现在这些飞书啊或者什么的，其实都是一个类似我们的一个函数调用一样的道理",
+        "reply_to_id": "602687024065204017",
+        "timestamp": 1773147017
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "这里面的技能应该就是克莱尔公司提出的这个skills，这是一个有名的一个技能网站，你可以上面去找一些好用的技能]",
+        "quoted_sender": "wei",
+        "quoted_content": "[视频",
+        "reply_to_id": "1206208171614774260",
+        "timestamp": 1773147453
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "我装的是这个，应该一样的吧",
+        "quoted_sender": "wei",
+        "quoted_content": "我是按照这里按照的中文版，你可以安装一样的，   github.com\\jiulingyun\\openclaw-cn",
+        "reply_to_id": "8687201599939643177",
+        "timestamp": 1773193812
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "要不打开那个文件确认一下？]",
+        "quoted_sender": "wei",
+        "quoted_content": "[图片",
+        "reply_to_id": "6008745364316271966",
+        "timestamp": 1773203002
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "因为如果光从图片上看的话，好像确实就是说这个问题]",
+        "quoted_sender": "wei",
+        "quoted_content": "[图片",
+        "reply_to_id": "4729191562233891454",
+        "timestamp": 1773203038
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "点个按钮吗，应该还有其他筛选条件吗",
+        "quoted_sender": "wei",
+        "quoted_content": "我现在也不奢望他能给我干啥，就是给我导出个数据他都做不了",
+        "reply_to_id": "3741798762494909649",
+        "timestamp": 1773320679
+      },
+      {
+        "replier": "2agathon",
+        "reply_text": "那这个cursor应该做不到，chat.gp t网站我不知道能不能做到，这个gpt网站也有一个定时任务",
+        "quoted_sender": "wei",
+        "quoted_content": "那如果我提前把这些计算的逻辑用模板做好，然后就可以让他定时去给我计算生成，然后发送",
+        "reply_to_id": "8292143809353928106",
+        "timestamp": 1773321028
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "只开系统代理这个开关吗]",
+        "quoted_sender": "2agathon",
+        "quoted_content": "[图片",
+        "reply_to_id": "1414561210358114783",
+        "timestamp": 1773371537
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "听不太懂  需要我做啥，直接生成技能？",
+        "quoted_sender": "2agathon",
+        "quoted_content": "宣哥，你可以拿给ChatGPT，让它教你继续完成里面的todo或者断点",
+        "reply_to_id": "7637886794536971058",
+        "timestamp": 1773417607
+      },
+      {
+        "replier": "展宣—魏",
+        "reply_text": "晚上再来试试",
+        "quoted_sender": "2agathon",
+        "quoted_content": "okk。明天宣哥你先拿了一下ai尝试一下。让他总结里面还有哪些是没做的，需要你怎么做，然后从哪一步开始",
+        "reply_to_id": "8926316101751834218",
+        "timestamp": 1773469677
+      }
+    ]
+  }
+}
