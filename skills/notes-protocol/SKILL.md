@@ -1,20 +1,17 @@
 ---
 name: notes-protocol
-layer: 认识捕捉
-description: >
-  当用户想要记笔记、整理认识、捕捉对话中的理解变化时使用。
+description: '当用户想要记笔记、整理认识、捕捉对话中的理解变化时使用。
   输入可以是任何来源：和 AI 的对话、和他人的谈话记录、一篇文档、一段思考。
   触发词包括但不限于："帮我记一下"、"整理成笔记"、"把这段对话记录下来"、"捕捉一下"。
-interfaces:
-  upstream: [identity, assumption-audit, knowledge-shaping]
-  downstream: [notion-manager, decision-record, conversation-to-spec]
-
+  依赖：tension-manifest skill（负责 TM 头的生成和版本管理），需同时安装。'
+metadata:
+  depends_on: tension-manifest
 ---
 
 # Notes Protocol Skill
 
 格式规范见 `references/protocol.md`。  
-Tension Manifest 字段定义见 `references/tension-manifest.md`。
+TM 头的生成和版本管理由 `tension-manifest` skill 负责。
 
 ---
 
@@ -37,7 +34,7 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
 - **文章或外部文档**：用户读了有认识变化
 - **用户的独立思考**：用户直接描述自己的想法
 
-`来源` 字段按实际情况填写：`self` 表示认识来自用户自己或真实交流，模型名表示 AI 参与了认识的生成。
+`来源` 字段按实际情况填写，由 tension-manifest skill 处理。
 
 ---
 
@@ -91,19 +88,13 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
 - 是否加入第三视角
 - 有没有需要调整的认识事件描述
 
-### 第四步：索取时间戳
+### 第四步：生成 TM 头
 
-生成前，向用户索取当前时间：
+**调用 tension-manifest skill，操作一（创建 v1）。**
 
-> 请告诉我现在的时间（格式：YYYY-MM-DD HH:MM:SS），用于生成准确的知识锚和外化时间。
+由 tension-manifest skill 主导：索取时间戳、生成知识锚、引导填写起点张力和引力范围、输出完整 YAML。
 
-拿到时间后，用以下代码生成知识锚（在任意 JS 环境运行，用用户提供的时间替换 `new Date()`）：
-
-```javascript
-'kb-' + parseInt(new Date('用户提供的时间').toISOString().replace(/\D/g,'').slice(0,14)).toString(36)
-```
-
-### 第五步：生成
+### 第五步：生成笔记正文
 
 按 `references/protocol.md` 的规范生成笔记。
 
@@ -115,8 +106,8 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
   - 并列要素 → 列表
   - 因果 / 流程 → mermaid 图或文本流程
   - 叙述推导 → 纯文本段落
-- 不能因为适应格式而打乱内容排版——格式服务内容，不反过来
-- 不能因为「要用表格」就把本来是叙述的东西硬塞进表格
+- 不能因为适应格式而打乱内容排版
+- 不能因为"要用表格"就把本来是叙述的东西硬塞进表格
 
 多篇时逐篇生成，每篇生成后等用户确认再给下一篇。
 
@@ -126,14 +117,13 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
 
 ## 知识锚与演化链
 
-生成新版本时：
+知识锚和演化链的完整逻辑由 `tension-manifest` skill 管理。
 
-- **新认识**（没有前驱）：在第四步向用户索取时间后生成知识锚（见第四步）
-- **已有认识的迭代**：前驱填上一版本的 `知识锚-v版本号`，知识锚不变，版本号 +1
+本 skill 只需知道：
+- 新认识（没有前驱）→ 触发 tension-manifest 操作一
+- 已有认识的迭代 → 触发 tension-manifest 操作二
 
-- **触发字段**：让用户用自己的话说"我原来相信什么，现在发现了什么"，不要替用户填这个字段
-
-触发字段是演化链最重要的输入。AI 可以提示用户填写方向，但这个字段的内容必须来自用户，不能由 AI 代劳。
+触发字段是演化链最重要的输入。AI 可以提示用户填写方向，**内容必须来自用户，不能由 AI 代劳。**
 
 ---
 
@@ -160,12 +150,10 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
 
 ## Guardrails
 
-执行本 skill 时，必须遵守以下约束：
-
-1. **触发字段内容必须来自用户**：触发字段（"我原来相信什么，现在发现了什么"）只能由用户填写，AI 可以提示填写方向，但不能替用户生成这个字段的内容
-2. **不能把顺滑对话误认为认识事件**：对话流畅、用户满意，不等于发生了认识变化；顺滑只是理解感增强，不构成触发条件
-3. **认识事件识别不确定时先告知用户再确认**：如果不确定某段对话是否包含真实认识事件，应先告知用户自己的判断和理由，等用户确认后再继续
-4. **不能因为想生成笔记就强行构造认识事件**：如果输入里没有真实发生认识变化，不能为了触发而凑出一个"认识事件"
+1. **触发字段内容必须来自用户**：AI 可以提示填写方向，但不能替用户生成这个字段的内容
+2. **不能把顺滑对话误认为认识事件**：对话流畅、用户满意，不等于发生了认识变化
+3. **认识事件识别不确定时先告知用户再确认**：不确定就先说，不要强行触发
+4. **不能因为想生成笔记就强行构造认识事件**：没有真实认识变化，不生成
 
 ---
 
@@ -176,5 +164,6 @@ Tension Manifest 字段定义见 `references/tension-manifest.md`。
 - 把普通信息传递、事实查询或摘要请求当成认识事件触发笔记生成
 - 替用户填写触发字段，而不是等用户用自己的话描述
 - 在没有认识断裂的对话里强行找张力，构造出并不存在的认识事件
-- 笔记数量判断不合理：多个认识事件本应合并成一篇（因为它们共同构成一个整体认识）却拆成多篇；或本质上独立平行的事件被硬合并成一篇
+- 笔记数量判断不合理：本应合并的拆了，本质独立的硬合并了
 - 生成完笔记之后才补充第三视角，而不是在用户决定写什么之前就放在桌上
+- 跳过 tension-manifest skill，自己生成 TM 头
