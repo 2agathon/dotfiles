@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://welleval-plus/schema/medical-material.page-type-block-spec.v1.1.0.json",
+  "title": "Medical Material Page-Type Block Spec Schema (all-id)",
+  "type": "object",
+  "required": ["version", "page_type", "block_types", "tags"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "SemVer"
+    },
+    "page_type": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^TYPE_[A-Z0-9_]+$",
+          "description": "页类型 ID"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "action_paths": {
+      "type": "array",
+      "description": "情景-阶段-动作 → 可生成的材料块类型（可选；未定义时块的维度字段存 null）",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": ["context", "phase", "action", "block_type_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "context": { "$ref": "#/$defs/IdName" },
+          "phase": { "$ref": "#/$defs/IdName" },
+          "action": { "$ref": "#/$defs/IdName" },
+          "block_type_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BLOCK_[A-Z0-9_]+$" },
+            "minItems": 1
+          }
+        }
+      }
+    },
+    "block_types": {
+      "type": "array",
+      "description": "材料块类型定义（含块内可打标签及角色）",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "tags"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^BLOCK_[A-Z0-9_]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "description": "本块的语义范围说明（供展示或提示）"
+          },
+          "tags": {
+            "type": "array",
+            "description": "本块内可打的标签列表；每项可带在块内的角色或说明",
+            "minItems": 0,
+            "items": {
+              "type": "object",
+              "required": ["tag_id"],
+              "additionalProperties": false,
+              "properties": {
+                "tag_id": {
+                  "type": "string",
+                  "pattern": "^TAG_[A-Z0-9_]+$",
+                  "description": "引用根级 tags 中的标签 ID"
+                },
+                "role": {
+                  "type": "string",
+                  "description": "该标签在本块内的角色（如 record_time_source 表示本块记录时间取值来源）"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "可选；本块内该标签的个性说明，覆盖或补充全局 tag 的提示时使用"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "全局标签定义；提示用于说明取值语义",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "value_hint"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^TAG_[A-Z0-9_]+$",
+            "description": "标签 ID"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "标签展示名（简短，不含括号说明）"
+          },
+          "value_hint": {
+            "type": "string",
+            "minLength": 1,
+            "description": "值提示：可打本标签的内容范围 + 打上后从该内容如何取值（取值方向）；尊重原文优先"
+          },
+          "context_hint": {
+            "type": "string",
+            "description": "上下文提示：多条/多段或易混淆时，tag_context 应如何书写以区分所指"
+          },
+          "anchor_binding": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["target_tag_ids", "page_window", "direction", "required"],
+            "properties": {
+              "target_tag_ids": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "pattern": "^TAG_[A-Z0-9_]+$"
+                }
+              },
+              "page_window": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["mode"],
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "enum": ["within_type_run", "bounded"],
+                    "default": "within_type_run"
+                  },
+                  "prev": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "next": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "direction": {
+                "type": "string",
+                "enum": ["before", "after", "same_segment", "nearby"],
+                "description": "他项候选方向范围：before=同段或前段，after=同段或后段，same_segment=仅同段，nearby=同段及前后段"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "self_resolution": {
+                "type": "string",
+                "enum": ["self_only", "self_first", "direction_first", "direction_only"],
+                "default": "direction_only",
+                "description": "同类型候选时自身与他项的选择策略：self_only 仅自身，self_first 先自身再他项，direction_first 先他项再自身，direction_only 仅他项"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "page_window": {
+                      "type": "object",
+                      "properties": {
+                        "mode": { "const": "bounded" }
+                      }
+                    }
+                  },
+                  "required": ["page_window"]
+                },
+                "then": {
+                  "properties": {
+                    "page_window": {
+                      "required": ["mode", "prev", "next"]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "IdName": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
