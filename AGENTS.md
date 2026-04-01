@@ -22,11 +22,10 @@
 
 ### 工程执行
 
-| 触发条件                   | Skill                                                     |
-| -------------------------- | --------------------------------------------------------- |
-| 写代码 / 命名 / 设计接口时 | `{{DOTFILES_ABS_PATH}}/skills/principles/SKILL.md`        |
-| 生成任何文件或目录之前     | `{{DOTFILES_ABS_PATH}}/skills/project-structure/SKILL.md` |
-| 开始新功能或新模块之前     | `{{DOTFILES_ABS_PATH}}/skills/vibe-plan/SKILL.md`         |
+| 触发条件                   | Skill                                              |
+| -------------------------- | -------------------------------------------------- |
+| 写代码 / 命名 / 设计接口时 | `{{DOTFILES_ABS_PATH}}/skills/principles/SKILL.md` |
+| 开始新功能或新模块之前     | `{{DOTFILES_ABS_PATH}}/skills/vibe-plan/SKILL.md`  |
 
 ### 工程协作
 
