@@ -15,14 +15,14 @@
 | `workbook.raw.json` | `rules/parsing/workbook-parsing.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | — | Stage 1 |
 | `workbook.normalized.json` | `rules/parsing/header-normalization.md`, `rules/parsing/row-classification.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | — | Stage 2 |
 | `normalization-report.md` | `rules/parsing/header-normalization.md`, `rules/parsing/row-classification.md`, `rules/pipeline/artifacts.md` | — | Stage 2 |
-| `identity-map.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/row-classification.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | — | Stage 3 |
+| `identity-map.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/row-classification.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | — | Stage 3 |
 | `identity-issues.md` | `rules/parsing/identity-resolution.md`, `rules/pipeline/artifacts.md` | — | Stage 3 |
-| `page-types.data.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json` | Stage 5 / Stage 6 |
-| `page-types.tree.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json` | Stage 5 / Stage 6 |
-| `page_type.id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/stages.md` | `schema/page-semantic.schema.json` | Stage 6 |
-| `block_types[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md` | `schema/page-semantic.schema.json` | Stage 6 |
-| `block_types[].tags[]` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md` | `schema/page-semantic.schema.json` | Stage 6 |
-| `tags[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md` | `schema/page-semantic.schema.json` | Stage 6 |
+| `page-types.data.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json` | Stage 5 / Stage 6 |
+| `page-types.tree.json` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json` | Stage 5 / Stage 6 |
+| `page_type.id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/stages.md` | `schema/page-semantic.schema.json` | Stage 6 |
+| `block_types[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/page-semantic.schema.json` | Stage 6 |
+| `block_types[].tags[]` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/page-semantic.schema.json` | Stage 6 |
+| `tags[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/page-semantic.schema.json` | Stage 6 |
 | `block_types[].description` | `rules/fields/block-description-generation.md` | `schema/page-semantic.schema.json` | Stage 7 |
 | `tags[].value_hint` | `rules/fields/value-hint-generation.md` | `schema/page-semantic.schema.json` | Stage 7 |
 | `tags[].context_hint` | `rules/fields/context-hint-generation.md` | `schema/page-semantic.schema.json` | Stage 7 |
@@ -32,9 +32,9 @@
 | `block-summary-hint.md` | `rules/hints/block-summary-hint-generation.md` | — | Stage 7 |
 | `page-summary-hint.md` | `rules/hints/page-summary-hint-generation.md` | — | Stage 7 |
 | `continuation-hint.md` | `rules/hints/continuation-hint-generation.md` | — | Stage 7 |
-| `validation-report.json` | `rules/pipeline/validation-checklist.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json`, `schema/page-semantic.schema.json` | Stage 8 |
-| `audit-report.md` | `rules/pipeline/validation-checklist.md`, `rules/pipeline/artifacts.md`, `rules/pipeline/interaction-points.md` | — | Stage 8 |
-| `final-report.md` | `rules/pipeline/artifacts.md`, `rules/pipeline/interaction-points.md`, `rules/pipeline/stages.md` | — | Stage 9 |
+| `validation-report.json` | `rules/pipeline/validation-checklist.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | `schema/page-types.schema.json`, `schema/page-semantic.schema.json` | Stage 8 |
+| `audit-report.md` | `rules/pipeline/validation-checklist.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md`, `rules/pipeline/interaction-points.md` | — | Stage 8 |
+| `final-report.md` | `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md`, `rules/pipeline/interaction-points.md`, `rules/pipeline/stages.md` | — | Stage 9 |
 
 ## 对象约束
 
@@ -43,6 +43,7 @@
 1. `identity-map.json` 是身份真相。
 2. `skeleton/` 只承担结构闭合和占位职责。
 3. 若 `identity-map.json` 与 `skeleton/` 冲突，必须以 `identity-map.json` 为准。
+4. 若 `identity-map.json` 含有 `blocked` 或空 ID，不得继续进入 final。
 
 ### `tags[].value_hint`
 

@@ -1,213 +1,114 @@
-# 校验清单
+# 校验门禁
 
 ## 总规则
 
-1. 校验阶段只负责检查，不负责继续补写正式内容。
-2. 每项检查必须给出明确结果：通过 / 警告 / 失败。
-3. 失败项必须进入 `validation-report.json`。
-4. 警告项必须进入 `audit-report.md`。
+1. 本阶段负责门禁，不负责继续补写正式内容。
+2. 每项检查结果必须归入：`blocking`、`warning`、`pass`。
+3. 存在任一 `blocking` 时，不得通过到最终交付。
 
-## 结构校验
+## Blocking Gates
 
-### 1. `page-types.data.json`
+### 1. schema 失败
 
-必须检查：
+以下任一失败，记为 `blocking`：
 
-1. 是否符合 `schema/page-types.schema.json`
-2. 顶层必填字段是否存在
-3. `categories` 是否为数组
-4. `types` 是否为数组
+1. `page-types.data.json` 不符合 `schema/page-types.schema.json`
+2. `page-types.tree.json` 不符合 `schema/page-types.schema.json`
+3. `page-semantic-spec.json` 不符合 `schema/page-semantic.schema.json`
 
-### 2. `page-types.tree.json`
+### 2. 必填 ID 为空
 
-必须检查：
+以下任一为空字符串，记为 `blocking`：
 
-1. 是否符合 `schema/page-types.schema.json`
-2. 顶层必填字段是否存在
-3. `categories` 是否为数组
-4. `types` 是否为数组
+1. `page_type.id`
+2. `block_types[].id`
+3. 根级 `tags[].id`
+4. `block_types[].tags[].tag_id`
+5. `categories[].id`
+6. `types[].id`
 
-### 3. `page-semantic-spec.json`
+### 3. 身份阻断未被拦截
 
-必须检查：
+以下任一出现，记为 `blocking`：
 
-1. 是否符合 `schema/page-semantic.schema.json`
-2. `page_type.id` 是否存在
-3. `block_types` 是否为数组
-4. `tags` 是否为数组
+1. `identity-map.json` 中存在 `blocked`
+2. `helper_only`、`invalid_or_noise` 被写入最终根级对象集合
+3. `identity-map.json` 与最终结果中的对象 id 不一致
 
-## 引用闭合检查
+### 4. 引用闭合失败
 
-### 4. block 引用闭合
+以下任一失败，记为 `blocking`：
 
-必须检查：
+1. `block_types[].tags[].tag_id` 在根级 `tags[]` 中找不到
+2. block/tag 存在重复 ID 冲突且未收敛
 
-1. `block_types[].tags[].tag_id` 是否都能在根级 `tags[]` 找到
+### 5. 最终结果绕过 semantic draft
 
-### 5. 标签唯一性
+以下任一失败，记为 `blocking`：
 
-必须检查：
+1. 最终交付目录不是从 `semantic-draft/` 派生
+2. 最终交付目录与 `semantic-draft/` 的核心对象集合不一致
 
-1. 根级 `tags[]` 中是否存在重复 `id`
+## Warning Gates
 
-### 6. block 唯一性
+### 6. 占位符进入最终结果
 
-必须检查：
+以下情况记为 `warning`：
 
-1. `block_types[]` 中是否存在重复 `id`
+1. 存在 `resolved_placeholder` 对象进入最终结果
 
-## 中间产物完整性检查
+### 7. `value_hint` 模板化过强
 
-### 7. 阶段产物存在性
+以下情况记为 `warning`：
 
-必须检查：
+1. 多个不同 tag 的 `value_hint` 完全相同
+2. `value_hint` 只剩通用句而缺少本标签区分信息
 
-1. `run-manifest.json`
-2. `workbook.raw.json`
-3. `workbook.normalized.json`
-4. `identity-map.json`
-5. `skeleton/`
-6. `semantic-draft/`
+### 8. `context_hint` 异常稀少
 
-### 8. 类型选择记录
+以下情况记为 `warning`：
 
-必须检查：
+1. 当前 type 存在明显时间类或角色类标签，但 `context_hint` 全部为空
 
-1. `run-manifest.json` 中是否记录了检测到的 `type`
-2. `run-manifest.json` 中是否记录了选中的 `type`
+### 9. hint 贫血
 
-### 9. 身份问题记录
+以下情况记为 `warning`：
 
-必须检查：
+1. `tagging-hint.md`、`assembly-hint.md`、`block-summary-hint.md` 只有极少量泛化内容
 
-1. 若存在空 `tag编码` 行，`identity-issues.md` 中是否有记录
-2. `identity-map.json` 中是否保留其分类结果
+## Pass Gates
 
-## 空 `tag编码` 行检查
+### 10. 合法省略
 
-### 10. 保留检查
+以下情况可记为 `pass`：
 
-必须检查：
+1. `context_hint` 因无歧义而省略
+2. `anchor_binding` 因原列为空而省略
+3. `page-summary-hint.md` 无素材时输出空模板
+4. `continuation-hint.md` 无素材时输出空模板
 
-1. 空 `tag编码` 且落在标签定义区的行，是否被保留为某种身份结果
-2. 是否存在被静默丢弃的此类行
+## 报告要求
 
-### 11. 分类检查
+### `validation-report.json`
 
-必须检查：
+必须包含：
 
-1. 是否记录为 `recoverable_tag`、`helper_only` 或其他合法分类
-2. 若降为 `helper_only`，是否满足降级条件
+1. `blocking`
+2. `warnings`
+3. `pass`
+4. 最终总状态
 
-## 骨架与 draft 分层检查
+### `audit-report.md`
 
-### 12. `skeleton/` 检查
+必须写入：
 
-必须检查：
-
-1. `skeleton/` 中是否只承担结构闭合职责
-2. 是否存在高自由度语义内容被提前定稿
-
-### 13. `semantic-draft/` 检查
-
-必须检查：
-
-1. `semantic-draft/` 是否包含完整 draft 内容
-2. 最终交付目录是否从 `semantic-draft/` 派生
-
-## 字段职责检查
-
-### 14. `block_types[].description`
-
-必须检查：
-
-1. 是否在描述块语义范围
-2. 是否夹带执行策略
-
-### 15. `tags[].value_hint`
-
-必须检查：
-
-1. 是否由 `rules/fields/value-hint-generation.md` 约束生成
-2. 是否存在明显拼接痕迹
-3. 是否包含不必要的标签头或模板残留
-
-### 16. `tags[].context_hint`
-
-必须检查：
-
-1. 是否由 `rules/fields/context-hint-generation.md` 约束生成
-2. 是否越界成解释型说明
-3. 是否写入来源位置、判读依据或 OCR 过程
-
-### 17. `tags[].anchor_binding`
-
-必须检查：
-
-1. 是否结构合法
-2. 是否保留关键字段
-3. 是否存在关键字段缺失却被静默补写
-
-## hint 分层检查
-
-### 18. `tagging-hint.md`
-
-必须检查：
-
-1. 是否只承载段打标相关规则
-2. 是否误写组装策略
-
-### 19. `assembly-hint.md`
-
-必须检查：
-
-1. 是否承载块组装执行策略
-2. 是否误写标签取值规则
-
-### 20. `block-summary-hint.md`
-
-必须检查：
-
-1. 是否承载块摘要偏好
-2. 是否误写组装规则
-
-### 21. `page-summary-hint.md`
-
-必须检查：
-
-1. 是否承载页摘要偏好
-2. 若无素材，是否为空模板
-
-### 22. `continuation-hint.md`
-
-必须检查：
-
-1. 是否承载续写判定规则
-2. 若无素材，是否为空模板
-
-## 交互与报告检查
-
-### 23. 交互协议检查
-
-必须检查：
-
-1. 是否在类型枚举后才询问用户选 `type`
-2. 是否把机械修复错误升级成硬交互
-
-### 24. 报告完整性检查
-
-必须检查：
-
-1. `audit-report.md` 是否写入自动修复
-2. `audit-report.md` 是否写入未决问题
-3. `final-report.md` 是否写入自动决策
-4. `final-report.md` 是否写入剩余风险
-
-## 输出要求
-
-校验阶段结束后，必须输出：
-
-1. `validation-report.json`
-2. `audit-report.md`
-
-如果存在失败项，不得把结果标记为完全完成。
+1. 所有自动修复
+2. 所有占位符生成
+3. 所有 warning
+4. 所有 blocking
+
+## 最终状态规则
+
+1. 若 `blocking` 非空，最终状态必须失败。
+2. 若 `blocking` 为空但 `warnings` 非空，最终状态为通过但有风险。
+3. 只有 `blocking` 为空时，才允许生成最终交付目录。

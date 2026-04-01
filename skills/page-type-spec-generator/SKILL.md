@@ -40,6 +40,7 @@ description: >
 3. `rules/pipeline/artifacts.md`
 4. `rules/pipeline/interaction-points.md`
 5. `rules/pipeline/validation-checklist.md`
+6. `rules/pipeline/state-and-placeholder-policy.md`
 
 ## 执行规则
 
@@ -48,6 +49,7 @@ description: >
 3. 生成内容时只使用 `rules/*`。
 4. 结构校验时只使用 `schema/*`。
 5. 若某对象无法仅凭指定 `rules/*` 生成，停止扩展读取范围，改为记录问题并等待补 rule。
+6. 若任一必填 ID 为空或任一对象进入 `blocked`，必须停止后续阶段。
 
 ## 阶段调度
 
@@ -64,6 +66,7 @@ description: >
 
 1. 身份未稳定前，不得生成语义字段。
 2. 空 `tag编码` 行必须进入身份解析流程，不得静默丢弃。
+3. 任一 canonical id 为空时，视为 Stage 3 失败。
 
 ### Stage 4-5
 
@@ -103,6 +106,7 @@ description: >
 1. 校验只负责检查，不负责继续补写正式内容。
 2. 最终交付目录必须从 `semantic-draft/` 派生。
 3. 不得绕过 `semantic-draft/` 另写一份最终结果。
+4. 只要存在 blocking，不得输出正式最终结果。
 
 ## 字段与 hint 路由
 
@@ -128,6 +132,7 @@ description: >
 3. 不得把结构校验材料当成生成依据。
 4. 不得把人类说明文档当成默认执行输入。
 5. 不得隐藏自动决策和剩余风险。
+6. 不得用规则外私有模板替代字段生成规则。
 
 ## 输出要求
 

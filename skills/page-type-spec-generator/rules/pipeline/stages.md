@@ -89,6 +89,7 @@
 2. `rules/parsing/identity-resolution.md`
 3. `rules/parsing/row-classification.md`
 4. `rules/parsing/id-normalization.md`
+5. `rules/pipeline/state-and-placeholder-policy.md`
 
 ### 动作
 
@@ -111,6 +112,7 @@
 1. 不得在身份未稳定前生成 `value_hint`
 2. 不得在身份未稳定前生成 `context_hint`
 3. 不得在身份未稳定前生成 `anchor_binding`
+4. 若存在 `blocked` 或空 canonical id，不得进入后续阶段
 
 ## Stage 4：Type Selection
 
@@ -215,6 +217,7 @@
 2. `schema/page-semantic.schema.json`
 3. `schema/page-types.schema.json`
 4. `rules/pipeline/validation-checklist.md`
+5. `rules/pipeline/state-and-placeholder-policy.md`
 
 ### 动作
 
@@ -231,6 +234,7 @@
 ### 禁止
 
 1. 不得在本阶段继续补写正式内容
+2. 存在 blocking 时不得继续生成最终交付目录
 
 ## Stage 9：Final Handoff
 
@@ -240,6 +244,7 @@
 2. `validation-report.json`
 3. `audit-report.md`
 4. `rules/pipeline/artifacts.md`
+5. `rules/pipeline/state-and-placeholder-policy.md`
 
 ### 动作
 
@@ -256,3 +261,4 @@
 
 1. 不得隐藏自动决策
 2. 不得隐藏剩余风险
+3. 若 `validation-report.json` 存在 blocking，不得宣称转换完成
