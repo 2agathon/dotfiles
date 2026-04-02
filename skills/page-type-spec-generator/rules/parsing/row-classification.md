@@ -49,7 +49,9 @@
 说明：
 
 1. `block_start` 表示一个新 block 的起始行
-2. 命中 `block_start` 后，不再继续判断更低优先级类型
+2. `block_start` 行仍可能同时承载该 block 的首个 tag 定义
+3. 若当前行同时满足 `tag_candidate` 的信号，`row_kind` 仍记为 `block_start`，但必须额外标记 `carries_tag_candidate = true`
+4. 命中 `block_start` 后，不再把 `row_kind` 改写为更低优先级类型；首标签解析交由后续身份阶段处理
 
 ### 3. `tag_candidate`
 
@@ -110,6 +112,7 @@
 1. `row_index`
 2. `row_kind`
 3. 当前 block 归属状态
+4. `carries_tag_candidate`（仅 `block_start` 行需要；其他行默认 `false`）
 
 ## 禁止
 
@@ -125,3 +128,4 @@
 2. `tag_candidate` 行无法回溯其 block 归属状态
 3. `helper_candidate` 被直接当成最终 helper 身份
 4. `block_start` 行没有形成新的 block 归属链
+5. `block_start` 行明明携带 tag 定义信号，但没有被标记为 `carries_tag_candidate`

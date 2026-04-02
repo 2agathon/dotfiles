@@ -80,6 +80,7 @@ tag 身份终态只允许：
 
 1. `row_kind = tag_candidate`
 2. `row_kind = helper_candidate`
+3. `row_kind = block_start` 且 `carries_tag_candidate = true`
 
 ### Step 2：判定 tag 终态
 
@@ -101,12 +102,13 @@ tag 身份终态只允许：
 
 1. `tag名称` 非空
 2. `tag编码` 为空
-3. 存在语义同源的显式 tag，或可由稳定语义生成非空 canonical id
+3. 存在显式 canonical id 的同名 tag，或存在规则内明示且唯一的显式恢复源
 
 动作：
 
 1. 优先继承显式 canonical id
-2. 否则按 `id-normalization.md` 生成稳定 canonical id
+2. 必须记录 `recovery_source`
+3. 不得仅凭显示名、中文名或非 ASCII 名称现造正式 canonical id
 
 #### `resolved_placeholder`
 
@@ -115,6 +117,7 @@ tag 身份终态只允许：
 1. 当前 tag 按流程必须存在
 2. 正常恢复路径无法得到非空 canonical id
 3. 当前问题不是多候选歧义
+4. 具名空编码 tag 且不存在显式恢复源时，默认优先进入本状态，而不是伪恢复
 
 动作：
 
@@ -127,6 +130,8 @@ tag 身份终态只允许：
 
 1. 当前行只承担 block 内辅助作用
 2. 不在定义可进入根级集合的 tag
+3. `tag名称` 为空或不足以构成独立可消费对象
+4. 即使删除该行，也不影响根级 tag 集合的完整性
 
 #### `invalid_or_noise`
 
@@ -141,6 +146,7 @@ tag 身份终态只允许：
 1. 存在多个同样合理的身份解释
 2. 无法确定应继承哪个 canonical id
 3. namespace/category/type/block 上游身份本身未稳定
+4. 当前对象按流程必须存在，但既无法恢复也不适合占位
 
 动作：
 
@@ -153,12 +159,22 @@ tag 身份终态只允许：
 2. 不得因 `tag编码` 为空而直接丢弃。
 3. 不得因存在 `Block role` 就直接降为 `helper_only`。
 4. 恢复失败时，必须在 `resolved_placeholder` 与 `blocked` 之间二选一；不得返回空字符串 ID。
+5. `record_time_source` 等 role 只能作为辅助判断信号，不能覆盖具名对象默认先恢复的规则。
+6. 若不存在显式恢复源，不得把显示名直接规范化成 `TAG_U...` 一类看似正式的 recovered id。
+
+## `block_start` 首标签规则
+
+1. 若 `block_start` 行同时携带 tag 定义信号，必须同时创建该 block 的首个 tag 身份。
+2. 该首标签默认归属于当前新开启的 block，不得因 `row_kind = block_start` 而漏掉。
+3. `block_start` 行上的首标签与后续普通 `tag_candidate` 享有相同身份裁决规则。
+4. 不得用 block description、摘要模板或 hint 占位来替代首标签身份创建。
 
 ## 引用关系规则
 
 1. block 只引用 canonical tag id，不重复定义 tag 身份。
 2. 同一 block 内对同一 `tag_id + role` 的重复引用只保留一次。
 3. 若某 block 引用到 `blocked/helper_only/invalid_or_noise` 的 tag，必须记录问题，不得进入最终结果。
+4. 只有进入根级 tag 集合的对象，才允许被 block 作为正式 tag 引用写入后续产物。
 
 ## `identity-map.json` 最小字段
 
@@ -169,6 +185,8 @@ tag 身份终态只允许：
 3. `identity_state`
 4. `source_rows`
 5. `placeholder_reason`（仅 `resolved_placeholder` 时）
+6. `origin_row_kind`
+7. `recovery_source`（仅 `resolved_recovered` 时）
 
 ## `identity-issues.md` 必记内容
 
@@ -178,6 +196,7 @@ tag 身份终态只允许：
 2. 占位符生成记录
 3. 身份冲突
 4. `blocked` 对象
+5. `block_start` 行上的首标签处理结果
 
 ## 阻断条件
 
@@ -187,6 +206,8 @@ tag 身份终态只允许：
 2. 任一对象进入 `blocked`
 3. 同一对象得到多个 canonical id
 4. 明显不同对象得到同一 canonical id 且无法收敛
+5. 具名空 `tag编码` 行被直接判为 `helper_only`
+6. `block_start` 行携带首标签定义信号，但该首标签未进入根级 tag 集合
 
 ## 禁止
 
@@ -203,3 +224,4 @@ tag 身份终态只允许：
 2. 任何 ID 为空字符串
 3. `blocked` 对象进入后续阶段
 4. 身份冲突被静默吞掉
+5. `block_start` 行上的首标签被静默吞掉
