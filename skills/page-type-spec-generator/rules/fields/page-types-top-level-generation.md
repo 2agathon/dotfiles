@@ -19,6 +19,7 @@
 3. `last_updated`：有稳定运行日就写运行日；否则占位。
 4. `schema_meta`：必须显式生成对象。
 5. `sources`：必须显式生成数组；无来源时为空数组。
+6. `description` 必须作为独立顶层槽位处理，不得与其他顶层字段合并成一个大 unit。
 
 ## Stage 7：Semantic Draft
 
@@ -26,6 +27,8 @@
 2. `description` 应描述 taxonomy 或命名空间覆盖范围，不应绑定当前这次 run 的选中 type。
 3. `version`、`owner` 等无稳定来源时允许继续保留占位。
 4. `sources` 只有在确有来源时才写入。
+5. Stage 7 只允许语义化单个文件的单个 `$.description`；不得把整个顶层字段对象当作一个 unit 处理。
+6. `version`、`last_updated`、`schema_meta`、`sources` 不得被一并记成同一个语义 unit 已处理。
 
 ## 禁止
 
@@ -33,9 +36,11 @@
 2. 不得编造来源、维护人或变更记录。
 3. 不得把顶层字段写成与 taxonomy 范围无关的大段 prose。
 4. 不得把 run 级上下文当作最终 `description` 的主体内容。
+5. 不得把顶层 `description` 的真实 prose 改完后，仍把该槽位记成 `pending_human`。
 
 ## 失败信号
 
 1. 顶层字段缺失。
 2. `description` 仍是技术生成句。
 3. `sources` 出现编造条目。
+4. `description` 明明已经 materialize，但槽位状态仍停留在 pending。

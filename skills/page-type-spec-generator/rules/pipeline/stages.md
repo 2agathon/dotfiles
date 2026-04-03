@@ -13,6 +13,7 @@
 9. 每个 stage 完成后，必须先更新 `run-manifest.json.current_stage` 与 `stage_history[]`，再允许进入下一个 stage。
 10. 不得以内存对象直接跨 stage 传递结果来替代阶段产物落盘。
 11. 不得通过统一总控脚本一口气跑完 Stage 0-9 再回填阶段目录。
+12. Stage 7、Stage 8、Stage 9 不得被实现成 helper script 驱动的程序阶段；它们必须由当前执行体直接完成。
 
 ## Stage 0：Run Manifest
 
@@ -223,17 +224,21 @@
 ### 动作
 
 1. 复制 `skeleton/` 到 `semantic-draft/`
-2. 生成待处理槽位或文件清单
+2. 从 `slot-manifest.json` 生成待处理 unit 清单；unit 粒度必须与 `field-source-matrix.md` 对齐
 3. 初始化 `semantic-unit-log.json`
-4. 按单个 block 逐项语义化 `block_types[].description`
-5. 按单个 tag 逐项语义化 `tags[].value_hint`
-6. 按单个 tag 逐项语义化 `tags[].context_hint`
-7. 按单个 tag 解析并补全 `tags[].anchor_binding`
-8. 按单个 hint 文件逐项语义化各 hint 文件
-9. 回写槽位状态
-10. 在 `semantic-unit-log.json` 中记录每个单元的执行或跳过结果
-11. 显式记录未处理、无法安全处理或保留占位的槽位
-12. 更新 `run-manifest.json` checkpoint
+4. 逐 unit 读取目标文件当前内容
+5. 逐 unit 只改当前槽位或当前章节，不得顺手改同文件其他位置
+6. 允许在同一连续编辑批次内先顺畅处理多个 unit；但该批次已完成 unit 的 `slot-manifest.json` 与 `semantic-unit-log.json`，最迟必须在批次结束、离开 Stage 7、向用户汇报、或遇到 blocking 前一次性诚实回写
+7. 按单个顶层 `$.description` 语义化 `page-types.data.json` / `page-types.tree.json`
+8. 按单个 type 逐项语义化 `types[].description`
+9. 按单个 block 逐项语义化 `block_types[].description`
+10. 按单个 tag 逐项语义化 `tags[].value_hint`
+11. 按单个 tag 逐项语义化 `tags[].context_hint`
+12. 按单个 tag 解析并补全 `tags[].anchor_binding`
+13. 按单个 hint 章节逐项语义化 `tagging-hint.md`、`assembly-hint.md`、`page-summary-hint.md`、`continuation-hint.md`
+14. 按单个 block 槽位逐项语义化 `block-summary-hint.md`
+15. 显式记录未处理、无法安全处理或保留占位的槽位
+16. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -252,13 +257,19 @@
 7. 不得一次性批量替换多个 `value_hint`
 8. 不得一次性批量替换多个 `context_hint`
 9. 不得一次性批量替换多个 block description
-10. 不得用单个脚本步骤整包生成多个 hint 文件内容
+10. 不得用单个脚本步骤整包生成多个 hint 章节或多个 block-summary 槽位内容
 11. 脚本只允许复制、排队、分发单元任务与回写状态，不得跨多个槽位直接生成内容
 12. 不得为了减少 pending 或让产物看起来更完整，就把模板态内容直接升级成 `materialized`
 13. 当某槽位缺少足够依据时，不得因为“先跑通流程”而强行生成 prose
 14. 不得缺失 Stage 7 单元执行日志
 15. 不得把 Stage 7 退化为“复制 skeleton 后统一跳过语义化、留给人工复核”的形式性阶段
 16. 对 `needs_semantic_generation=true` 的槽位，进入 Stage 8 前必须已经得到真实 Stage 7 裁决；不允许仅保留 Stage 6 模板并把该 unit 记为未处理
+17. 不得先整包改写某个业务文件，再按路径倒填多个 unit 记录
+18. 不得把多章节 hint 文件压缩成泛化总说明来替代逐章节处理
+19. 不得把 `block-summary-hint.md` 的多 block 多槽位骨架压缩成单段说明
+20. 不得编写、保存、运行或依赖任何 Stage 7 helper script；无论它位于运行根目录、`tools/` 目录还是其他等价位置
+21. 不得把“禁止脚本写正文”转译成逐 unit 请求用户确认；在无新增决策点时，必须连续处理完整个 unit 队列
+22. 不得把阶段内进度播报变成“是否继续”的伪交互；默认应继续时，只能继续执行或在批次结束后直接汇报结果
 
 ## Stage 8：Final Review
 
@@ -283,10 +294,11 @@
 6. 首标签缺失检查
 7. 空编码伪恢复 ID 检查
 8. 从 `semantic-draft/` 派生 `final-review/`
-9. 以 `final-review/` 视角生成问题清单与人工待补清单
-10. 报告诚实性检查
-11. Stage 7 执行证据检查
-12. 更新 `run-manifest.json` checkpoint
+9. 检查 `final-review/` 的业务文件是否与 `semantic-draft/` 对应文件一致
+10. 以 `final-review/` 视角生成问题清单与人工待补清单
+11. 报告诚实性检查
+12. Stage 7 执行证据检查
+13. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -302,6 +314,10 @@
 4. 不得用 `skeleton/` 视角替代 `final-review/` 视角统计待补项
 5. 不得因为想形成 `passed` 结果而弱化 final-review 中真实可见的 pending、warning 或高风险自动决策
 6. 不得在大量 Stage 7 unit 未处理或仅保留 Stage 6 模板的情况下进入 Final Review
+7. 不得在本阶段改写任何业务文件正文；若 `final-review/` 与 `semantic-draft/` 业务文件不一致，必须记为失败，而不是偷偷修正
+8. 不得编写、保存、运行或依赖任何 Stage 8 helper script；Stage 8 必须是直接派生与校验，而不是程序系统再执行一遍
+9. `pending_slots` 必须从 `slot-manifest.json` 的 `final-review` 视角完整推导，包含 `json_path` 与 `section_path`；不得只靠扫描文件内容估算
+10. 不得仅因 `semantic-unit-log.json` 非空就宣称 Stage 7 合规
 
 ## Stage 9：Final Handoff
 
@@ -316,7 +332,7 @@
 
 ### 动作
 
-1. 输出最终结果目录
+1. 从 `final-review/` 复制派生最终结果目录
 2. 输出最终摘要
 3. 列出自动决策、剩余风险、占位残留与人工待补项
 4. 列出 Stage 7 是否具备合规执行证据
@@ -333,3 +349,5 @@
 2. 不得隐藏剩余风险
 3. 不得隐藏仍残留的占位字段
 4. 若 `validation-report.json` 存在 blocking，不得宣称转换完成
+5. 不得在本阶段改写从 `final-review/` 复制来的业务文件正文
+6. 不得编写、保存、运行或依赖任何 Stage 9 helper script；Stage 9 只允许直接复制最终业务文件并生成收口报告

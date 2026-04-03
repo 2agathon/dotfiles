@@ -84,20 +84,27 @@ description: >
 5. 下一 stage 的唯一合法输入来源，是前一 stage 已落盘产物、当前允许读取的 `rules/*` 与 `schema/*`。不得使用“脚本里还留着上一步对象”“函数返回值继续传下去”“内存缓存对象继续加工”等方式替代阶段输入。
 6. Stage 7 开始时，必须先复制 `skeleton/` 到 `semantic-draft/`。此后只允许在 `semantic-draft/` 上逐单元处理。
 7. Stage 7 的单次内容生成只能服务一个 unit。unit 只允许是：
-   1. 一个 `types[].description`
-   2. 一个 `block_types[].description`
-   3. 一个 `tags[].value_hint`
-   4. 一个 `tags[].context_hint`
-   5. 一个 `tags[].anchor_binding`
-   6. 一个 hint 文件
-8. 严禁脚本或单次模型调用直接批量生成、批量替换或批量润色多个 `value_hint`、多个 `context_hint`、多个 block description、多个 hint 文件正文。
-9. Stage 7 的语义内容应直接改写 `semantic-draft/` 中对应文件，像逐处写代码一样逐单元修改；不要为了省事把 prose 生成再外包给脚本模板替换。
-10. Stage 7 中，脚本只允许做：复制、排队、分发单元任务、回写 `slot-manifest.json`、回写 `semantic-unit-log.json`。
-11. `semantic-unit-log.json` 是 Stage 7 合规证据。没有逐单元日志，就视为 Stage 7 不合规。
-12. `slot-manifest.json` 与 `semantic-unit-log.json` 只能记录真实发生的处理，不得把模板态、占位态或未处理对象记成已完成。
-13. `final-review` 只做检查、派生、报告。严禁在 `final-review` 阶段继续生成、润色、补写任何业务内容。
-14. 若你发现自己想“先跑通再回头修”，立即停止；这属于违规倾向，不得继续推进。
-15. 若你不能证明某动作被允许，默认禁止，停在当前阶段并显式记录问题。
+   1. 一个 `page-types.data.json` 或 `page-types.tree.json` 的 `$.description`
+   2. 一个 `types[].description`
+   3. 一个 `block_types[].description`
+   4. 一个 `tags[].value_hint`
+   5. 一个 `tags[].context_hint`
+   6. 一个 `tags[].anchor_binding`
+   7. 一个 hint 单章节
+   8. 一个 `block-summary-hint.md` 中的单个 block 槽位
+8. 严禁脚本或单次模型调用直接批量生成、批量替换或批量润色多个 `value_hint`、多个 `context_hint`、多个 block description、多个 hint 章节或多个 block-summary 槽位内容。
+9. Stage 7 处理每个 unit 时，必须先读取目标文件当前内容，只改当前槽位或章节。直接执行时允许连续处理多个 unit，不必逐 unit 向用户汇报；已完成 unit 的 `slot-manifest.json` 与 `semantic-unit-log.json` 最迟必须在当前连续编辑批次结束、离开 Stage 7、向用户汇报、或遇到 blocking 前诚实回写。
+10. Stage 7 的语义内容应直接改写 `semantic-draft/` 中对应文件，像逐处写代码一样逐单元修改；不要为了省事把 prose 生成再外包给脚本模板替换。
+11. Stage 7 中，脚本只允许做：复制、排队、分发单元任务、回写 `slot-manifest.json`、回写 `semantic-unit-log.json`。脚本不得直接写业务正文。
+12. `semantic-unit-log.json` 是 Stage 7 合规证据。没有逐单元日志，就视为 Stage 7 不合规。
+13. `slot-manifest.json` 与 `semantic-unit-log.json` 只能记录真实发生的处理，不得把模板态、占位态或未处理对象记成已完成，不得在整文件改完后批量倒填执行证据。
+14. Stage 7、Stage 8、Stage 9 不是要编写程序去执行的阶段，而是要直接执行的阶段。严禁为这三个阶段编写、保存、运行或依赖 `stage7_*`、`stage8_*`、`stage9_*`、`semantic_draft.py`、`final_review.py`、`final_handoff.py`、`tools/stage7_*`、`tools/stage8_*`、`tools/stage9_*` 或等价 helper script。
+15. 不得把“禁止脚本写正文”误解成逐 unit 向用户询问是否继续；一旦必要决策已经完成，Stage 7-9 默认必须连续推进，直到遇到 blocking、规则缺口、真实歧义或用户决策点。
+16. 不得把阶段内进度播报包装成“如果你要，我继续”式伪交互；对默认应继续的 Stage 7-9，不得用进度消息重新向用户索要继续许可。
+17. `final-review` 只做检查、派生、报告。严禁在 `final-review` 阶段继续生成、润色、补写任何业务内容；`final-review/` 中的业务文件必须与 `semantic-draft/` 对应文件一致。
+18. `final-delivery` 只允许从 `final-review/` 复制派生；不得在 Stage 9 再改业务正文。
+19. 若你发现自己想“先跑通再回头修”，立即停止；这属于违规倾向，不得继续推进。
+20. 若你不能证明某动作被允许，默认禁止，停在当前阶段并显式记录问题。
 
 ## 阶段调度
 
@@ -143,7 +150,7 @@ description: >
 3. 若 `identity-map.json` 与 `skeleton/` 冲突，必须以 `identity-map.json` 为准。
 4. 生成字段时，只读取该字段在 `field-source-matrix.md` 中指定的 rule。
 5. Stage 7 只允许在骨架既有槽位上逐项语义化，不得混入其他 type。
-6. Stage 7 的生成单位只允许是：单个 block、单个 tag、单个 hint 文件或单个 type description。
+6. Stage 7 的生成单位只允许是：单个顶层 description、单个 type description、单个 block description、单个 tag 字段、单个 hint 章节或单个 block-summary 槽位。
 7. Stage 7 脚本只允许复制、排队、分发单元任务与回写状态；不得一次生成多个同类槽位内容。
 8. 不得因为想尽快形成一套完整产物，就把 Stage 7 解释成“允许批量生成 prose”。
 9. 若无法提供逐单元执行证据，不得宣称 Stage 7 合规。
@@ -151,6 +158,7 @@ description: >
 11. 严禁用“整体保留 Stage 6 输出供人工复核”“conservative pass”“先不改语义”之类理由，把所有或大部分 Stage 7 unit 统一标记为 skip。
 12. 只要某个槽位被标记为 `needs_semantic_generation=true`，Stage 7 就必须真实处理它；不允许以复制 `skeleton/` 后原样保留模板文本来替代 Stage 7 语义化职责。
 13. Stage 7 进入后，默认连续处理所有 unit；除非遇到 blocking、规则缺口、真实歧义或必须由用户决策的风险，不得逐 unit 打断用户。
+14. Stage 7 不得先在内存或脚本中整包生成整份 `semantic-draft/`，再事后按 path 回填 unit 记录。
 
 ### Stage 8-9
 
@@ -168,6 +176,7 @@ description: >
 5. 只要存在 blocking，不得输出正式最终结果。
 6. 最终层存在显式占位、模板残留或高风险自动决策时，不得报“无风险”或“无待补项”。
 7. `final-review` 与 `final-report` 只能对最终层和当前选中 type 负责；中间层问题不得伪装成最终层风险。
+8. Stage 8 与 Stage 9 只允许派生目录、生成报告和回写审计状态；不得改写业务文件正文。
 
 ## 字段与 hint 路由
 
@@ -214,6 +223,9 @@ description: >
 20. 严禁把 `worksheet.max_row * max_column` 的 declared range 直接当成 raw/normalized 的落盘范围；必须只围绕有效非空单元格和有效行集落盘。
 21. 严禁为了“完整可回溯”把数十万到数百万个 `null` 单元格逐个写入 `workbook.raw.json` 或 `workbook.normalized.json`。
 22. 严禁以“已经复制到 semantic-draft/”或“已经生成 semantic-unit-log.json”作为 Stage 7 已完成的替代证据；真正的证据只能是逐 unit 的语义处理结果。
+23. 严禁在 Stage 7 中把多章节 hint 文件或多 block 槽位文件压缩成一段总说明，以此替代逐章节 / 逐槽位语义化。
+24. 严禁在 Stage 8 / Stage 9 通过脚本继续改写 `page-types.data.json`、`page-types.tree.json`、`page-semantic-spec.json` 或 hint 文件正文。
+25. 严禁把当前 skill 编译成一个会自我执行、自我验收、自我出报告的 Stage 7-9 程序系统；这类 helper script 体系一律视为越界实现。
 
 ## 输出要求
 

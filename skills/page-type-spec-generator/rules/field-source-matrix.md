@@ -32,11 +32,13 @@
 |---|---|---|---|---|
 | `slot-manifest.json` | 根对象 | `rules/pipeline/slot-manifest-contract.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md`, `rules/pipeline/stages.md` | — | 槽位清单初始化 |
 | `semantic-unit-log.json` | 根对象 | `rules/pipeline/stage7-unit-log-contract.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | — | 单元日志初始化 |
-| `skeleton/page-types.data.json` | 顶层字段 | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | `schema/review/page-types.schema.json` | 结构闭合 + 显式占位 |
+| `skeleton/page-types.data.json` | `$.version`, `$.last_updated`, `$.schema_meta`, `$.sources` | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | `schema/review/page-types.schema.json` | 结构闭合 + 显式占位 |
+| `skeleton/page-types.data.json` | `$.description` | `rules/fields/page-types-top-level-generation.md` | `schema/review/page-types.schema.json` | 固定模板 |
 | `skeleton/page-types.data.json` | `categories[]`, `types[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/review/page-types.schema.json` | 结构真相或稳定占位 |
 | `skeleton/page-types.data.json` | `types[].description` | `rules/fields/type-description-generation.md` | `schema/review/page-types.schema.json` | 固定模板 |
 | `skeleton/page-types.data.json` | `types[].aliases` | `rules/fields/type-aliases-generation.md` | `schema/review/page-types.schema.json` | 显式空数组或机械转移值 |
-| `skeleton/page-types.tree.json` | 顶层字段 | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | `schema/review/page-types.schema.json` | 结构闭合 + 显式占位 |
+| `skeleton/page-types.tree.json` | `$.version`, `$.last_updated`, `$.schema_meta`, `$.sources` | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | `schema/review/page-types.schema.json` | 结构闭合 + 显式占位 |
+| `skeleton/page-types.tree.json` | `$.description` | `rules/fields/page-types-top-level-generation.md` | `schema/review/page-types.schema.json` | 固定模板 |
 | `skeleton/page-types.tree.json` | `categories[]`, `types[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/review/page-types.schema.json` | 结构真相或稳定占位 |
 | `skeleton/page-types.tree.json` | `types[].description` | `rules/fields/type-description-generation.md` | `schema/review/page-types.schema.json` | 固定模板 |
 | `skeleton/page-types.tree.json` | `types[].aliases` | `rules/fields/type-aliases-generation.md` | `schema/review/page-types.schema.json` | 显式空数组或机械转移值 |
@@ -49,29 +51,39 @@
 | `skeleton/page-semantic-spec.json` | `tags[].value_hint` | `rules/fields/value-hint-generation.md` | `schema/review/page-semantic.schema.json` | 固定模板：定义 / 触发 / 正例 / 反例 |
 | `skeleton/page-semantic-spec.json` | `tags[].context_hint` | `rules/fields/context-hint-generation.md` | `schema/review/page-semantic.schema.json` | 显式字段 + `__PTSG_PENDING__` |
 | `skeleton/page-semantic-spec.json` | `tags[].anchor_binding` | `rules/fields/anchor-binding-parsing.md` | `schema/review/page-semantic.schema.json` | 原列为空则无字段；原列非空时为结构化对象或占位对象 |
-| `skeleton/tagging-hint.md` | 全文件 | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
-| `skeleton/assembly-hint.md` | 全文件 | `rules/hints/assembly-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
-| `skeleton/block-summary-hint.md` | 全文件 | `rules/hints/block-summary-hint-generation.md` | — | 摘要模板槽位骨架 + 显式占位 |
-| `skeleton/page-summary-hint.md` | 全文件 | `rules/hints/page-summary-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
-| `skeleton/continuation-hint.md` | 全文件 | `rules/hints/continuation-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/tagging-hint.md` | `标签边界裁决` | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/tagging-hint.md` | `局部规范化与排除` | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/tagging-hint.md` | `特殊段与版式重复段` | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/tagging-hint.md` | `OCR / 排版噪声` | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/tagging-hint.md` | `优先级补充` | `rules/hints/tagging-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/assembly-hint.md` | `全局组装规则` | `rules/hints/assembly-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/assembly-hint.md` | `各 block 小节中的单个字段（成块前提 / 抑制条件 / 归并与拆分 / 可补挂标签 / 记录时间取值 / 冲突取舍）` | `rules/hints/assembly-hint-generation.md` | — | 按 block 的字段骨架 + 显式占位 |
+| `skeleton/block-summary-hint.md` | `各 block 小节中的单个槽位（模板 / 输出顺序 / 归一与改写 / 缺项退化 / 冲突取舍）` | `rules/hints/block-summary-hint-generation.md` | — | 摘要模板槽位骨架 + 显式占位 |
+| `skeleton/page-summary-hint.md` | `页级重点` | `rules/hints/page-summary-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/page-summary-hint.md` | `组织顺序` | `rules/hints/page-summary-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/page-summary-hint.md` | `特殊表达要求` | `rules/hints/page-summary-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/continuation-hint.md` | `可跨页单元` | `rules/hints/continuation-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/continuation-hint.md` | `续写继续信号` | `rules/hints/continuation-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/continuation-hint.md` | `续写终止信号` | `rules/hints/continuation-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
+| `skeleton/continuation-hint.md` | `版式重复段 / 忽略段` | `rules/hints/continuation-hint-generation.md` | — | 固定章节骨架 + 显式占位 |
 
 ## Stage 7 Semantic Draft 来源矩阵
 
 执行约束：
 
-1. Stage 7 的单次内容生成单位只允许是：一个 block、一个 tag、一个 hint 文件或一个 type description。
+1. Stage 7 的单次内容生成单位只允许是：一个顶层 description、一个 type description、一个 block description、一个 tag 字段、一个 hint 章节或一个 block-summary 槽位。
 2. 脚本只允许复制 `skeleton/`、排队单元任务、分发单元任务和回写 `slot-manifest.json` / `semantic-unit-log.json`。
-3. 不得使用单个脚本步骤批量替换多个 `value_hint`、多个 `context_hint`、多个 block description 或多个 hint 文件内容。
+3. 不得使用单个脚本步骤批量替换多个 `value_hint`、多个 `context_hint`、多个 block description、多个 hint 章节或多个 block-summary 槽位内容。
 4. 必须同时回写 `semantic-unit-log.json`；缺少单元日志时，不得宣称 Stage 7 合规。
 
 | 产物文件 | 逻辑对象 / 章节 | 前置要求 | 允许读取的 rules | 允许输出形态 |
 |---|---|---|---|---|
 | `slot-manifest.json` | 根对象 | 已存在 Stage 6 槽位清单 | `rules/pipeline/slot-manifest-contract.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md`, `rules/pipeline/stages.md` | 槽位状态回写 |
 | `semantic-unit-log.json` | 根对象 | 已存在 Stage 6 骨架与待处理对象清单 | `rules/pipeline/stage7-unit-log-contract.md`, `rules/pipeline/stages.md`, `rules/pipeline/artifacts.md` | 单元执行日志 |
-| `semantic-draft/page-types.data.json` | 顶层字段 | 已存在 Stage 6 显式字段 | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | 仅替换既有槽位为语义草稿 |
+| `semantic-draft/page-types.data.json` | `$.description` | 已存在 Stage 6 固定模板 | `rules/fields/page-types-top-level-generation.md` | 单个顶层说明短句或保留占位 |
 | `semantic-draft/page-types.data.json` | `types[].description` | 已存在 Stage 6 固定模板 | `rules/fields/type-description-generation.md` | 自然语言段落或保留占位 |
 | `semantic-draft/page-types.data.json` | `types[].aliases` | 已存在 Stage 6 显式数组 | `rules/fields/type-aliases-generation.md` | 稳定别名数组或空数组 |
-| `semantic-draft/page-types.tree.json` | 顶层字段 | 已存在 Stage 6 显式字段 | `rules/fields/page-types-top-level-generation.md`, `rules/pipeline/state-and-placeholder-policy.md`, `rules/pipeline/artifacts.md` | 仅替换既有槽位为语义草稿 |
+| `semantic-draft/page-types.tree.json` | `$.description` | 已存在 Stage 6 固定模板 | `rules/fields/page-types-top-level-generation.md` | 单个顶层说明短句或保留占位 |
 | `semantic-draft/page-types.tree.json` | `types[].description` | 已存在 Stage 6 固定模板 | `rules/fields/type-description-generation.md` | 自然语言段落或保留占位 |
 | `semantic-draft/page-types.tree.json` | `types[].aliases` | 已存在 Stage 6 显式数组 | `rules/fields/type-aliases-generation.md` | 稳定别名数组或空数组 |
 | `semantic-draft/page-semantic-spec.json` | `action_paths[]` | 已存在 Stage 6 正式结构或空数组 | `rules/fields/action-paths-generation.md`, `rules/pipeline/state-and-placeholder-policy.md` | 正式结构或空数组 |
@@ -79,11 +91,11 @@
 | `semantic-draft/page-semantic-spec.json` | `tags[].value_hint` | 已存在 Stage 6 固定模板 | `rules/fields/value-hint-generation.md` | 自然语言段落 |
 | `semantic-draft/page-semantic-spec.json` | `tags[].context_hint` | 已存在 Stage 6 显式字段 | `rules/fields/context-hint-generation.md` | 最小语义短句、空字符串或保留占位 |
 | `semantic-draft/page-semantic-spec.json` | `tags[].anchor_binding` | 已存在 Stage 6 无字段、结构化对象或占位对象 | `rules/fields/anchor-binding-parsing.md` | 正式结构、保留占位对象或保持无字段 |
-| `semantic-draft/tagging-hint.md` | 全文件 | 已存在 Stage 6 固定章节骨架 | `rules/hints/tagging-hint-generation.md` | 打标规则草稿 |
-| `semantic-draft/assembly-hint.md` | 全文件 | 已存在 Stage 6 固定章节骨架 | `rules/hints/assembly-hint-generation.md` | 组装策略草稿 |
-| `semantic-draft/block-summary-hint.md` | 全文件 | 已存在 Stage 6 摘要模板槽位骨架 | `rules/hints/block-summary-hint-generation.md` | 块摘要规则或模板草稿 |
-| `semantic-draft/page-summary-hint.md` | 全文件 | 已存在 Stage 6 固定章节骨架 | `rules/hints/page-summary-hint-generation.md` | 页摘要规则草稿 |
-| `semantic-draft/continuation-hint.md` | 全文件 | 已存在 Stage 6 固定章节骨架 | `rules/hints/continuation-hint-generation.md` | 续写判定规则草稿 |
+| `semantic-draft/tagging-hint.md` | 单章节 | 已存在 Stage 6 固定章节骨架 | `rules/hints/tagging-hint-generation.md` | 单章节打标规则草稿 |
+| `semantic-draft/assembly-hint.md` | `全局组装规则` 或单个 block 字段 | 已存在 Stage 6 固定章节骨架 | `rules/hints/assembly-hint-generation.md` | 单章节或单字段组装规则草稿 |
+| `semantic-draft/block-summary-hint.md` | 单个 block 槽位 | 已存在 Stage 6 摘要模板槽位骨架 | `rules/hints/block-summary-hint-generation.md` | 单槽位块摘要规则草稿 |
+| `semantic-draft/page-summary-hint.md` | 单章节 | 已存在 Stage 6 固定章节骨架 | `rules/hints/page-summary-hint-generation.md` | 单章节页摘要规则草稿 |
+| `semantic-draft/continuation-hint.md` | 单章节 | 已存在 Stage 6 固定章节骨架 | `rules/hints/continuation-hint-generation.md` | 单章节续写判定规则草稿 |
 
 ## Stage 8 Final Review 校验矩阵
 
@@ -103,17 +115,18 @@
 
 | 逻辑对象 | Stage 6 Skeleton 形态 | Stage 7 Semantic Draft 形态 | Stage 8 Final Review 关注点 |
 |---|---|---|---|
+| `page-types.*.$.description` | 固定模板 | 单个顶层说明短句或保留占位 | 检查状态与实际值是否一致 |
 | `types[].description` | 固定模板 | 自然语言段落或保留占位 | 检查弱模板残留 |
 | `types[].aliases` | 显式空数组或机械转移值 | 稳定别名数组或空数组 | 检查是否臆造 aliases |
 | `block_types[].description` | 固定模板 | 自然语言段落 | 检查是否混入执行策略 |
 | `tags[].value_hint` | 固定模板 | 自然语言段落 | 检查模板残留与区分度 |
-| `tags[].context_hint` | 显式字段 + 占位 | 最小语义短句、空字符串或保留占位 | 检查误补 / 漏补 |
+| `tags[].context_hint` | 显式字段 + 占位 | 最小语义短句、空字符串或保留占位 | 检查误补 / 漏补 / 串位 |
 | `tags[].anchor_binding` | 无字段、结构化对象或占位对象 | 正式结构、保留占位对象或保持无字段 | 仅对显式存在字段检查关键字段闭合 |
-| `tagging-hint.md` | 固定章节骨架 | 打标规则草稿 | 检查批量套话 |
-| `assembly-hint.md` | 固定章节骨架 | 组装策略草稿 | 检查越界写到摘要或取值 |
-| `block-summary-hint.md` | 摘要模板槽位骨架 | 块摘要规则或模板草稿 | 检查是否误写组装逻辑 |
-| `page-summary-hint.md` | 固定章节骨架 | 页摘要规则草稿 | 检查是否误写块级内容 |
-| `continuation-hint.md` | 固定章节骨架 | 续写判定规则草稿 | 检查是否误写打标或组装内容 |
+| `tagging-hint.md.单章节` | 固定章节骨架 | 单章节打标规则草稿 | 检查是否整文件压扁或批量套话 |
+| `assembly-hint.md.全局/单block字段` | 固定章节骨架 | 单章节或单字段组装规则草稿 | 检查是否越界写到摘要或取值 |
+| `block-summary-hint.md.单block单槽位` | 摘要模板槽位骨架 | 单槽位块摘要规则或模板草稿 | 检查是否误写组装逻辑或压平骨架 |
+| `page-summary-hint.md.单章节` | 固定章节骨架 | 单章节页摘要规则草稿 | 检查是否误写块级内容或压平骨架 |
+| `continuation-hint.md.单章节` | 固定章节骨架 | 单章节续写判定规则草稿 | 检查是否误写打标或组装内容 |
 
 ## 对象约束
 

@@ -8,6 +8,7 @@
 4. 产物中必须保留回溯信息，不得只保留最终结论。
 5. 最终 review-ready 产物允许保留统一占位符，但必须显式列入报告。
 6. 报告层产物必须忠实反映最终层事实；“看起来更完整”的表述不能覆盖真实 pending、warning 或高风险自动决策。
+7. 运行目录中若存在 `tools/`、helper script 或等价程序文件，只能服务 Stage 0-6 的机械步骤；Stage 7-9 不得产出、保存或依赖这类程序文件。
 
 ## `run-manifest.json`
 
@@ -166,6 +167,7 @@
 1. 证明 Stage 7 是否按单元执行
 2. 为 Final Review 的过程合规检查提供证据
 3. 为 `slot-manifest.json` 的 Stage 7 回写提供交叉索引
+4. 不得被程序化 helper script 事后批量伪造
 
 ## `skeleton/`
 
@@ -209,9 +211,13 @@
 
 1. `semantic-draft/` 必须从 `skeleton/` 复制派生
 2. 若后续要输出正式结果，应从本层派生，而不是跳过本层重生一份
-3. Stage 7 的内容生成单位必须是单个 block、单个 tag、单个 hint 文件或单个 type description
-4. 脚本可以复制、排队、分发和回写状态；不得批量改写多个同类槽位的内容
-5. 必须同时产出 `semantic-unit-log.json`，否则不得宣称 Stage 7 已合规完成
+3. Stage 7 的内容生成单位必须是单个顶层 description、单个 type description、单个 block description、单个 tag 字段、单个 hint 章节或单个 block-summary 槽位
+4. 每个 unit 都必须先读取目标文件当前内容，再只改当前槽位或章节
+5. 允许在同一连续编辑批次内先顺畅处理多个 unit；但该批次完成后，必须立即回写 `slot-manifest.json` 与 `semantic-unit-log.json`
+6. hint 文件必须保留 Stage 6 已给出的章节或 block 骨架；不得整文件压缩成一段总说明
+7. 脚本可以复制、排队、分发和回写状态；不得批量改写多个同类槽位的内容，更不得直接写业务正文
+8. 必须同时产出 `semantic-unit-log.json`，否则不得宣称 Stage 7 已合规完成
+9. 运行目录不得包含任何 Stage 7 helper script 或等价程序文件
 
 ## `final-review/`
 
@@ -234,6 +240,10 @@
 2. 不得包含空字符串 ID
 3. 不得包含 `blocked` 对象
 4. 不得包含未选中 type 的对象
+5. `final-review/` 中的业务文件必须与 `semantic-draft/` 对应文件一致
+6. Stage 8 只允许生成 `validation-report.json`、`audit-report.md` 和 final 视角状态记录；不得改写业务文件正文
+7. `pending_slots` 必须从 `slot-manifest.json` 的 final 视角完整推导，不得遗漏 `section_path` 槽位
+8. 运行目录不得包含任何 Stage 8 helper script 或等价程序文件
 
 ## `validation-report.json`
 
@@ -263,6 +273,8 @@
 1. `pending_slots_scope` 必须明确写出统计口径，如 `final-review` 或 `final-delivery`。
 2. `stage7_compliance_status` 只能表达 Stage 7 过程合规状态，不得被目录结构完整性替代。
 3. `report_scope` 必须明确最终报告是否只覆盖 `final-review` / 最终交付层。
+4. `pending_slots` 必须完整覆盖 `slot-manifest.json` 中 final 视角的所有 pending 槽位，包括 markdown section。
+5. `stage7_compliance_status` 不得仅因 unit 数量非空或 unit 日志存在就写成 `passed`。
 
 ## `audit-report.md`
 
@@ -312,6 +324,9 @@
 3. 不得包含空字符串 ID
 4. 不得包含 `blocked` 对象
 5. 不得包含未选中 type 的对象
+6. 最终交付目录中的业务文件必须与 `final-review/` 对应文件一致
+7. Stage 9 只允许复制业务文件并生成 `final-report.md`，不得改写业务文件正文
+8. 运行目录不得包含任何 Stage 9 helper script 或等价程序文件
 
 ## `final-report.md`
 

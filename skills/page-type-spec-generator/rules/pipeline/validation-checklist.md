@@ -55,6 +55,8 @@
 1. 最终交付目录不是从 `final-review/` 派生
 2. `final-review/` 不是从 `semantic-draft/` 派生
 3. 最终交付目录与 `semantic-draft/` 的核心对象集合不一致
+4. `final-review/` 中的业务文件与 `semantic-draft/` 对应文件不一致
+5. 最终交付目录中的业务文件与 `final-review/` 对应文件不一致
 
 ### 6. type 污染
 
@@ -87,6 +89,8 @@
 3. 某个必填字段存在于结果文件但未出现在 `slot-manifest.json`
 4. `final-review/` 中存在显式占位，但 `pending_slots` 未列出该槽位
 5. `final-review/` 中仍是 `__PTSG_PENDING__`，但对应 final 视角 `slot_status` 为 `transferred` 或 `materialized`
+6. `final-review/` 中显式值已是非占位 prose、非空字符串或非空结构，但对应 final 视角 `slot_status` 仍为 `pending_human`、`missing_required_source` 或 `pending_semantic`
+7. 字段规则允许空字符串或无字段，但 final 视角 `slot_status` 未与实际可见值一致
 
 ### 10. 报告失真
 
@@ -95,6 +99,9 @@
 1. `final-review/` 或最终交付层仍有显式占位，但 `validation-report.json` 声称 `pending_slots=[]`
 2. `warnings=[]`，但最终层仍存在显式占位、模板残留或高风险自动决策
 3. `final-report.md` 写 `remaining_risks: none`，但 `validation-report.json` 中仍有 warning、pending 或高风险自动决策
+4. `validation-report.json.pending_slots` 未完整覆盖 `slot-manifest.json` 中 final 视角的 pending 槽位
+5. markdown section 或 block-summary 槽位仍是 pending，但 `validation-report.json.pending_slots` 未列出
+6. `stage7_compliance_status=passed`，但其依据只有“unit 日志存在”或“unit 数量非零”
 
 ### 11. Stage 7 执行证据缺失
 
@@ -106,6 +113,11 @@
 4. `needs_semantic_generation=true` 的大量槽位在 Stage 7 中被统一标记为 `handled=false`
 5. `skip_reason` 使用 `preserved_stage6_output_for_human_review`、`conservative_stage7_pass`、`kept_skeleton_content_visible` 或等价表述
 6. Stage 7 结束后，`semantic-draft/` 与 `skeleton/` 在需要语义化的对象上只剩路径复制，没有真实语义裁决痕迹
+7. `unit_kind` 与 `target_slot_key` 对应对象类型不匹配
+8. unit 记录缺少 `before_snapshot`、`after_snapshot` 或 `content_changed`
+9. `top_level_description`、`type_description`、`block_description`、`tag_value_hint`、`tag_context_hint`、`hint_section`、`block_summary_slot` 被标记为 `materialized`，但 `content_changed=false`
+10. Stage 6 已按章节或槽位显式落槽，但 Stage 7 把整份 hint 压缩成泛化总说明，导致 section / slot 级骨架消失
+11. 运行目录、根目录或 `tools/` 下存在 `stage7_*`、`semantic_draft.py` 或等价 helper script
 
 ### 12. 最终报告范围泄漏
 
@@ -123,6 +135,8 @@
 2. 某阶段产物已存在，但 `stage_history[]` 中没有对应 checkpoint
 3. 存在覆盖多个 stage 的统一总控脚本、`run_all` 式入口或等价执行痕迹
 4. 无法证明当前结果是按 stage 顺序落盘推进，而不是事后回填目录
+5. 运行目录、根目录或 `tools/` 下存在任何 `stage7_*`、`stage8_*`、`stage9_*`、`semantic_draft.py`、`final_review.py`、`final_handoff.py` 或等价 helper script
+6. 存在 Stage 7 / Stage 8 / Stage 9 helper script 直接批量改写业务正文、整文件重写 hint、遗漏 final 视角 pending 或事后批量回填执行证据的痕迹
 
 ### 14. Raw / Normalize 稠密空矩阵膨胀
 
@@ -162,6 +176,16 @@
 3. 多个不相关 tag 共享同一句 `context_hint` 主句
 4. 大量 `context_hint` 只是“补充该值对应的时间点 / 对象 / 范围”这类抽象短句，而没有 tag 专属差异
 5. 会在多个 block 中复用的 tag，被写成单一 block 视角的 `context_hint`
+6. 明显低歧义、`value_hint` 已经自洽的 tag，在 final-review 中仍大面积保留 `__PTSG_PENDING__`，而不是收束为空字符串
+7. 空字符串策略几乎未被使用，但 pending 主要落在不需要额外语义缺口的 tag 上
+
+### 10A. `context_hint` 串位或角色错配
+
+以下任一失败，记为 `blocking`：
+
+1. 当前 tag 的 `context_hint` 更自然地描述另一个 sibling tag，而不是当前 tag
+2. 一串相邻 tag 的 `context_hint` 出现整体平移、串位或角色错配
+3. 评估类、对象类、时间类、部位类、程度类等明显不同角色的 tag，拿到了彼此更匹配的 `context_hint`
 
 ### 11. hint 贫血或模板化
 
@@ -173,6 +197,7 @@
 4. `tagging-hint.md` 主要是一标签一句提醒，未形成标签对或标签家族边界
 5. `assembly-hint.md` 主要在写 tag 级取值，而非 block 级组装决策
 6. `block-summary-hint.md` 主要在列 tag 槽位，未形成摘要组织原则
+7. 章节仍在，但大部分只剩空泛短句，未形成可执行增量
 
 ### 12. block description 模板化
 

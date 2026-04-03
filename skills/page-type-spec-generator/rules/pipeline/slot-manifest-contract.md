@@ -138,6 +138,9 @@
 4. Stage 7 至少记录 semantic-draft 层
 5. Stage 8 至少记录 final-review 层或明确声明该槽位未进入 final-review
 6. Stage 7 的 `unit_id` 必须可回溯到 `semantic-unit-log.json` 中的一个 unit
+7. Stage 7 / Stage 8 回写时，`slot_status` 必须以目标文件当前可见值为准，不得只按执行意图填写
+8. 若 Stage 6 已按章节或槽位落槽，Stage 7 / Stage 8 也必须保持同粒度记录；不得退回整文件级真相
+9. Stage 7 可在一个连续编辑批次结束后集中回写本批次已完成槽位；但不得在整份文件、整个 Stage 7 或向用户汇报之后仍不回写
 
 ## 使用约束
 
@@ -147,6 +150,11 @@
 4. `pending_slots` 必须从 `stage_records` 中的 `final-review` 视角推导，不得只看 skeleton 视角。
 5. `version`、`schema_meta.*`、`order`、`replaced_by`、`block_types[].tags[].role`、`block_types[].tags[].description` 等治理字段和块内子字段，若在最终层显式出现，也必须被当作正式槽位追踪。
 6. `final-report.md` 与 `validation-report.json` 中出现的 pending，必须能回溯到 `final-review` 视角的 `slot-manifest` 记录。
+7. 若最终层显式值已是非占位 prose、非空字符串或非空结构，`slot_status` 不得仍记为 `pending_human`、`missing_required_source` 或 `pending_semantic`。
+8. 若字段规则允许空字符串或无字段，final 视角状态也必须与该合法形态一致；不得硬记成 pending。
+9. `validation-report.json.pending_slots` 必须直接从 `slot-manifest.json` 的 final 视角投影得到，不得用单独的文件扫描逻辑替代。
+10. `section_path` 与 `json_path` 槽位在 final 视角一律同等对待，不得因为是 markdown 章节就漏出 pending 清单。
+11. 若当前执行向用户汇报 Stage 7 进度、请求决策或因 blocking 中断，`slot-manifest.json` 必须先刷新到该时刻的真实状态。
 
 ## 失败信号
 
@@ -159,3 +167,7 @@
 5. `final-review` 中存在显式可见的治理字段或块内子字段，但 `slot-manifest.json` 完全未追踪
 6. `final-review` 中仍是 `__PTSG_PENDING__`，但对应 final 视角 `slot_status` 被记录为 `transferred` 或 `materialized`
 7. Stage 7 记录声称某槽位已语义化，但没有对应 `semantic-unit-log.json.unit_id`
+8. `semantic-draft/` 或 `final-review/` 中显式值已是 materialized prose 或非空结构，但 `slot_status` 仍停留在 pending
+9. Stage 6 已按章节或槽位显式落槽的 hint，在 Stage 7 / Stage 8 被退化成单个整文件状态
+10. `validation-report.json.pending_slots` 与 `slot-manifest.json` final 视角不一致，尤其遗漏 markdown section 槽位
+11. 已向用户汇报 Stage 7 进度或离开 Stage 7，但本批次已完成槽位仍未写入 `slot-manifest.json`
