@@ -8,7 +8,11 @@
 4. 不得在类型未枚举前询问用户选择类型。
 5. 每个阶段完成后，必须产出对应中间结果。
 6. `skeleton/`、`semantic-draft/`、`final-review/` 是三个显式阶段结果，不得塌缩成一个黑箱输出。
-7. 所有必填字段与业务上可维护的可选字段都必须显式生成；缺值时使用统一占位，而不是物理省略。
+7. 所有必填字段与按字段规则要求显式可见的可选字段都必须显式生成；缺值时使用统一占位，而不是物理省略。只有字段规则明确允许无字段时，才可保持无字段。
+8. 当“尽快形成完整产物”和“严格服从阶段边界”冲突时，必须优先服从阶段边界。
+9. 每个 stage 完成后，必须先更新 `run-manifest.json.current_stage` 与 `stage_history[]`，再允许进入下一个 stage。
+10. 不得以内存对象直接跨 stage 传递结果来替代阶段产物落盘。
+11. 不得通过统一总控脚本一口气跑完 Stage 0-9 再回填阶段目录。
 
 ## Stage 0：Run Manifest
 
@@ -23,6 +27,7 @@
 2. 记录输入文件信息
 3. 记录当前运行模式
 4. 初始化当前阶段、处理范围、目标产物层级
+5. 初始化 `stage_history[]`
 
 ### 输出
 
@@ -74,6 +79,7 @@
 5. 行级初步分类
 6. 标记 `block_start` 行是否同时承载首标签定义
 7. 记录修复痕迹
+8. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -106,6 +112,7 @@
 7. 建立 block 与 tag 引用关系
 8. 处理重复标签去重
 9. 处理空 `tag编码` 行分类
+10. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -133,6 +140,7 @@
 1. 枚举检测到的 `type`
 2. 在允许交互的模式下询问用户要处理哪些 `type`
 3. 在不允许交互的模式下记录默认决策
+4. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -157,6 +165,7 @@
 2. 检查 category 是否存在
 3. 决定追加、跳过或新建
 4. 记录 review-ready 与 publish-ready 的校验目标
+5. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -183,9 +192,10 @@
 2. 生成 `page-semantic-spec.json` 骨架
 3. 生成五个 hint 文件骨架
 4. 生成 `slot-manifest.json`
-5. 为所有必填字段与业务上可维护的可选字段显式落槽
+5. 为所有必填字段与按字段规则要求显式可见的可选字段显式落槽
 6. 将每个槽位标记为：机械转移值、模板展开值或统一占位值
 7. 若某个 block 的首标签来自 `block_start` 行，必须在骨架中显式落槽
+8. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -197,7 +207,7 @@
 1. 不得在本阶段生成润色后的自然语言成品
 2. 不得绕过 `identity-map` 临场新增根级标签
 3. `skeleton/` 不得反向改写 `identity-map` 中已确定的身份结果
-4. 不得因为字段可选就省略槽位
+4. 不得因为字段可选就省略本应显式落槽的对象
 5. 不得把占位内容伪装成最终语义结果
 
 ## Stage 7：Semantic Draft
@@ -208,22 +218,28 @@
 2. `slot-manifest.json`
 3. `identity-map.json`
 4. 各字段和 hint 对应的 `rules/fields/*` 与 `rules/hints/*`
+5. `rules/pipeline/stage7-unit-log-contract.md`
 
 ### 动作
 
 1. 复制 `skeleton/` 到 `semantic-draft/`
 2. 生成待处理槽位或文件清单
-3. 按单个 block 逐项语义化 `block_types[].description`
-4. 按单个 tag 逐项语义化 `tags[].value_hint`
-5. 按单个 tag 逐项语义化 `tags[].context_hint`
-6. 按单个 tag 解析并补全 `tags[].anchor_binding`
-7. 按单个 hint 文件逐项语义化各 hint 文件
-8. 回写槽位状态
+3. 初始化 `semantic-unit-log.json`
+4. 按单个 block 逐项语义化 `block_types[].description`
+5. 按单个 tag 逐项语义化 `tags[].value_hint`
+6. 按单个 tag 逐项语义化 `tags[].context_hint`
+7. 按单个 tag 解析并补全 `tags[].anchor_binding`
+8. 按单个 hint 文件逐项语义化各 hint 文件
+9. 回写槽位状态
+10. 在 `semantic-unit-log.json` 中记录每个单元的执行或跳过结果
+11. 显式记录未处理、无法安全处理或保留占位的槽位
+12. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
 1. `semantic-draft/`
 2. 更新后的 `slot-manifest.json`
+3. `semantic-unit-log.json`
 
 ### 禁止
 
@@ -238,6 +254,11 @@
 9. 不得一次性批量替换多个 block description
 10. 不得用单个脚本步骤整包生成多个 hint 文件内容
 11. 脚本只允许复制、排队、分发单元任务与回写状态，不得跨多个槽位直接生成内容
+12. 不得为了减少 pending 或让产物看起来更完整，就把模板态内容直接升级成 `materialized`
+13. 当某槽位缺少足够依据时，不得因为“先跑通流程”而强行生成 prose
+14. 不得缺失 Stage 7 单元执行日志
+15. 不得把 Stage 7 退化为“复制 skeleton 后统一跳过语义化、留给人工复核”的形式性阶段
+16. 对 `needs_semantic_generation=true` 的槽位，进入 Stage 8 前必须已经得到真实 Stage 7 裁决；不允许仅保留 Stage 6 模板并把该 unit 记为未处理
 
 ## Stage 8：Final Review
 
@@ -246,10 +267,11 @@
 1. `skeleton/`
 2. `semantic-draft/`
 3. `slot-manifest.json`
-4. `schema/review/page-semantic.schema.json`
-5. `schema/review/page-types.schema.json`
-6. `rules/pipeline/validation-checklist.md`
-7. `rules/pipeline/state-and-placeholder-policy.md`
+4. `semantic-unit-log.json`
+5. `schema/review/page-semantic.schema.json`
+6. `schema/review/page-types.schema.json`
+7. `rules/pipeline/validation-checklist.md`
+8. `rules/pipeline/state-and-placeholder-policy.md`
 
 ### 动作
 
@@ -260,8 +282,11 @@
 5. 模板化残留检查
 6. 首标签缺失检查
 7. 空编码伪恢复 ID 检查
-8. 以 `final-review/` 视角生成问题清单与人工待补清单
-9. 从 `semantic-draft/` 派生 `final-review/`
+8. 从 `semantic-draft/` 派生 `final-review/`
+9. 以 `final-review/` 视角生成问题清单与人工待补清单
+10. 报告诚实性检查
+11. Stage 7 执行证据检查
+12. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 
@@ -275,6 +300,8 @@
 2. 不得删除占位符来假装完成
 3. 不得把“结构通过”写成“质量通过”
 4. 不得用 `skeleton/` 视角替代 `final-review/` 视角统计待补项
+5. 不得因为想形成 `passed` 结果而弱化 final-review 中真实可见的 pending、warning 或高风险自动决策
+6. 不得在大量 Stage 7 unit 未处理或仅保留 Stage 6 模板的情况下进入 Final Review
 
 ## Stage 9：Final Handoff
 
@@ -283,14 +310,17 @@
 1. `final-review/`
 2. `validation-report.json`
 3. `audit-report.md`
-4. `rules/pipeline/artifacts.md`
-5. `rules/pipeline/state-and-placeholder-policy.md`
+4. `semantic-unit-log.json`
+5. `rules/pipeline/artifacts.md`
+6. `rules/pipeline/state-and-placeholder-policy.md`
 
 ### 动作
 
 1. 输出最终结果目录
 2. 输出最终摘要
 3. 列出自动决策、剩余风险、占位残留与人工待补项
+4. 列出 Stage 7 是否具备合规执行证据
+5. 更新 `run-manifest.json` checkpoint
 
 ### 输出
 

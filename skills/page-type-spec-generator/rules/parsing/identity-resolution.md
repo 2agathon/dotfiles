@@ -162,6 +162,34 @@ tag 身份终态只允许：
 5. `record_time_source` 等 role 只能作为辅助判断信号，不能覆盖具名对象默认先恢复的规则。
 6. 若不存在显式恢复源，不得把显示名直接规范化成 `TAG_U...` 一类看似正式的 recovered id。
 
+## 显式恢复源白名单
+
+只有满足以下任一条件，才允许把具名空编码 tag 判为 `resolved_recovered`：
+
+1. 同 namespace / 同 type 范围内已存在显式 canonical id 的同名 tag
+2. 本规则文件明确列出的恢复映射白名单命中
+
+默认白名单：
+
+1. 当前为空；未列出的 role、中文显示名、业务直觉都不构成显式恢复源
+
+说明：
+
+1. `record_time_source` 本身不是白名单项。
+2. 若后续确需允许某类 role-based recovery，必须先在本规则文件显式加入白名单，再允许执行。
+
+## placeholder 收束规则
+
+1. 对于进入 `resolved_placeholder` 的具名空编码 tag，必须先尝试按 `placeholder_group_key` 收束。
+2. `placeholder_group_key` 至少由以下信息组成：
+   1. selected type
+   2. tag 显示名
+   3. role
+   4. 结构功能
+3. 若多个空编码 tag 的 `placeholder_group_key` 相同，默认复用同一个 placeholder id。
+4. 只有在存在稳定差异证据时，才允许拆分为 `DUP` 变体。
+5. 生成 `DUP` 变体时，必须记录 `placeholder_distinction_reason`。
+
 ## `block_start` 首标签规则
 
 1. 若 `block_start` 行同时携带 tag 定义信号，必须同时创建该 block 的首个 tag 身份。
@@ -187,6 +215,8 @@ tag 身份终态只允许：
 5. `placeholder_reason`（仅 `resolved_placeholder` 时）
 6. `origin_row_kind`
 7. `recovery_source`（仅 `resolved_recovered` 时）
+8. `placeholder_group_key`（仅 `resolved_placeholder` 时）
+9. `placeholder_distinction_reason`（仅生成 `DUP` 变体时）
 
 ## `identity-issues.md` 必记内容
 
@@ -197,6 +227,7 @@ tag 身份终态只允许：
 3. 身份冲突
 4. `blocked` 对象
 5. `block_start` 行上的首标签处理结果
+6. placeholder 收束或拆分决策
 
 ## 阻断条件
 

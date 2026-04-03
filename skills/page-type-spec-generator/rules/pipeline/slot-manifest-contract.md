@@ -15,6 +15,8 @@
 4. Semantic Draft 阶段必须回写每个槽位的处理状态。
 5. Final Review 阶段必须以 `slot-manifest.json` 为准生成待补清单。
 6. `slot-manifest.json` 必须显式区分 Skeleton、Semantic Draft、Final Review 三层记录，不得只保留 skeleton 视角。
+7. 所有在 `final-review/` 中显式可见的字段都必须进入 `slot-manifest.json`，不得只追踪“看起来重要”的一部分槽位。
+8. 只要最终层可见值仍是 `__PTSG_PENDING__`，对应槽位在 final 视角不得标记为 `transferred` 或 `materialized`。
 
 ## 最小结构
 
@@ -81,6 +83,8 @@
 4. `structured_object`
 5. `markdown_section`
 6. `markdown_file`
+7. `governance_field`
+8. `block_local_field`
 
 ### `source_rules`
 
@@ -128,17 +132,21 @@
    3. `slot_status`
    4. `placeholder_value`
    5. `handled`
-   6. `notes`
+   6. `unit_id`
+   7. `notes`
 3. Stage 6 至少记录 skeleton 层
 4. Stage 7 至少记录 semantic-draft 层
 5. Stage 8 至少记录 final-review 层或明确声明该槽位未进入 final-review
+6. Stage 7 的 `unit_id` 必须可回溯到 `semantic-unit-log.json` 中的一个 unit
 
 ## 使用约束
 
 1. `slot-manifest.json` 不得替代结果文件本身。
-2. 结果文件仍必须显式保留字段与章节。
+2. 结果文件仍必须显式保留按字段规则要求可见的字段与章节；字段规则明确允许无字段时可缺席。
 3. `slot-manifest.json` 的职责是显影与索引，不是代替内容。
 4. `pending_slots` 必须从 `stage_records` 中的 `final-review` 视角推导，不得只看 skeleton 视角。
+5. `version`、`schema_meta.*`、`order`、`replaced_by`、`block_types[].tags[].role`、`block_types[].tags[].description` 等治理字段和块内子字段，若在最终层显式出现，也必须被当作正式槽位追踪。
+6. `final-report.md` 与 `validation-report.json` 中出现的 pending，必须能回溯到 `final-review` 视角的 `slot-manifest` 记录。
 
 ## 失败信号
 
@@ -148,3 +156,6 @@
 2. `slot-manifest.json` 声称某字段已语义化，但结果文件仍是骨架模板态
 3. `slot-manifest.json` 未能区分待语义生成与待人工补写
 4. `final-review` 中存在显式占位，但 `slot-manifest.json` 没有在 final 视角记录该槽位
+5. `final-review` 中存在显式可见的治理字段或块内子字段，但 `slot-manifest.json` 完全未追踪
+6. `final-review` 中仍是 `__PTSG_PENDING__`，但对应 final 视角 `slot_status` 被记录为 `transferred` 或 `materialized`
+7. Stage 7 记录声称某槽位已语义化，但没有对应 `semantic-unit-log.json.unit_id`

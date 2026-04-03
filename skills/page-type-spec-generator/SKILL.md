@@ -28,16 +28,25 @@ description: >
 1. `rules/`
 2. `schema/`
 
+路径约束：
+
+1. 本 skill 中出现的 `rules/` 与 `schema/`，都指当前 skill 目录下的相对路径。
+2. 必须在 `skills/page-type-spec-generator/rules/` 与 `skills/page-type-spec-generator/schema/` 下读取。
+3. 不得去当前工作目录、项目根目录或其他同名目录下寻找 `rules/` 或 `schema/`。
+
 默认不读取：
 
 1. `backup/`
 2. `refs/`
 3. `boundaries/`
 4. 任何历史 example
+5. `result/` 中任何既有输出或生成脚本作为当前执行依据
 
 ## 执行入口
 
 开始执行时，按以下顺序读取：
+
+说明：以下路径均相对当前 skill 目录解析。
 
 1. `rules/field-source-matrix.md`
 2. `rules/pipeline/stages.md`
@@ -46,6 +55,7 @@ description: >
 5. `rules/pipeline/validation-checklist.md`
 6. `rules/pipeline/state-and-placeholder-policy.md`
 7. `rules/pipeline/slot-manifest-contract.md`
+8. `rules/pipeline/stage7-unit-log-contract.md`
 
 ## 执行规则
 
@@ -56,7 +66,38 @@ description: >
 5. 若某对象无法仅凭指定 `rules/*` 生成，停止扩展读取范围，改为记录问题并等待补 rule。
 6. 若任一必填 ID 为空或任一对象进入 `blocked`，必须停止后续阶段。
 7. 若当前选中 type 之外的对象混入结果，必须视为失败。
-8. review-ready 结果必须显式保留所有必填字段与业务上可维护的可选字段；不得靠物理省略隐藏缺口。
+8. review-ready 结果必须显式保留所有必填字段与按字段规则要求显式可见的可选字段；不得靠物理省略隐藏缺口。只有字段规则明确允许无字段时，才可保持无字段。
+9. 当流程闭环与 skill 边界冲突时，优先守边界；宁可输出带 pending 的 review-ready 结果，也不得扩大解释、伪恢复或伪通过。
+10. 当规则存在解释空间时，默认选择更保守路径：`resolved_placeholder`、`pending_human`、`blocked` 或显式风险暴露，而不是直接放行。
+11. 每个 stage 都必须先落盘当前阶段产物并留下 checkpoint，再允许进入下一阶段。
+12. 除非 `rules/pipeline/interaction-points.md` 明确要求交互、需要用户选择 `type`、遇到 blocking、或规则缺口/风险需要用户决策，否则不得逐 stage 向用户索要继续执行许可。
+13. 默认应在当前 stage 产物真实落盘后，直接进入下一 stage；“等待用户再次同意”不是默认流程控制方式。
+14. Stage 1 与 Stage 2 必须使用稀疏表示。不得把工作表声明范围中的海量空行、空列、空单元格按稠密矩阵逐个落入 JSON。
+15. 一旦用户已完成必要决策（例如选定 `type`），后续默认连续推进；不得在 Stage 7 中逐 block、逐 tag、逐 hint 文件反复询问“是否继续”。
+
+## 不可协商执行方式
+
+1. 必须一步一步做。一次只能执行一个 stage，不得一口气把 Stage 0-9 全部跑完。
+2. 当前 stage 的产物未落盘、`run-manifest.json` 未写入 checkpoint 前，不得进入下一 stage。
+3. 严禁编写、运行或依赖任何覆盖多个 stage 的统一总控脚本、`run_all` 脚本、`pipeline.py`、`main.py` 或等价入口。即使它会顺序写出中间目录，也视为违规。
+4. 严禁以内存中直接传递跨阶段对象来绕过阶段产物落盘。
+5. 下一 stage 的唯一合法输入来源，是前一 stage 已落盘产物、当前允许读取的 `rules/*` 与 `schema/*`。不得使用“脚本里还留着上一步对象”“函数返回值继续传下去”“内存缓存对象继续加工”等方式替代阶段输入。
+6. Stage 7 开始时，必须先复制 `skeleton/` 到 `semantic-draft/`。此后只允许在 `semantic-draft/` 上逐单元处理。
+7. Stage 7 的单次内容生成只能服务一个 unit。unit 只允许是：
+   1. 一个 `types[].description`
+   2. 一个 `block_types[].description`
+   3. 一个 `tags[].value_hint`
+   4. 一个 `tags[].context_hint`
+   5. 一个 `tags[].anchor_binding`
+   6. 一个 hint 文件
+8. 严禁脚本或单次模型调用直接批量生成、批量替换或批量润色多个 `value_hint`、多个 `context_hint`、多个 block description、多个 hint 文件正文。
+9. Stage 7 的语义内容应直接改写 `semantic-draft/` 中对应文件，像逐处写代码一样逐单元修改；不要为了省事把 prose 生成再外包给脚本模板替换。
+10. Stage 7 中，脚本只允许做：复制、排队、分发单元任务、回写 `slot-manifest.json`、回写 `semantic-unit-log.json`。
+11. `semantic-unit-log.json` 是 Stage 7 合规证据。没有逐单元日志，就视为 Stage 7 不合规。
+12. `slot-manifest.json` 与 `semantic-unit-log.json` 只能记录真实发生的处理，不得把模板态、占位态或未处理对象记成已完成。
+13. `final-review` 只做检查、派生、报告。严禁在 `final-review` 阶段继续生成、润色、补写任何业务内容。
+14. 若你发现自己想“先跑通再回头修”，立即停止；这属于违规倾向，不得继续推进。
+15. 若你不能证明某动作被允许，默认禁止，停在当前阶段并显式记录问题。
 
 ## 阶段调度
 
@@ -104,6 +145,12 @@ description: >
 5. Stage 7 只允许在骨架既有槽位上逐项语义化，不得混入其他 type。
 6. Stage 7 的生成单位只允许是：单个 block、单个 tag、单个 hint 文件或单个 type description。
 7. Stage 7 脚本只允许复制、排队、分发单元任务与回写状态；不得一次生成多个同类槽位内容。
+8. 不得因为想尽快形成一套完整产物，就把 Stage 7 解释成“允许批量生成 prose”。
+9. 若无法提供逐单元执行证据，不得宣称 Stage 7 合规。
+10. Stage 7 不是“给人工留待处理”的形式性过场，而是必须真实完成语义裁决的阶段。对于进入 Stage 7 的 unit，必须逐个给出实际结果：`materialized`、`pending_human`、`missing_required_source`、`optional_visible_empty` 或 `blocked`。
+11. 严禁用“整体保留 Stage 6 输出供人工复核”“conservative pass”“先不改语义”之类理由，把所有或大部分 Stage 7 unit 统一标记为 skip。
+12. 只要某个槽位被标记为 `needs_semantic_generation=true`，Stage 7 就必须真实处理它；不允许以复制 `skeleton/` 后原样保留模板文本来替代 Stage 7 语义化职责。
+13. Stage 7 进入后，默认连续处理所有 unit；除非遇到 blocking、规则缺口、真实歧义或必须由用户决策的风险，不得逐 unit 打断用户。
 
 ### Stage 8-9
 
@@ -119,6 +166,8 @@ description: >
 3. 最终交付目录必须从 `final-review/` 派生。
 4. 不得绕过 `semantic-draft/` 或 `final-review/` 另写一份最终结果。
 5. 只要存在 blocking，不得输出正式最终结果。
+6. 最终层存在显式占位、模板残留或高风险自动决策时，不得报“无风险”或“无待补项”。
+7. `final-review` 与 `final-report` 只能对最终层和当前选中 type 负责；中间层问题不得伪装成最终层风险。
 
 ## 字段与 hint 路由
 
@@ -126,11 +175,12 @@ description: >
 
 1. `page-types.data.json` / `page-types.tree.json` 顶层字段 -> `rules/fields/page-types-top-level-generation.md`
 2. `types[].description` -> `rules/fields/type-description-generation.md`
-3. `action_paths[]` -> `rules/fields/action-paths-generation.md`
-4. `block_types[].description` -> `rules/fields/block-description-generation.md`
-5. `tags[].value_hint` -> `rules/fields/value-hint-generation.md`
-6. `tags[].context_hint` -> `rules/fields/context-hint-generation.md`
-7. `tags[].anchor_binding` -> `rules/fields/anchor-binding-parsing.md`
+3. `types[].aliases` -> `rules/fields/type-aliases-generation.md`
+4. `action_paths[]` -> `rules/fields/action-paths-generation.md`
+5. `block_types[].description` -> `rules/fields/block-description-generation.md`
+6. `tags[].value_hint` -> `rules/fields/value-hint-generation.md`
+7. `tags[].context_hint` -> `rules/fields/context-hint-generation.md`
+8. `tags[].anchor_binding` -> `rules/fields/anchor-binding-parsing.md`
 
 ### hint 生成
 
@@ -155,6 +205,15 @@ description: >
 11. 不得在 Stage 7 删除 Stage 6 已显式生成的字段或文件。
 12. 不得把空编码具名 tag 伪恢复成 `TAG_U...` 一类正式 id；无显式恢复源时必须走 placeholder 或 blocked。
 13. Final Review 的待补项必须以 `final-review/` 或最终交付层为准，不得只引用 `skeleton/`。
+14. 不得把既有输出、既有报告、既有生成脚本当作这次生成内容的默认依据；它们只可作为反例、审计证据或回归样本。
+15. 不得因为想减少 pending / blocked，就扩大 `resolved_recovered` 的适用范围。
+16. 不得在最终报告中用 `none`、`passed`、`无额外风险` 掩盖最终层仍可见的 pending、warning 或高风险自动决策。
+17. 不得把“目录分层存在”“保留 pending”“报告诚实”当作 Stage 7 过程合规的替代证据。
+18. 不得编写、运行或依赖覆盖多个 stage 的统一总控脚本、`run_all` 式脚本或等价入口；即使它会顺序落下中间目录，也不视为合规。
+19. 不得以内存中直接传递跨阶段对象绕过阶段产物落盘与 checkpoint。
+20. 严禁把 `worksheet.max_row * max_column` 的 declared range 直接当成 raw/normalized 的落盘范围；必须只围绕有效非空单元格和有效行集落盘。
+21. 严禁为了“完整可回溯”把数十万到数百万个 `null` 单元格逐个写入 `workbook.raw.json` 或 `workbook.normalized.json`。
+22. 严禁以“已经复制到 semantic-draft/”或“已经生成 semantic-unit-log.json”作为 Stage 7 已完成的替代证据；真正的证据只能是逐 unit 的语义处理结果。
 
 ## 输出要求
 
@@ -166,6 +225,7 @@ description: >
 4. `final-review/`
 5. 最终交付目录
 6. `slot-manifest.json`
-7. `validation-report.json`
-8. `audit-report.md`
-9. `final-report.md`
+7. `semantic-unit-log.json`
+8. `validation-report.json`
+9. `audit-report.md`
+10. `final-report.md`

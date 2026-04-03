@@ -3,7 +3,7 @@
   "$id": "https://welleval-plus/schema/medical-material.page-type-block-spec.review.json",
   "title": "Medical Material Page-Type Block Review Schema",
   "type": "object",
-  "required": ["version", "page_type", "block_types", "tags", "action_paths"],
+  "required": ["page_type", "block_types", "tags", "action_paths"],
   "additionalProperties": false,
   "properties": {
     "version": { "$ref": "#/$defs/VisibleString" },
@@ -25,10 +25,10 @@
         "type": "object",
         "required": ["context", "phase", "action", "block_type_ids"],
         "additionalProperties": false,
-        "properties": {
-          "context": { "$ref": "#/$defs/IdName" },
-          "phase": { "$ref": "#/$defs/IdName" },
-          "action": { "$ref": "#/$defs/IdName" },
+          "properties": {
+            "context": { "$ref": "#/$defs/StrictIdName" },
+            "phase": { "$ref": "#/$defs/StrictIdName" },
+            "action": { "$ref": "#/$defs/StrictIdName" },
           "block_type_ids": {
             "type": "array",
             "minItems": 1,
@@ -87,7 +87,7 @@
           },
           "name": { "$ref": "#/$defs/VisibleString" },
           "value_hint": { "$ref": "#/$defs/VisibleString" },
-          "context_hint": { "$ref": "#/$defs/VisibleString" },
+          "context_hint": { "type": "string" },
           "anchor_binding": {
             "oneOf": [
               { "$ref": "#/$defs/AnchorBinding" },
@@ -124,6 +124,25 @@
       "properties": {
         "id": { "$ref": "#/$defs/VisibleString" },
         "name": { "$ref": "#/$defs/VisibleString" }
+      }
+    },
+    "StrictIdName": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "allOf": [
+            { "type": "string", "minLength": 1 },
+            { "not": { "const": "__PTSG_PENDING__" } }
+          ]
+        },
+        "name": {
+          "allOf": [
+            { "type": "string", "minLength": 1 },
+            { "not": { "const": "__PTSG_PENDING__" } }
+          ]
+        }
       }
     },
     "AnchorBinding": {

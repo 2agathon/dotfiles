@@ -71,6 +71,7 @@
 说明：
 
 1. `tag_candidate` 只表示“这行可能参与标签定义”，不等于最终一定进入根级 `tags[]`
+2. `必须` 可作为历史列参与 `tag_candidate` 识别，但不得作为后续生成输入
 
 ### 4. `helper_candidate`
 

@@ -7,6 +7,7 @@
 3. 所有产物都必须可被后续阶段直接读取。
 4. 产物中必须保留回溯信息，不得只保留最终结论。
 5. 最终 review-ready 产物允许保留统一占位符，但必须显式列入报告。
+6. 报告层产物必须忠实反映最终层事实；“看起来更完整”的表述不能覆盖真实 pending、warning 或高风险自动决策。
 
 ## `run-manifest.json`
 
@@ -20,11 +21,26 @@
 6. 当前选中的 `type`
 7. 当前阶段
 8. 目标验证层级
+9. `stage_history[]`
 
 ### 用途
 
 1. 后续阶段读取运行模式
 2. 后续阶段读取本次处理范围
+
+### `stage_history[]`
+
+每个元素至少包含：
+
+1. `stage`
+2. `status`
+3. `outputs`
+
+规则：
+
+1. 每个阶段完成后必须追加一条 checkpoint。
+2. 阶段顺序必须单调递增。
+3. `outputs` 必须引用该阶段真实落盘产物。
 
 ## `workbook.raw.json`
 
@@ -34,11 +50,16 @@
 2. 原始行号
 3. 原始列号或列名
 4. 原始单元格值
+5. `declared_max_row` / `declared_max_column`
+6. `effective_max_row` / `effective_max_column`
+7. `non_empty_cell_count`
+8. `skipped_empty_row_count`
 
 ### 用途
 
 1. 为 `workbook.normalized.json` 提供原始来源
 2. 供后续审计回看原始输入
+3. 证明 Stage 1 采用的是稀疏表示而不是稠密空矩阵
 
 ## `workbook.normalized.json`
 
@@ -51,11 +72,13 @@
 5. 继承填充记录
 6. 行级初步分类结果
 7. `block_start` 行是否承载首标签的标记
+8. 参与 normalize 的有效行集范围
 
 ### 用途
 
 1. 为 `identity-map.json` 提供稳定输入
 2. 供 `normalization-report.md` 生成摘要
+3. 证明 Stage 2 没有在大量空行上继续展开稠密结构
 
 ## `normalization-report.md`
 
@@ -128,6 +151,21 @@
 2. 防止 Stage 7 退化为黑箱整包生成
 3. 为 Final Review 输出人工待补清单
 4. 为 Final Review 提供 final 视角的真实 pending 列表
+5. 为报告诚实性检查提供唯一索引依据
+
+## `semantic-unit-log.json`
+
+### 必含内容
+
+1. `run_id`
+2. `selected_type_id`
+3. `units[]`
+
+### 用途
+
+1. 证明 Stage 7 是否按单元执行
+2. 为 Final Review 的过程合规检查提供证据
+3. 为 `slot-manifest.json` 的 Stage 7 回写提供交叉索引
 
 ## `skeleton/`
 
@@ -138,6 +176,10 @@
 3. `page-semantic-spec.json`
 4. 五个 hint 文件骨架
 
+说明：
+
+1. `page-semantic-spec.json.version` 在 review schema 中是可见治理字段，不是阻断必填字段。
+
 ### 用途
 
 1. 为 semantic draft 提供结构闭合底座
@@ -147,7 +189,7 @@
 
 1. `skeleton/` 中的内容只承担结构闭合、模板展开和占位显影职责
 2. 高自由度语义内容不得在此层定稿
-3. 所有可见字段都必须显式出现，不得因“可选”而省略
+3. 所有按字段规则应显式可见的字段都必须显式出现，不得因“可选”而省略；只有字段规则明确允许无字段时，才可保持无字段
 
 ## `semantic-draft/`
 
@@ -169,6 +211,7 @@
 2. 若后续要输出正式结果，应从本层派生，而不是跳过本层重生一份
 3. Stage 7 的内容生成单位必须是单个 block、单个 tag、单个 hint 文件或单个 type description
 4. 脚本可以复制、排队、分发和回写状态；不得批量改写多个同类槽位的内容
+5. 必须同时产出 `semantic-unit-log.json`，否则不得宣称 Stage 7 已合规完成
 
 ## `final-review/`
 
@@ -178,6 +221,7 @@
 2. 所有仍残留的显式占位字段
 3. 与 `slot-manifest.json` 一致的槽位状态
 4. 以 final 视角统计出的人工待补槽位
+5. 与 `semantic-unit-log.json` 一致的 Stage 7 执行证据
 
 ### 用途
 
@@ -204,11 +248,21 @@
 7. `pending_slots`
 8. 最终 `status`
 9. `pending_slots` 的统计层级
+10. `high_risk_auto_decisions`
+11. `stage7_compliance_status`
+12. `report_scope`
 
 ### 用途
 
 1. 为 `audit-report.md` 提供结构化检查结果
 2. 为最终收口提供阻塞信息与人工待补项
+3. 明确告诉用户最终层到底还剩什么问题，而不是只给一个 `passed`
+
+### 字段约束
+
+1. `pending_slots_scope` 必须明确写出统计口径，如 `final-review` 或 `final-delivery`。
+2. `stage7_compliance_status` 只能表达 Stage 7 过程合规状态，不得被目录结构完整性替代。
+3. `report_scope` 必须明确最终报告是否只覆盖 `final-review` / 最终交付层。
 
 ## `audit-report.md`
 
@@ -225,10 +279,18 @@
 9. 人工待补清单摘要
 10. 首标签缺失检查摘要
 11. 空编码伪恢复 ID 检查摘要
+12. 报告诚实性检查摘要
+13. 高风险自动决策摘要
+14. Stage 7 执行证据摘要
 
 ### 用途
 
 1. 向用户说明本次转换有哪些风险、默认决策与仍待补项
+
+### 约束
+
+1. `audit-report.md` 可以引用 intermediate 层问题，但必须明确标注其作用域。
+2. intermediate-only 的问题不得伪装成 final-review 或最终交付层问题。
 
 ## 最终交付目录
 
@@ -262,7 +324,16 @@
 5. 仍有哪些显式占位字段
 6. 人工还需补哪些槽位
 7. validation 的最终状态
+8. 高风险自动决策有哪些
+9. Stage 7 是否有合规执行证据
 
 ### 用途
 
 1. 作为最终对用户的收口说明
+
+### 约束
+
+1. 若最终层仍有 pending、warning 或高风险自动决策，不得写 `none`。
+2. `final-report.md` 只允许报告 `final-review/` 与最终交付层中真实存在的问题。
+3. 未选中 type 或 intermediate-only 的问题不得写入 `剩余风险`。
+4. 中间层问题只能出现在 `audit-report.md`。
