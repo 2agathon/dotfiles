@@ -36,11 +36,7 @@ description: >
 
 默认不读取：
 
-1. `backup/`
-2. `refs/`
-3. `boundaries/`
-4. 任何历史 example
-5. `result/` 中任何既有输出或生成脚本作为当前执行依据
+1. `refs/`（即使它位于当前 skill 根目录下，也只可作为存档参考，不得作为默认执行输入或执行入口）
 
 ## 执行入口
 
@@ -187,9 +183,10 @@ description: >
 3. `types[].aliases` -> `rules/fields/type-aliases-generation.md`
 4. `action_paths[]` -> `rules/fields/action-paths-generation.md`
 5. `block_types[].description` -> `rules/fields/block-description-generation.md`
-6. `tags[].value_hint` -> `rules/fields/value-hint-generation.md`
-7. `tags[].context_hint` -> `rules/fields/context-hint-generation.md`
-8. `tags[].anchor_binding` -> `rules/fields/anchor-binding-parsing.md`
+6. `block_types[].answerable_question` -> `rules/fields/block-answerable-question-generation.md`
+7. `tags[].value_hint` -> `rules/fields/value-hint-generation.md`
+8. `tags[].context_hint` -> `rules/fields/context-hint-generation.md`
+9. `tags[].anchor_binding` -> `rules/fields/anchor-binding-parsing.md`
 
 ### hint 生成
 

@@ -155,12 +155,13 @@
 - `additionalProperties=false`
 
 
-| 路径                          | 类型     | 必填  | 约束                   | 说明          |
-| --------------------------- | ------ | --- | -------------------- | ----------- |
-| `block_types[].id`          | string | 是   | `^BLOCK_[A-Z0-9_]+$` | 块类型 ID。     |
-| `block_types[].name`        | string | 是   | `minLength=1`        | 块展示名。       |
-| `block_types[].description` | string | 否   | -                    | 块语义说明。      |
-| `block_types[].tags`        | array  | 是   | -                    | 块内可引用的标签集合。 |
+| 路径                                   | 类型     | 必填  | 约束                   | 说明                             |
+| ------------------------------------ | ------ | --- | -------------------- | -------------------------------- |
+| `block_types[].id`                   | string | 是   | `^BLOCK_[A-Z0-9_]+$` | 块类型 ID。                          |
+| `block_types[].name`                 | string | 是   | `minLength=1`        | 块展示名。                            |
+| `block_types[].description`          | string | 否   | -                    | 块语义说明。                           |
+| `block_types[].answerable_question`  | string | 否   | -                    | 本块设计用来直接回答的单一问题自然语言描述；多个问题需拆为多个块类型。 |
+| `block_types[].tags`                 | array  | 是   | -                    | 块内可引用的标签集合。                      |
 
 
 `block_types[].tags[]` 子结构：
@@ -179,6 +180,7 @@
   - `id`
   - `name`
   - `description`
+  - `answerable_question`（在块组装成功后，按 `block_type_id` 回填到 `welp_mt_material_block.answerable_question`）
   - `tags`
 2. 对 `block_types[].tags[]`，当前代码更多是把原始结构继续向下传，不会在 catalog 层做复杂解释。
 

@@ -8,7 +8,6 @@ description: >
 interfaces:
   upstream: [identity, notes-protocol, self-rewrite]
   downstream: []
-
 ---
 
 ## 这个 skill 做什么

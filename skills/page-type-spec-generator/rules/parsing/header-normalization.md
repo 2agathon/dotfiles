@@ -36,25 +36,26 @@
 7. `Block`
 8. `Block id`
 9. `Block description`
-10. `tag名称`
-11. `Block role`
-12. `tag编码`
-13. `tag定义`
-14. `tag anchor binding`
-15. `触发模式`
-16. `正例`
-17. `反例`
-18. `必须`
-19. `块摘要构造和输出组装`
-20. `采集和转化规范`
-21. `缺项处理`
-22. `冲突处理`
-23. `情景`
-24. `情景id`
-25. `阶段`
-26. `阶段id`
-27. `动作`
-28. `动作id`
+10. `Block answerable question`
+11. `tag名称`
+12. `Block role`
+13. `tag编码`
+14. `tag定义`
+15. `tag anchor binding`
+16. `触发模式`
+17. `正例`
+18. `反例`
+19. `必须`
+20. `块摘要构造和输出组装`
+21. `采集和转化规范`
+22. `缺项处理`
+23. `冲突处理`
+24. `情景`
+25. `情景id`
+26. `阶段`
+27. `阶段id`
+28. `动作`
+29. `动作id`
 
 其中：
 
@@ -75,6 +76,7 @@
 
 1. `namespce` -> `namespace`
 2. `Bolck role` -> `Block role`
+3. `answerable question` -> `Block answerable question`
 
 ### 3. 去空白修复
 

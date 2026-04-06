@@ -9,7 +9,6 @@ description: >
 interfaces:
   upstream: [identity, principles, assumption-audit, conversation-to-spec]
   downstream: [project-structure, docs, decision-record, assumption-audit]
-
 ---
 
 ## 这个 skill 做什么

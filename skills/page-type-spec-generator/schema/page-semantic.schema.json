@@ -67,6 +67,10 @@
             "type": "string",
             "description": "本块的语义范围说明（供展示或提示）"
           },
+          "answerable_question": {
+            "type": "string",
+            "description": "本块设计用来直接回答的单一问题（自然语言描述）；只允许机械转移来源值。"
+          },
           "tags": {
             "type": "array",
             "description": "本块内可打的标签列表；每项可带在块内的角色或说明",

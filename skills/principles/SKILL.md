@@ -6,7 +6,7 @@ description: >
   跨语言跨项目的工程原则。写代码时加载，不写代码时不需要加载。
 interfaces:
   upstream: [identity]
-  downstream: [project-structure, vibe-plan]
+  downstream: [project-structure, vibe-plan]=
 ---
 
 ## 这个 skill 的边界

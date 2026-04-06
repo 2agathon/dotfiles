@@ -47,27 +47,31 @@
       }
     },
     "block_types": {
-      "type": "array",
-      "description": "材料块类型定义（含块内可打标签及角色）",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": ["id", "name", "tags"],
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^BLOCK_[A-Z0-9_]+$"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1
-          },
-          "description": {
-            "type": "string",
-            "description": "本块的语义范围说明（供展示或提示）"
-          },
-          "tags": {
+        "type": "array",
+        "description": "材料块类型定义（含块内可打标签及角色）",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["id", "name", "tags"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^BLOCK_[A-Z0-9_]+$"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string",
+              "description": "本块的语义范围说明（供展示或提示）"
+            },
+            "answerable_question": {
+              "type": "string",
+              "description": "本块设计用来回答的单一问题（自然语言描述）；多个问题需拆为多个块类型。"
+            },
+            "tags": {
             "type": "array",
             "description": "本块内可打的标签列表；每项可带在块内的角色或说明",
             "minItems": 0,

@@ -9,7 +9,6 @@ allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep
 interfaces:
   upstream: [identity, vibe-plan, conversation-to-spec, notes-protocol, assumption-audit, role-lens, project-structure, knowledge-shaping, docs]
   downstream: [docs]
-
 ---
 
 # Decision Record

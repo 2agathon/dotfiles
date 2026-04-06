@@ -8,7 +8,6 @@ description: >
 interfaces:
   upstream: [identity, notes-protocol, assumption-audit, role-lens, knowledge-shaping]
   downstream: [vibe-plan, docs, decision-record]
-
 ---
 
 # Conversation to Spec

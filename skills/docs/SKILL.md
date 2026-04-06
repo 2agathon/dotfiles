@@ -9,7 +9,6 @@ description: >
 interfaces:
   upstream: [identity, vibe-plan, conversation-to-spec, decision-record, project-structure]
   downstream: [decision-record]
-
 ---
 
 # Docs

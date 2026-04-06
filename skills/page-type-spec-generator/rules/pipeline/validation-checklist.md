@@ -208,6 +208,14 @@
 3. description 中出现明显错位复用，导致块语义与尾句不一致
 4. description 大量复用同一类统一收束句，导致不同 block 之间的语义主轴难以区分
 
+### 12A. `answerable_question` 改写
+
+以下情况记为 `blocking`：
+
+1. 来源列非空，但最终结果中缺少 `block_types[].answerable_question`
+2. 来源列为空，但最终结果中凭推断新增了 `block_types[].answerable_question`
+3. `block_types[].answerable_question` 不是来源列的机械转移值，而是被润色、缩写、扩写或改写
+
 ### 13. `aliases` 异常
 
 以下情况记为 `warning`：

@@ -8,7 +8,6 @@ description: >
 interfaces:
   upstream: [identity, principles, project-structure]
   downstream: []
-
 ---
 
 ## 这个 skill 做什么

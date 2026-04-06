@@ -9,7 +9,6 @@ description: >
 interfaces:
   upstream: [identity, conversation-to-spec, vibe-plan]
   downstream: [vibe-plan, decision-record, notes-protocol]
-
 ---
 
 # assumption-audit

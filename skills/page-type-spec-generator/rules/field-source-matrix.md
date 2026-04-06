@@ -47,6 +47,7 @@
 | `skeleton/page-semantic-spec.json` | `block_types[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/review/page-semantic.schema.json` | 结构真相或稳定占位 |
 | `skeleton/page-semantic-spec.json` | `block_types[].tags[]` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/review/page-semantic.schema.json` | 结构真相 |
 | `skeleton/page-semantic-spec.json` | `block_types[].description` | `rules/fields/block-description-generation.md` | `schema/review/page-semantic.schema.json` | 固定模板：块对象 / 块语义 / 语义维度 |
+| `skeleton/page-semantic-spec.json` | `block_types[].answerable_question` | `rules/fields/block-answerable-question-generation.md` | `schema/review/page-semantic.schema.json` | 原列为空则无字段；原列非空时机械转移值 |
 | `skeleton/page-semantic-spec.json` | `tags[].id/name` | `rules/parsing/identity-resolution.md`, `rules/parsing/id-normalization.md`, `rules/pipeline/state-and-placeholder-policy.md` | `schema/review/page-semantic.schema.json` | 结构真相或稳定占位 |
 | `skeleton/page-semantic-spec.json` | `tags[].value_hint` | `rules/fields/value-hint-generation.md` | `schema/review/page-semantic.schema.json` | 固定模板：定义 / 触发 / 正例 / 反例 |
 | `skeleton/page-semantic-spec.json` | `tags[].context_hint` | `rules/fields/context-hint-generation.md` | `schema/review/page-semantic.schema.json` | 显式字段 + `__PTSG_PENDING__` |
@@ -88,6 +89,7 @@
 | `semantic-draft/page-types.tree.json` | `types[].aliases` | 已存在 Stage 6 显式数组 | `rules/fields/type-aliases-generation.md` | 稳定别名数组或空数组 |
 | `semantic-draft/page-semantic-spec.json` | `action_paths[]` | 已存在 Stage 6 正式结构或空数组 | `rules/fields/action-paths-generation.md`, `rules/pipeline/state-and-placeholder-policy.md` | 正式结构或空数组 |
 | `semantic-draft/page-semantic-spec.json` | `block_types[].description` | 已存在 Stage 6 固定模板 | `rules/fields/block-description-generation.md` | 自然语言段落 |
+| `semantic-draft/page-semantic-spec.json` | `block_types[].answerable_question` | 已存在 Stage 6 无字段或机械转移值 | `rules/fields/block-answerable-question-generation.md` | 保持无字段或直接沿用 |
 | `semantic-draft/page-semantic-spec.json` | `tags[].value_hint` | 已存在 Stage 6 固定模板 | `rules/fields/value-hint-generation.md` | 自然语言段落 |
 | `semantic-draft/page-semantic-spec.json` | `tags[].context_hint` | 已存在 Stage 6 显式字段 | `rules/fields/context-hint-generation.md` | 最小语义短句、空字符串或保留占位 |
 | `semantic-draft/page-semantic-spec.json` | `tags[].anchor_binding` | 已存在 Stage 6 无字段、结构化对象或占位对象 | `rules/fields/anchor-binding-parsing.md` | 正式结构、保留占位对象或保持无字段 |
@@ -119,6 +121,7 @@
 | `types[].description` | 固定模板 | 自然语言段落或保留占位 | 检查弱模板残留 |
 | `types[].aliases` | 显式空数组或机械转移值 | 稳定别名数组或空数组 | 检查是否臆造 aliases |
 | `block_types[].description` | 固定模板 | 自然语言段落 | 检查是否混入执行策略 |
+| `block_types[].answerable_question` | 无字段或机械转移值 | 保持无字段或直接沿用 | 检查是否被改写 |
 | `tags[].value_hint` | 固定模板 | 自然语言段落 | 检查模板残留与区分度 |
 | `tags[].context_hint` | 显式字段 + 占位 | 最小语义短句、空字符串或保留占位 | 检查误补 / 漏补 / 串位 |
 | `tags[].anchor_binding` | 无字段、结构化对象或占位对象 | 正式结构、保留占位对象或保持无字段 | 仅对显式存在字段检查关键字段闭合 |

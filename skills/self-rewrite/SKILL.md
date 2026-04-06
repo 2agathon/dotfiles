@@ -9,7 +9,6 @@ description: >
 interfaces:
   upstream: [identity, assumption-audit, notes-protocol, role-lens]
   downstream: [notion-manager, role-lens]
-
 ---
 
 # Self-Rewrite

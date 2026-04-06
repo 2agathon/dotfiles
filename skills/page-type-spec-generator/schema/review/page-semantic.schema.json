@@ -54,6 +54,7 @@
           },
           "name": { "$ref": "#/$defs/VisibleString" },
           "description": { "$ref": "#/$defs/VisibleString" },
+          "answerable_question": { "$ref": "#/$defs/VisibleString" },
           "tags": {
             "type": "array",
             "items": {

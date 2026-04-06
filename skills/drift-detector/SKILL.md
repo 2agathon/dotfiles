@@ -9,7 +9,6 @@ description: >
 interfaces:
   upstream: [identity, assumption-audit, decision-record, knowledge-shaping]
   downstream: []
-
 ---
 
 # drift-detector
