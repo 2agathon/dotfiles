@@ -31,10 +31,17 @@
 | 我的工作习惯变了                                        | `skills/identity/SKILL.md`               |
 | 某条工程原则我真的在用，但没写进去                      | `skills/principles/SKILL.md`             |
 | 某条工程原则我写了但实际上没在用                        | `skills/principles/SKILL.md`，删掉或降权 |
+| 新功能开始前对齐文档总漏边界或 task 太粗                | `skills/vibe-plan/SKILL.md`              |
 | 生成的 AGENTS.md 总是缺某类内容                         | `skills/gen-agents/SKILL.md`             |
-| 目录结构生成总是不对                                    | `skills/project-structure/SKILL.md`      |
+| 新建文件总放错位置或命名含糊                            | `skills/file-creation/SKILL.md`          |
+| 改代码时范围失控、顺手重构过多                          | `skills/code-modify/SKILL.md`            |
+| 写的测试测实现、Mock 过大或虚假绿                       | `skills/code-test/SKILL.md`              |
+| 提交前检查、拆分单元或 message 规则不顺手               | `skills/git-commit/SKILL.md`             |
+| 交接信格式、加载或收工回流总对不上                      | `skills/code-relay/SKILL.md`             |
+| 多轮迭代停不下来或止损信号不准                          | `skills/bail-out/SKILL.md`               |
 | 文档生成没有针对性                                      | `skills/docs/SKILL.md`                   |
 | 决策记录生成总是跑偏                                    | `skills/decision-record/SKILL.md`        |
+| TM 头字段或版本链操作不符合预期                         | `skills/tension-manifest/SKILL.md`       |
 | 前提审计识别不准或过于泛滥                              | `skills/assumption-audit/SKILL.md`       |
 | 对话收敛时机判断不准                                    | `skills/conversation-to-spec/SKILL.md`   |
 | 笔记捕捉不到认识变化                                    | `skills/notes-protocol/SKILL.md`         |
@@ -43,7 +50,12 @@
 | 漂移检测误报或漏报                                      | `skills/drift-detector/SKILL.md`         |
 | 透镜识别不准或挑战透镜冲突性不足                        | `skills/role-lens/SKILL.md`              |
 | 自我叙述改写过早固化或重入机制失效                      | `skills/self-rewrite/SKILL.md`           |
-| 全局入口需要调整                                        | `AGENTS.md`                              |
+| 聊天解析或下游渲染管线不稳                              | `skills/chat-parser` / `chat-render`     |
+| 表格类任务 skill 边界不清                               | `skills/xlsx/SKILL.md`                   |
+| 页类型 spec 生成规则漂移                                | `skills/page-type-spec-generator`        |
+| 全局入口需要调整（触发表、分层说明、路径约定）          | `AGENTS.md`                              |
+| 对外说明与目录索引和 AGENTS 不一致                      | `README.md`                              |
+| 演进规则本身需要改                                      | `EVOLUTION.md`（本文件）                 |
 | 安装方式、本地路径写入方式或全局 skill 安装方式需要调整 | `install.sh` / `install.ps1`             |
 
 ---
@@ -61,7 +73,7 @@
 - 说明 why，不只改 what
 - 删除和新增同等重要——腐化的规范比没有规范更危险
 - 一次只改一件事，不要攒着一起改
-- 如果改动影响 skill 加载机制、路径机制或项目自包含方式，必须同时检查 `AGENTS.md`、`skills/gen-agents/SKILL.md`、`install.sh`、`install.ps1`、`README.md` 是否仍然一致
+- 如果改动影响 skill 加载机制、路径机制或项目自包含方式，必须同时检查 `AGENTS.md`、`EVOLUTION.md`、`skills/gen-agents/SKILL.md`、`install.sh`、`install.ps1`、`README.md` 是否仍然一致
 
 **改完之后：**
 
@@ -92,3 +104,5 @@
 | 2026-03 | 新增 assumption-audit、conversation-to-spec、decision-record；skill 体系按层分组；docs 与 decision-record 边界重新划定 |
 | 2026-03 | 为适配仓库私有化，skill 加载从远程 raw URL 迁移为本地优先：全局 AGENTS 改为本地路径引用，项目级 AGENTS 改为复制 skill 到项目内并使用相对路径 |
 | 2026-03 | 新增 knowledge-shaping、drift-detector、role-lens、self-rewrite 四个认识校准 skill；修复 11 个 skill 的 upstream 字段；补全 notion-manager / notes-protocol / gen-agents / drift-detector 的保护节；修复 self-rewrite frontmatter 格式 |
+| 2026-04 | 补齐代码生命周期与止损链：`file-creation`、`code-modify`、`code-test`、`git-commit`、`code-relay`、`bail-out`；`AGENTS.md` 按责任分层重写索引并纳入领域专项与 `.system`；`README.md` 与之一致；`EVOLUTION.md` 扩展「更新哪个文件」映射 |
+| 2026-04 | 废弃独立「目录结构」skill，全仓库清理引用；新建与目录边界由 `file-creation` 承接 |

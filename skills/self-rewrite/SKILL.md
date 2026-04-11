@@ -1,14 +1,15 @@
 ---
 name: self-rewrite
-layer: 认识校准
 description: >
   当旧自我叙述已不足以解释当前行为、判断或问题化方式时触发。
   生成一份带不稳定性声明的 rewrite record，
   作为可重入、可降级、可撤回的历史对象，
   而不是把一次改写固化为稳定身份真值。
-interfaces:
-  upstream: [identity, assumption-audit, notes-protocol, role-lens]
-  downstream: [notion-manager, role-lens]
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识校准
+  invocation: user-request
+  focus: 身份叙述与不稳定性记录
 ---
 
 # Self-Rewrite

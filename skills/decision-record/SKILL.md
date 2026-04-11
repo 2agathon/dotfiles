@@ -1,14 +1,14 @@
 ---
 name: decision-record
-layer: 工程协作
 description: >
   记录真实决策分叉的独立 skill。用于保存"为什么选了这个，而不是别的"，
   并让未来读者知道这个决定在什么条件下成立、何时应该被重看。
   对话中出现明确备选项与取舍、某个临时方案开始固化为默认路径时触发。
-allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep
-interfaces:
-  upstream: [identity, vibe-plan, conversation-to-spec, notes-protocol, assumption-audit, role-lens, project-structure, knowledge-shaping, docs]
-  downstream: [docs]
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程协作
+  domain: decision-history
+  invocation: user-request
 ---
 
 # Decision Record

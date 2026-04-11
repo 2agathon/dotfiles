@@ -1,13 +1,14 @@
 ---
 name: knowledge-shaping
-layer: 认识捕捉
 description: >
   将尚未形成认识事件、行动规格或决策落点的雾状知识输入，
   塑形成稳定知识对象。
   用于承接普通知识材料，使其进入可复用、可比较、可补写、可重读的状态。
-interfaces:
-  upstream: [identity]
-  downstream: [notes-protocol, conversation-to-spec, decision-record, drift-detector, role-lens]
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识捕捉
+  invocation: user-request
+  focus: 雾状输入到稳定知识对象
 ---
 
 # Knowledge Shaping

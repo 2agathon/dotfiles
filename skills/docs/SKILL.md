@@ -1,14 +1,16 @@
 ---
 name: docs
-layer: 工程协作
 description: >
   写任何说明性文档时加载：技术文档、需求、README、接口文档、维护文档。
   用户说"帮我写文档"、"写个说明"时触发。
   完成功能或讨论后需要沉淀成文字时触发。
   不处理决策记录——决策记录触发 decision-record skill。
-interfaces:
-  upstream: [identity, vibe-plan, conversation-to-spec, decision-record, project-structure]
-  downstream: [decision-record]
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程协作
+  domain: narrative-docs
+  excludes: decision-record
+  invocation: user-request
 ---
 
 # Docs

@@ -1,14 +1,15 @@
 ---
 name: drift-detector
-layer: 认识校准
 description: >
   检测系统演化中未被显式承认的边界变化、术语滑移、职责吞并与身份漂移候选。
   不做普通 diff，不判优劣，只负责显影无声变更。
   当 README / EVOLUTION / AGENTS / skill 边界发生改写，或某种选择已经在实践中反复被默认采用但未被命名时触发。
   可由 AI 主动识别信号后提议，不需要等用户召唤。
-interfaces:
-  upstream: [identity, assumption-audit, decision-record, knowledge-shaping]
-  downstream: []
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识校准
+  invocation: proactive-or-user
+  focus: 无声变更与术语滑移
 ---
 
 # drift-detector

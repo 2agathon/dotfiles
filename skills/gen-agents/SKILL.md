@@ -1,13 +1,14 @@
 ---
 name: gen-agents
-layer: 工程协作
 description: >
   开始在任何项目上工作时触发，当项目没有 AGENTS.md 时触发，
   当用户需要建立项目级 AI 协作基准时触发，当加入有现有规范的项目时触发。
   建立 AI 在这个项目里的行为基准。
-interfaces:
-  upstream: [identity, principles, project-structure]
-  downstream: []
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程协作
+  domain: project-agents-bootstrap
+  invocation: user-request
 ---
 
 ## 这个 skill 做什么
@@ -133,7 +134,7 @@ Layer 3 路径：
 >
 > - identity
 > - principles
-> - project-structure
+> - file-creation
 > - vibe-plan
 > - docs
 >   也可以按项目需要额外带：
@@ -182,8 +183,8 @@ Layer 3 路径：
 - **业务域**：防止 AI 用错误语义命名
 - **项目阶段**：MVP 可以技术债标注后推进，生产系统不行
 
-先触发 `project-structure` skill 确认目录骨架，再生成 AGENTS.md。
-顺序不能反——目录结构是后续所有生成的基准。
+若项目将有新建文件或目录，先按 `file-creation` skill 与用户对齐放置与命名边界，再生成 AGENTS.md。
+顺序不能反——目录与命名约定是后续所有生成的基准。
 
 ### 有代码库
 
@@ -210,7 +211,7 @@ Layer 3 路径：
 
 - `identity`
 - `principles`
-- `project-structure`
+- `file-creation`
 - `vibe-plan`
 - `docs`
 
@@ -318,7 +319,7 @@ Layer 3 路径：
 | 触发条件 | Skill |
 | -------- | ----- |
 | 写代码 / 命名 / 设计接口时 | ./.agents/skills/principles/SKILL.md |
-| 生成任何文件或目录之前 | ./.agents/skills/project-structure/SKILL.md |
+| 新建任何文件或目录；或 audit / 审目录 | ./.agents/skills/file-creation/SKILL.md |
 | 开始新功能或新模块之前 | ./.agents/skills/vibe-plan/SKILL.md |
 
 ### 工程协作

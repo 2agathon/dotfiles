@@ -4,6 +4,11 @@ description: >
   全局基准,任何任务开始前常驻加载。
   提供协作约定、标注体系和强制停止规则,作为所有其他 skill 的行为底层。
   不需要触发判断,始终在场。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 全局基准
+  invocation: always
+  role: collaboration-ground-rules
 ---
 
 ## 这个 skill 是什么

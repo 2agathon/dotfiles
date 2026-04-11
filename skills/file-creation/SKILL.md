@@ -1,6 +1,13 @@
 ---
 name: file-creation
-description: '新建任何文件或目录时必须加载——无论用户是否想清楚了放哪里、叫什么名字。用户说"新建"、"创建"、"加一个"、"建一个"、"新增"时触发。用户说"audit"、"看一下结构"、"审一下目录"时触发 audit 模式。目录和文件是认识的痕迹，创建的时候不把关，边界就从第一天开始烂。'
+description: >
+  新建任何文件或目录时必须加载——无论用户是否想清楚了放哪里、叫什么名字。用户说"新建"、"创建"、"加一个"、"建一个"、"新增"时触发。用户说"audit"、"看一下结构"、"审一下目录"时触发 audit 模式。目录和文件是认识的痕迹，创建的时候不把关，边界就从第一天开始烂。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  domain: filesystem-boundaries
+  modes: create,audit
+  invocation: user-request
 ---
 
 ## 触发条件

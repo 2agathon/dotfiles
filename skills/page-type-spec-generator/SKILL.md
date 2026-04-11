@@ -3,6 +3,11 @@ name: page-type-spec-generator
 description: >
   从业务 xlsx 设计稿生成页类型配置文件。
   触发：用户提供 xlsx 并要求生成 spec、转成配置、新建或维护页类型。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 领域专项
+  domain: page-type-spec-from-xlsx
+  invocation: user-request
 ---
 
 # page-type-spec-generator

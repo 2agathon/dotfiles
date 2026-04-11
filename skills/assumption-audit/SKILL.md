@@ -1,14 +1,15 @@
 ---
 name: assumption-audit
-layer: 认识校准
 description: >
   审计当前讨论、计划、决策、规格或建议中正在起作用但尚未显式声明的前提。
   提取关键前提，完成分类与来源标注，并给出验证、显式化、替代、降级、暂存或协商等动作建议。
   结论强于证据、词比定义跑得快、对话从理解滑向行动且过渡过于顺滑时触发。
   可由 AI 主动识别信号后提议，不需要等用户召唤。
-interfaces:
-  upstream: [identity, conversation-to-spec, vibe-plan]
-  downstream: [vibe-plan, decision-record, notes-protocol]
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识校准
+  invocation: proactive-or-user
+  focus: 隐含前提与前提污染
 ---
 
 # assumption-audit

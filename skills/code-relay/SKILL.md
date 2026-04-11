@@ -7,6 +7,12 @@ description: >
   用户贴了交接信并说"开始工作"、"接手"、"继续"时触发加载模式。
   用户说"收工"、"结束"、"打包"时触发收工模式。
   只用于代码的会话接力，不用于普通对话。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  domain: session-handoff
+  modes: discover,load,wrap-up
+  invocation: user-request
 ---
 
 ## 触发条件

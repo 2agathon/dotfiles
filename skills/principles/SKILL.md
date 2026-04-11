@@ -1,13 +1,13 @@
 ---
 name: principles
-layer: 工程执行
 description: >
   写代码、命名、设计接口、处理错误、写注释、写日志时加载。
   跨语言跨项目的工程原则。写代码时加载，不写代码时不需要加载。
-interfaces:
-  upstream: [identity]
-  downstream: [project-structure, vibe-plan]
-
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  invocation: when-writing-code
+  scope: cross-language-principles
 ---
 
 ## 这个 skill 的边界
@@ -207,7 +207,7 @@ interfaces:
 
 ## 七、AI Vibe Coding 特有规范
 
-- 生成任何文件之前，先对齐目录和边界（触发 `project-structure` skill）。
+- 生成任何文件之前，先对齐目录和边界（触发 `file-creation` skill）。
 - 发现命名漂移立刻停下来——列出所有漂移点，等用户决定，不能自己选一个继续。
 - 关键节点停下来交还控制权，不从头做到尾。
 - 有取舍时主动说明：做了什么取舍、哪里规范没覆盖或表达不清楚。没有取舍时不说。

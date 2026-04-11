@@ -1,11 +1,15 @@
 ---
 name: notes-protocol
-description: '当用户想要记笔记、整理认识、捕捉对话中的理解变化时使用。
+description: >
+  当用户想要记笔记、整理认识、捕捉对话中的理解变化时使用。
   输入可以是任何来源：和 AI 的对话、和他人的谈话记录、一篇文档、一段思考。
   触发词包括但不限于："帮我记一下"、"整理成笔记"、"把这段对话记录下来"、"捕捉一下"。
-  依赖：tension-manifest skill（负责 TM 头的生成和版本管理），需同时安装。'
+  依赖：tension-manifest skill（负责 TM 头的生成和版本管理），需同时安装。
 metadata:
-  depends_on: tension-manifest
+  collection: 2agathon-dotfiles
+  layer: 认识捕捉
+  invocation: user-request
+  requires: tension-manifest
 ---
 
 # Notes Protocol Skill

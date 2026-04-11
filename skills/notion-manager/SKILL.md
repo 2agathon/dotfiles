@@ -1,13 +1,14 @@
 ---
 name: notion-manager
-layer: 认识捕捉
 description: >
   操作 Notion 工作区时使用：查询结构、归类内容、追溯认识版本链、写入页面。
   用户说"看看我的工作区"、"这个放哪里"、"这条认识从哪来"、
   "有哪些容器"、"帮我记一下"时触发。
-interfaces:
-  upstream: [identity, notes-protocol, self-rewrite]
-  downstream: []
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识捕捉
+  domain: notion-workspace
+  invocation: user-request
 ---
 
 ## 这个 skill 做什么

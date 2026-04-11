@@ -4,6 +4,11 @@ description: >
   约束 AI 写测试时的质量，防止废测试给用户虚假的安全感。
   用户说"写测试"、"加测试"、"补测试"、"测一下"时触发。
   不自动触发，不管测试框架选择，不管 CI 配置。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  invocation: user-request-only
+  scope: test-quality-not-framework-ci
 ---
 
 ## 触发条件

@@ -5,6 +5,11 @@ description: >
   用户要求修改、修复、重构、调整现有代码时自动生效。
   不需要用户主动触发，AI 改代码时默认遵守底层约束，高风险改动时主动输出改动声明。
   不管新建文件（归 file-creation）、不管设计阶段（归 vibe-plan）。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  invocation: auto-on-code-change
+  excludes: file-creation,vibe-plan
 ---
 
 ## 生效条件

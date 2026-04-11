@@ -1,10 +1,16 @@
 ---
 name: tension-manifest
-description: '管理任何文件的 Tension Manifest 头部：创建 v1、开新版本、变更状态、输出演化链摘要。
+description: >
+  管理任何文件的 Tension Manifest 头部：创建 v1、开新版本、变更状态、输出演化链摘要。
   被 notes-protocol、decision-record、docs 等 skill 调用，也可独立触发。
   触发场景：任何文件需要生成或更新 TM 头、用户说"开个新版本"/"这个认识已经稳了"/"这个张力放弃了"/"看一下这条认识的演化链"。
-  注意：操作四（演化链）要求用户提供各版本 TM 头内容，或 Claude 有文件读取工具访问相关文件。'
-compatibility: '操作四需要文件读取能力或用户手动提供版本内容'
+  注意：操作四（演化链）要求用户提供各版本 TM 头内容，或 Claude 有文件读取工具访问相关文件。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 认识捕捉
+  domain: tension-manifest-header
+  invocation: user-request-or-called-by-skill
+  artifact: TM头版本链
 ---
 
 # Tension Manifest Skill

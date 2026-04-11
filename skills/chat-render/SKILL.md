@@ -1,6 +1,14 @@
 ---
 name: chat-render
-description: 读取 chat-parser 输出的会话数据对象，AI 深度分析聊天内容，生成视觉丰富的群聊海报。当用户想要生成群聊海报、可视化聊天记录、或已经有 parsed.json 文件时触发。必须先经过 chat-parser 拿到数据对象，再调用本 skill。
+description: >
+  读取 chat-parser 输出的会话数据对象，AI 深度分析聊天内容，生成视觉丰富的群聊海报。当用户想要生成群聊海报、可视化聊天记录、或已经有 parsed.json 文件时触发。必须先经过 chat-parser 拿到数据对象，再调用本 skill。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 领域专项
+  domain: chat-data
+  pipeline_stage: render
+  requires: chat-parser
+  invocation: user-request
 ---
 
 # chat-render

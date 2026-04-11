@@ -1,6 +1,13 @@
 ---
 name: chat-parser
-description: 解析聊天导出文件，提炼成标准会话数据对象，供后续任务调用。当用户提到聊天记录、群聊分析、想生成海报/报告/图谱、或上传了 JSONL/JSON/TXT/HTML 聊天导出文件时触发。这是所有聊天数据任务的入口，后续任何任务（海报、关系图谱、记忆系统）都必须先经过本 skill 拿到数据对象。
+description: >
+  解析聊天导出文件，提炼成标准会话数据对象，供后续任务调用。当用户提到聊天记录、群聊分析、想生成海报/报告/图谱、或上传了 JSONL/JSON/TXT/HTML 聊天导出文件时触发。这是所有聊天数据任务的入口，后续任何任务（海报、关系图谱、记忆系统）都必须先经过本 skill 拿到数据对象。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 领域专项
+  domain: chat-data
+  pipeline_stage: ingest
+  invocation: user-request
 ---
 
 # chat-parser

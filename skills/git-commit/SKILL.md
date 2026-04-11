@@ -4,7 +4,11 @@ description: >
   用户想提交代码、说 commit、说 git 提交、说"提一下"时触发。
   提交之前先判断"该提交了吗"——读 diff，识别逻辑单元，告诉你哪些可以提交、哪些还没完整。
   message 从 diff 推断，不问废话。发现设计分叉时提示触发 decision-record。
-license: MIT
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  domain: vcs-commit
+  invocation: user-request
 ---
 
 ## 核心原则

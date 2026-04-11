@@ -5,6 +5,11 @@ description: >
   不限于代码，适用于任何 AI 在反复修改而没有收敛的场景：改代码、改文案、改方案、改 prompt。
   不需要用户主动触发。AI 在迭代修改过程中持续监测止损信号，信号出现时主动停下来报告。
   用户说"别改了"、"回退"、"重来"时也触发，直接进入止损评估。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 迭代止损
+  invocation: auto-while-iterating-or-user-stop
+  scope: 代码文案方案-prompt
 ---
 
 ## 生效条件
