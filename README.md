@@ -13,9 +13,9 @@
 - **项目与记录**：`gen-agents`、`docs`、`decision-record`。
 - **认识**：捕捉（`notes-protocol`、`notion-manager`、`knowledge-shaping`）与校准（`assumption-audit`、`conversation-to-spec`、`role-lens`、`drift-detector`、`self-rewrite`）；`tension-manifest` 负责 TM 头与版本链。
 - **专项**：聊天管线（`chat-parser` / `chat-render`）、表格（`xlsx`）、页类型（`page-type-spec-generator`）。
-- **工具链目录**：`skills/.system/` 存放与外部工具文档或安装器相关的 skill，与核心规范同仓维护。
+- **工具链目录**：`skills/.system/` 存放与外部工具文档或安装器相关的 skill，与核心规范同仓维护但不参与安装。
 
-完整触发表与路径约定见根目录 **`AGENTS.md`**（安装后会将 `{{DOTFILES_ABS_PATH}}` 写成你机器上的绝对路径）。
+完整触发表与路径约定见根目录 **`AGENTS.md`**。
 
 ## 包含什么
 
@@ -90,45 +90,39 @@
 
 ### 基础设施
 
-| 文件          | 用途                   |
-| ------------- | ---------------------- |
-| `install.sh`  | Linux / macOS 安装脚本 |
-| `install.ps1` | Windows 安装脚本       |
-| `install.cmd` | Windows 兼容启动脚本   |
+| 文件            | 用途                                    |
+| --------------- | --------------------------------------- |
+| `install.py`    | 跨平台安装脚本（Python 3）              |
+| `targets.json`  | 安装目标配置（工具名称、路径、文件名）  |
 
 ## 安装
 
-**Linux / macOS**
+需要 Python 3.8+。首次运行会自动安装 `rich` 库。
 
 ```bash
 git clone <your-private-dotfiles-repo> ~/dotfiles
-bash ~/dotfiles/install.sh
+python ~/dotfiles/install.py
 ```
 
-**Windows**
+交互模式会引导选择操作和目标。也可以用命令行参数：
 
-```
-git clone <your-private-dotfiles-repo> $env:USERPROFILE\dotfiles
-. $env:USERPROFILE\dotfiles\install.ps1
+```bash
+python install.py                              # 交互模式
+python install.py --dry-run                    # 预演，不真正修改
+python install.py --uninstall                  # 卸载
+python install.py --force                      # 覆盖已存在的非受管内容（先备份）
+python install.py --target "Claude Code"       # 只安装指定目标
 ```
 
-安装脚本会安装或更新全局 `AGENTS.md`，并将其中引用的全局 skill 路径写成当前环境中的本地绝对路径，不再依赖远程 raw URL。
+安装器会将每个 skill 逐个链接到各工具的 skills 目录下，不覆盖工具原有的 skill。`AGENTS.md` 直接复制到目标位置。
 
 ## 更新
 
-**Linux / macOS**
-
-```
-cd ~/dotfiles && git pull && bash install.sh
+```bash
+cd ~/dotfiles && git pull && python install.py
 ```
 
-**Windows**
-
-```
-cd $env:USERPROFILE\dotfiles; git pull; . .\install.ps1
-```
-
-更新后会重新安装全局 `AGENTS.md`，并刷新其中写入的本地 skill 路径。
+已正确链接的 skill 和内容未变的 AGENTS.md 会自动跳过。
 
 ## 演进
 
