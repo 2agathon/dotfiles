@@ -66,6 +66,17 @@
         ]
       },
       {
+        "name": "OpenClaw",
+        "_comment": "OpenClaw (Autoclaw) 使用 ~/.openclaw-autoclaw 作为全局目录；只投递 skills，不管 agents。",
+        "skills": [
+          {
+            "path": "{HOME}/.openclaw-autoclaw",
+            "name": "skills",
+            "_comment": "OpenClaw 全局 skills 目录，与 openclaw-managed skills 共存。"
+          }
+        ]
+      },
+      {
         "name": "OpenCode",
         "_comment": "OpenCode 使用 ~/.config/opencode 作为配置目录，skills 目录名为复数 skills。",
         "skills": [
