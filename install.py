@@ -261,6 +261,37 @@ def install_agents(entry: dict, *, dry_run=False, force=False) -> list[tuple]:
     return results
 
 
+def cleanup_stale_links(entry: dict, current_skills: list[str], *, dry_run=False) -> list[tuple]:
+    """Remove symlinks/junctions pointing into SKILLS_DIR for skills that no longer exist."""
+    results = []
+    skills_dir_resolved = SKILLS_DIR.resolve()
+    for s_entry in entry.get("skills", []):
+        container = expand_path(s_entry["path"]) / s_entry.get("name", "skills")
+        if not container.is_dir() or _is_link_or_junction(container):
+            continue
+        for child in container.iterdir():
+            if child.name in current_skills:
+                continue
+            if not _is_link_or_junction(child):
+                continue
+            try:
+                resolved = child.resolve()
+                if not str(resolved).startswith(str(skills_dir_resolved)):
+                    continue
+            except (OSError, ValueError):
+                continue
+
+            if dry_run:
+                _emit(results, str(child), STATUS_PREVIEW, "幽灵链接 → 将清理")
+                continue
+            try:
+                child.unlink()
+                _emit(results, str(child), STATUS_OK, "幽灵链接 → 已清理")
+            except Exception as e:
+                _emit(results, str(child), STATUS_FAIL, str(e))
+    return results
+
+
 def uninstall_skills(entry: dict, skills: list[str], *, dry_run=False, force=False) -> list[tuple]:
     results = []
     for s_entry in entry.get("skills", []):
@@ -510,6 +541,7 @@ def main():
         else:
             results += install_skills(entry, skills, dry_run=dry_run, force=force)
             results += install_agents(entry, dry_run=dry_run, force=force)
+        results += cleanup_stale_links(entry, skills, dry_run=dry_run)
 
         results_by_target[name] = results
         console.print()
