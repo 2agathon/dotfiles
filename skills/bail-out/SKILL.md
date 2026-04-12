@@ -10,6 +10,11 @@ metadata:
   layer: 迭代止损
   invocation: auto-while-iterating-or-user-stop
   scope: 代码文案方案-prompt
+  governance:
+    hook: monitor
+    requires: iteration history — original request, what each round changed, why each change was made
+    produces: stop-loss assessment (structured) → user decides next step
+    task_agnostic: true
 ---
 
 ## 生效条件

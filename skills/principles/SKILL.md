@@ -30,9 +30,9 @@ name: principles
 
 命名不是标签，是边界声明。名字错了，边界就错了，之后所有东西都会往错的方向长。
 
-- 用业务词，不用技术词。`InsuranceClaimValidator` 只能做一件事，`ClaimManager` 什么都能塞。
-- 方法名描述意图，不描述实现。`validateClaimAmount` 告诉你发生了什么，`processData` 什么都没告诉你。
-- Magic string / magic number 必须具名。`status == 2` 不知道 2 是什么，`status == ClaimStatus.UNDER_REVIEW` 意图透明。
+- 用业务词，不用技术词。`PaymentAmountValidator` 只能做一件事，`PaymentManager` 什么都能塞。
+- 方法名描述意图，不描述实现。`validateOrderTotal` 告诉你发生了什么，`processData` 什么都没告诉你。
+- Magic string / magic number 必须具名。`status == 2` 不知道 2 是什么，`status == OrderStatus.PENDING_REVIEW` 意图透明。
 - 同一个概念只有一个名字。**发现漂移立刻停下来，列出所有漂移点，等用户决定——不能自己选一个然后继续。**
 - 避免布尔参数。调用处完全失去含义，用枚举或具名参数。
 
@@ -47,7 +47,7 @@ name: principles
 
 **偏离时记录**
 ```
-// DEVIATION: 保留外部字段名 insured_amt 用于序列化对接，内部使用 insuredAmount
+// DEVIATION: 保留外部字段名 ext_order_amt 用于序列化对接，内部使用 orderAmount
 ```
 
 **自检（AI 执行，发现违反时停下来，不能自己选名字继续）**
@@ -215,18 +215,3 @@ name: principles
 **自检（AI 执行）**
 - [ ] 生成文件之前，目录和业务域是否已经确认？
 - [ ] 这次交付有没有做取舍？有的话是否已经主动说明？
-
----
-
-## 八、医疗保险域特有约束
-
-- 敏感字段（身份证号、银行卡号、手机号、诊断信息）进日志前必须脱敏——**没有例外**。
-- 外部接口入参校验和出参过滤——**没有例外**。
-- 权限校验统一在入口层——**没有例外**。
-
-**什么情况下可以偏离**
-无合理偏离场景。
-
-**自检（AI 执行）**
-- [ ] 打印的字段里有没有身份证号、手机号、银行卡号、诊断信息？
-- [ ] 权限校验是在入口层做的，还是在业务逻辑里散落的？

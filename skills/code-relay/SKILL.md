@@ -9,6 +9,26 @@ description: >
   用户说"加载 {区域名}"时从文件加载交接信。
   用户说"收工"、"结束"、"打包"时触发收工模式。
   只用于代码的会话接力，不用于普通对话。
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  invocation: user-request
+  governance:
+    modes:
+      recognition:
+        hook: post-protocol
+        requires: code materials, optional existing handover notes or execution summary
+        produces: handover note (structured, persisted to .ai/relay/)
+      load:
+        hook: pre-gate
+        requires: handover note (from file or user-pasted)
+        produces: load confirmation (structured, max 10 lines per region)
+      wrap-up:
+        hook: post-protocol
+        requires: execution context — what changed, what diverged from expectation
+        produces: execution summary (structured, three sections)
+    task_agnostic: false
+    task_scope: code session relay (cross-session context transfer)
 ---
 
 ## 触发条件

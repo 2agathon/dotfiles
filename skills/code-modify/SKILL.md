@@ -10,6 +10,13 @@ metadata:
   layer: 工程执行
   invocation: auto-on-code-change
   excludes: file-creation,vibe-plan
+  governance:
+    hook: constraint
+    requires: original change request scope, files being modified
+    enforces: surgical modification, scope control, change visibility, impact verification
+    produces: change declaration (conditional — high-risk cross-file changes only)
+    task_agnostic: false
+    task_scope: code modification (modify, fix, refactor, adjust)
 ---
 
 ## 生效条件
