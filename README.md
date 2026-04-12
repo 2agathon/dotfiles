@@ -15,7 +15,7 @@
 - **专项**：聊天管线（`chat-parser` / `chat-render`）、表格（`xlsx`）、页类型（`page-type-spec-generator`）。
 - **工具链目录**：`skills/.system/` 存放与外部工具文档或安装器相关的 skill，与核心规范同仓维护但不参与安装。
 
-完整触发表与路径约定见根目录 **`AGENTS.md`**。
+完整触发表与路径约定见根目录 **`AGENTS.md`**。每个 skill 的触发词、决策点、控制方式见 **[`SKILLS-REFERENCE.md`](SKILLS-REFERENCE.md)**。
 
 ## 包含什么
 
