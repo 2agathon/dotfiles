@@ -358,11 +358,6 @@ metadata:
 * `decision-record` 记录为什么这样决定
 * `assumption-audit` 记录这个“为什么”依赖什么
 
-### 与 `failure-mode-mapping`
-
-* `assumption-audit` 处理前提一旦失效，推理会在哪里崩
-* `failure-mode-mapping` 处理失效会如何在系统中扩散
-
 ### 与 `self-rewrite`
 
 当审计对象变成“我为什么会这样判断”时，前提对象会从外部问题转向主体本身。

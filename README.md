@@ -8,7 +8,7 @@
 规范按责任拆开，而不是按「文档类型」堆砌：
 
 - **对齐与设计**：`identity`（常驻）、`vibe-plan`（写代码前的技术对齐与 task 粒度）。
-- **代码生命周期**：`file-creation` → `code-modify` → `code-test`（按需）→ `code-review` → `git-commit`；跨会话用 `code-relay`。
+- **代码原则与生命周期**：`code-principles`（写代码时常驻）；`file-creation` → `code-modify` → `code-test`（按需）→ `code-review` → `git-commit`；跨会话用 `code-relay`。
 - **迭代止损**：`bail-out` 在多轮修改中自动监测是否陷入沉没成本。
 - **项目与记录**：`gen-agents`、`docs`、`decision-record`。
 - **认识**：捕捉（`notes-protocol`、`notion-manager`、`knowledge-shaping`）与校准（`assumption-audit`、`conversation-to-spec`、`role-lens`、`drift-detector`、`self-rewrite`）；`tension-manifest` 负责 TM 头与版本链。
