@@ -85,7 +85,7 @@ metadata:
 | 类型 | 去哪里找 |
 |------|---------|
 | 官方 CLI 内置 skill | [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli) `skills/`、[anthropic/claude-code](https://github.com/anthropic-public/claude-code) 内置行为、[openai/codex](https://github.com/openai/codex) |
-| skill 聚合平台 | [skill.sh](https://skill.sh)、[agentskills.io](https://agentskills.io)、[cursor.directory](https://cursor.directory) |
+| skill 聚合平台 | [skills.sh](https://skills.sh)、[agentskills.io](https://agentskills.io)、[cursor.directory](https://cursor.directory) |
 | 社区仓库 | GitHub 搜 `SKILL.md`、`agent skill`、`cursor rules`；各工具的 awesome-* 列表 |
 | 工具内置能力 | Cursor 默认 skill、Claude Code 默认行为、Gemini CLI 默认行为——这些不一定是独立 skill 文件，但代表了平台认为重要的能力 |
 
