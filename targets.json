@@ -130,7 +130,7 @@
         ],
         "agents": [
           {
-            "path": "{HOME}/.codex",
+            "path": "D:/data/cache/.codex",
             "name": "AGENTS.md",
             "_comment": "我的 OpenAI / Codex 的全局 AGENTS 入口。"
           }
