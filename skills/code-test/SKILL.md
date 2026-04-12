@@ -9,6 +9,13 @@ metadata:
   layer: 工程执行
   invocation: user-request-only
   scope: test-quality-not-framework-ci
+  governance:
+    hook: constraint
+    requires: code under test, project test conventions
+    enforces: behavior-over-implementation testing, mock scope control, error path coverage
+    produces: test summary (structured, per test group)
+    task_agnostic: false
+    task_scope: test writing (write, add, update tests)
 ---
 
 ## 触发条件

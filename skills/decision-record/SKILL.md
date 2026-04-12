@@ -9,6 +9,11 @@ metadata:
   layer: 工程协作
   domain: decision-history
   invocation: user-request
+  governance:
+    hook: post-protocol
+    requires: decision fork — alternatives, trade-offs, constraints that shaped the choice
+    produces: decision record (structured, referenceable by docs and future decisions)
+    task_agnostic: true
 ---
 
 # Decision Record

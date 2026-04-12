@@ -1,4 +1,4 @@
-# Governance Protocol v0.1
+# Governance Protocol v0.3
 
 AI 元认知治理层的接口协议。定义治理 skill 如何声明自己的行为模式，使其可叠加在任何任务 skill 上。
 
@@ -200,19 +200,27 @@ metadata:
 
 ---
 
-## 待验证
+## 验证记录
 
-以下 skill 尚未加 governance 声明，预期 hook 类型待验证：
+所有治理 skill 已完成 governance 声明。以下是验证结果和关键发现：
 
-| Skill | 预期 hook | 待验证点 |
+| Skill | Hook 类型 | 验证结论 |
 |---|---|---|
-| identity | foundation | 是否需要 governance 声明，还是作为隐式地基 |
-| vibe-plan | pre-gate | produces 和 enforces 是否都需要 |
-| file-creation | pre-gate | 和 vibe-plan 的 pre-gate 模式是否一致 |
-| ~~code-relay~~ | ~~post-protocol~~ | ✅ 已验证：多模式（post-protocol + pre-gate），催生 modes 格式 |
-| code-test | constraint | 还是 pre-gate？测试质量约束 vs 测试前置门 |
-| decision-record | post-protocol | 是否 task_agnostic |
-| git-commit | 多模式？ | 安全检查（pre-gate）+ 提交执行 + push 确认，可能需要 modes |
+| ~~identity~~ | foundation | ✅ 显式声明，只需 `hook: foundation`，无需其他字段（foundation 是地基，不是 hook） |
+| ~~vibe-plan~~ | pre-gate | ✅ 经典 pre-gate。enforces（plan 确认前不写代码）和 produces（设计文档）都需要 |
+| ~~file-creation~~ | pre-gate | ✅ 仅 create 模式声明 governance。audit 模式是独立诊断工具，不参与任务生命周期 |
+| ~~code-relay~~ | 多模式 | ✅ post-protocol + pre-gate，催生 modes 格式 |
+| ~~code-test~~ | constraint | ✅ 是 constraint 不是 pre-gate。它不拦截、不产出通过/不通过判定，持续约束测试写法 |
+| ~~decision-record~~ | post-protocol | ✅ task_agnostic: true。任何任务里出现决策分叉都可触发，不限于代码 |
+| ~~git-commit~~ | pre-gate | ✅ 单模式，不需要 modes。安全检查/分支确认/逻辑单元分析是连续门检步骤，不是独立模式 |
+| ~~docs~~ | constraint | ✅ 持续约束写法。新建文档的"三件事确认"是 constraint 的入口检查，不独立为 pre-gate |
+
+### 关键发现
+
+1. **foundation 极简**：只需 `hook: foundation`，不需要 requires/enforces/produces/task_agnostic。它不是某个任务的 hook，是所有 hook 的地基。
+2. **audit 类模式不参与治理**：file-creation 的 audit 模式是用户主动发起的诊断，不属于任务生命周期的任何阶段。用 `note` 字段说明即可。
+3. **连续步骤 ≠ 多模式**：git-commit 的多个步骤（安全检查→分支确认→逻辑单元→message 生成）是同一次触发的连续流程，不是独立模式。modes 用于不同触发条件导致完全不同行为的场景（如 code-relay）。
+4. **constraint 可以有入口检查**：docs 在新建文档时有"确认三件事"的门控，但它是 constraint 行为的启动条件，不是独立的 pre-gate。判断标准：这个检查是为了让后续 constraint 正常工作（docs），还是检查本身就是交付物（vibe-plan）。
 
 ---
 
@@ -220,3 +228,4 @@ metadata:
 
 - v0.1 — 从 bail-out 和 code-modify 两个样本提取。单模式格式。
 - v0.2 — 加入 code-relay 验证。发现单模式格式不足，新增 `modes` 多模式格式。
+- v0.3 — 全部治理 skill 验证完成。确认 foundation 极简声明、audit 类不参与治理、连续步骤不等于多模式、constraint 可含入口检查。

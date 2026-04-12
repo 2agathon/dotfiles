@@ -9,6 +9,13 @@ metadata:
   layer: 工程执行
   domain: vcs-commit
   invocation: user-request
+  governance:
+    hook: pre-gate
+    requires: staged or working tree diff, current branch
+    enforces: safety checks (debug code, secrets, incomplete markers), branch confirmation
+    produces: commit proposal (logical units + generated message) → user confirms
+    task_agnostic: false
+    task_scope: version control commit
 ---
 
 ## 核心原则

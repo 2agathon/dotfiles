@@ -8,6 +8,14 @@ metadata:
   domain: filesystem-boundaries
   modes: create,audit
   invocation: user-request
+  governance:
+    hook: pre-gate
+    requires: file purpose/responsibility keywords, target directory context
+    enforces: naming boundary check, responsibility overlap check
+    produces: creation proposal (naming + placement) → user confirms if issues found
+    task_agnostic: false
+    task_scope: file and directory creation
+    note: governance applies to create mode only; audit mode is standalone diagnostic, no lifecycle hook
 ---
 
 ## 触发条件

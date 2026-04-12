@@ -9,6 +9,8 @@ metadata:
   layer: 全局基准
   invocation: always
   role: collaboration-ground-rules
+  governance:
+    hook: foundation
 ---
 
 ## 这个 skill 是什么

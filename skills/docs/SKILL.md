@@ -11,6 +11,13 @@ metadata:
   domain: narrative-docs
   excludes: decision-record
   invocation: user-request
+  governance:
+    hook: constraint
+    requires: reader identity, document purpose, non-coverage scope
+    enforces: reader-oriented writing, boundary with decision-record, no scope creep, mandatory confirmation for new docs
+    produces: scoped document (conditional — new docs require reader/purpose/non-coverage confirmation first)
+    task_agnostic: false
+    task_scope: documentation writing (technical docs, README, requirements, maintenance docs)
 ---
 
 # Docs

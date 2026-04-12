@@ -7,6 +7,17 @@ description: >
   用户说"继续"但没说哪个时，列出所有进行中的 plan 供选择。
   确认后可保存到文件，支持跨会话断点续传和 task 状态跟踪。
 name: vibe-plan
+metadata:
+  collection: 2agathon-dotfiles
+  layer: 工程执行
+  invocation: auto-or-user-request
+  governance:
+    hook: pre-gate
+    requires: task description from user (goal, boundaries, non-coverage)
+    enforces: no code before plan confirmation, mandatory stop at scope gaps
+    produces: vibe plan (structured design doc with task-level breakdown) → user confirms before execution
+    task_agnostic: false
+    task_scope: new features, new modules, unclear-boundary tasks
 ---
 
 ## 这个 skill 做什么
