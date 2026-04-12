@@ -8,11 +8,24 @@
 规范按责任拆开，而不是按「文档类型」堆砌：
 
 - **对齐与设计**：`identity`（常驻）、`vibe-plan`（写代码前的技术对齐与 task 粒度）。
-- **代码生命周期**：`file-creation` → `code-modify` → `code-test`（按需）→ `git-commit`；跨会话用 `code-relay`。
+- **代码生命周期**：`file-creation` → `code-modify` → `code-test`（按需）→ `code-review` → `git-commit`；跨会话用 `code-relay`。
 - **迭代止损**：`bail-out` 在多轮修改中自动监测是否陷入沉没成本。
 - **项目与记录**：`gen-agents`、`docs`、`decision-record`。
 - **认识**：捕捉（`notes-protocol`、`notion-manager`、`knowledge-shaping`）与校准（`assumption-audit`、`conversation-to-spec`、`role-lens`、`drift-detector`、`self-rewrite`）；`tension-manifest` 负责 TM 头与版本链。
 - **专项**：聊天管线（`chat-parser` / `chat-render`）、表格（`xlsx`）、页类型（`page-type-spec-generator`）。
+
+## 治理层
+
+上述 skill 中，大部分不只教 AI "怎么做事"，还约束 AI "做事时怎么管住自己"。这层元认知行为通过 `metadata.governance` 声明，定义每个 skill 在任务生命周期中的角色：
+
+```
+foundation（identity，始终在场）
+  → pre-gate（vibe-plan / file-creation / git-commit / conversation-to-spec / code-review）
+    → constraint（code-modify / code-test / docs）+ monitor（bail-out / assumption-audit / role-lens / drift-detector）
+      → post-protocol（decision-record / code-relay）
+```
+
+治理 skill 可叠加在任何任务 skill 上。协议定义见 [`specs/governance-protocol.md`](specs/governance-protocol.md)。
 
 `skills/.system/` 存放与外部工具文档或安装器相关的 skill，同仓维护但不参与安装。
 
@@ -22,6 +35,7 @@
 | ---- | ---- |
 | [`AGENTS.md`](AGENTS.md) | AI 行为指令：协作基准、始终生效的约束、skill 调度表 |
 | [`SKILLS-REFERENCE.md`](SKILLS-REFERENCE.md) | 给人看的 skill 速查：触发词、决策点、控制方式 |
+| [`specs/governance-protocol.md`](specs/governance-protocol.md) | 治理协议：hook 类型、字段定义、组合规则、验证记录 |
 | [`EVOLUTION.md`](EVOLUTION.md) | 规范演进记录：什么时候更新、更新什么、出问题改哪里 |
 | [`targets.json`](targets.json) | 安装目标配置：工具名称、路径、文件名 |
 
