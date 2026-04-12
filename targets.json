@@ -93,6 +93,48 @@
             "_comment": "OpenCode 的 agents 入口文件。"
           }
         ]
+      },
+
+      {
+        "name": "2agathon-Claude Code",
+        "_comment": "我的 Claude 使用 D:/data/cache/.claude 作为全局目录；agents 文件名使用 CLAUDE.md。",
+        "skills": [
+          {
+            "path": "D:/data/cache/.claude",
+            "name": "skills",
+            "_comment": "我的 Claude 全局 skills 目录。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "D:/data/cache/.claude",
+            "name": "CLAUDE.md",
+            "_comment": "我的 Claude 的全局 agents 入口文件名是 CLAUDE.md。"
+          }
+        ]
+      },
+      {
+        "name": "2agathon-Codex CLI",
+        "_comment": "我的 Codex / OpenAI 的 AGENTS 与 skills 是两套入口：AGENTS 走 ~/.codex，skills 同时投递到 ~/.codex 和 ~/.agents。",
+        "skills": [
+          {
+            "path": "D:/data/cache/.codex",
+            "name": "skills",
+            "_comment": "兼容投递，方便某些工具或个人习惯从 D:/data/cache/.codex/skills 读取。"
+          },
+          {
+            "path": "D:/data/cache/.agents",
+            "name": "skills",
+            "_comment": "我的 OpenAI / Codex 官方用户级 skills 目录。"
+          }
+        ],
+        "agents": [
+          {
+            "path": "{HOME}/.codex",
+            "name": "AGENTS.md",
+            "_comment": "我的 OpenAI / Codex 的全局 AGENTS 入口。"
+          }
+        ]
       }
     ]
   }
