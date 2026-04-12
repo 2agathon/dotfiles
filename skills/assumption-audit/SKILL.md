@@ -10,6 +10,11 @@ metadata:
   layer: 认识校准
   invocation: proactive-or-user
   focus: 隐含前提与前提污染
+  governance:
+    hook: monitor
+    requires: conversation context with judgments, plans, decisions, or specs being formed
+    produces: assumption audit report (structured — typed assumptions with source, impact, and action recommendations)
+    task_agnostic: true
 ---
 
 # assumption-audit

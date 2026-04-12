@@ -9,6 +9,11 @@ metadata:
   layer: 认识校准
   invocation: proactive-or-user
   focus: 承诺窗口与临时规格
+  governance:
+    hook: pre-gate
+    requires: conversation approaching commitment window — stable returns, converging language, action-oriented shift
+    produces: temporary spec object (structured, with validity/invalidation conditions) → user confirms before commitment
+    task_agnostic: true
 ---
 
 # Conversation to Spec

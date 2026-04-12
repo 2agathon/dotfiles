@@ -7,6 +7,11 @@ metadata:
   layer: 认识校准
   invocation: user-request-or-proactive
   focus: 主导透镜与挑战透镜
+  governance:
+    hook: monitor
+    requires: a stable object (skill draft, design judgment, spec, decision, self-narrative) showing signs of single-lens dominance
+    produces: lens analysis (dominant lens + challenger lens + processing result: rewrite / shrink / add boundary)
+    task_agnostic: true
 ---
 
 # Role Lens

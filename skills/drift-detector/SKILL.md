@@ -10,6 +10,11 @@ metadata:
   layer: 认识校准
   invocation: proactive-or-user
   focus: 无声变更与术语滑移
+  governance:
+    hook: monitor
+    requires: baseline claims (from README, AGENTS, skill frontmatter, design docs, decision-records) + current state evidence
+    produces: drift report (structured — drift type, level D1/D2/D3-candidate, suggested action)
+    task_agnostic: true
 ---
 
 # drift-detector

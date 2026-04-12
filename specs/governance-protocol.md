@@ -1,4 +1,4 @@
-# Governance Protocol v0.3
+# Governance Protocol v0.4
 
 AI 元认知治理层的接口协议。定义治理 skill 如何声明自己的行为模式，使其可叠加在任何任务 skill 上。
 
@@ -214,6 +214,10 @@ metadata:
 | ~~decision-record~~ | post-protocol | ✅ task_agnostic: true。任何任务里出现决策分叉都可触发，不限于代码 |
 | ~~git-commit~~ | pre-gate | ✅ 单模式，不需要 modes。安全检查/分支确认/逻辑单元分析是连续门检步骤，不是独立模式 |
 | ~~docs~~ | constraint | ✅ 持续约束写法。新建文档的"三件事确认"是 constraint 的入口检查，不独立为 pre-gate |
+| ~~assumption-audit~~ | monitor | ✅ task_agnostic: true。监测前提信号（结论强于证据、词比定义快），触发时产出结构化审计报告 |
+| ~~conversation-to-spec~~ | pre-gate | ✅ task_agnostic: true。在对话→承诺转换点拦截，产出临时规格对象，用户确认后放行。不是 post-protocol——面向当前用户要求确认，不是面向未来读者归档 |
+| ~~role-lens~~ | monitor | ✅ task_agnostic: true。监测单一透镜主导信号，触发时产出冲突重读分析（主导+挑战+处理结果） |
+| ~~drift-detector~~ | monitor | ✅ task_agnostic: true。监测系统演化中的无声变更，触发时产出分级漂移报告（D1/D2/D3-candidate） |
 
 ### 关键发现
 
@@ -221,6 +225,8 @@ metadata:
 2. **audit 类模式不参与治理**：file-creation 的 audit 模式是用户主动发起的诊断，不属于任务生命周期的任何阶段。用 `note` 字段说明即可。
 3. **连续步骤 ≠ 多模式**：git-commit 的多个步骤（安全检查→分支确认→逻辑单元→message 生成）是同一次触发的连续流程，不是独立模式。modes 用于不同触发条件导致完全不同行为的场景（如 code-relay）。
 4. **constraint 可以有入口检查**：docs 在新建文档时有"确认三件事"的门控，但它是 constraint 行为的启动条件，不是独立的 pre-gate。判断标准：这个检查是为了让后续 constraint 正常工作（docs），还是检查本身就是交付物（vibe-plan）。
+5. **conversation-to-spec 是 pre-gate 不是 post-protocol**：虽然它"把对话结晶成对象"听起来像 post-protocol，但它的核心行为是拦截对话→承诺的转换，要求用户确认后才放行。post-protocol 面向未来读者归档，conversation-to-spec 面向当前用户要求确认——这是区分标准。
+6. **认识校准类全部 task_agnostic: true**：前提审计、透镜检测、漂移监测、承诺门控都不依赖具体任务内容，可叠加在任何对话上。这是治理框架最独特的层——跨越工程和认知边界的元监测。
 
 ---
 
@@ -228,4 +234,5 @@ metadata:
 
 - v0.1 — 从 bail-out 和 code-modify 两个样本提取。单模式格式。
 - v0.2 — 加入 code-relay 验证。发现单模式格式不足，新增 `modes` 多模式格式。
-- v0.3 — 全部治理 skill 验证完成。确认 foundation 极简声明、audit 类不参与治理、连续步骤不等于多模式、constraint 可含入口检查。
+- v0.3 — 工程执行 + 工程协作类治理 skill 验证完成。确认 foundation 极简声明、audit 类不参与治理、连续步骤不等于多模式、constraint 可含入口检查。
+- v0.4 — 认识校准类 4 个 skill 验证完成。确认 conversation-to-spec 是 pre-gate（不是 post-protocol），认识校准类全部 task_agnostic: true。所有治理 skill governance 声明完成。
